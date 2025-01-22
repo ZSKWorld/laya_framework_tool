@@ -10,6 +10,7 @@ import { BuildServerConfig } from "./BuildServerConfig";
 import { BuildServerNet } from "./BuildServerNet";
 import { BuildView } from "./BuildView";
 import { Logger } from "./Console";
+import { BuildResPath3_0 } from "./BuildResPath3_0";
 
 interface Act {
     desc: string,
@@ -37,9 +38,10 @@ export class BatMain {
             { desc: "创建 View & ViewCtrl & ViewProxy", cls: BuildView },
             { desc: "导出表配置", cls: BuildConfig },
             { desc: "导出服务器表配置", cls: BuildServerConfig },
-            { desc: "更新资源路径", cls: BuildResPath },
+            { desc: "更新资源路径2.0", cls: BuildResPath },
             { desc: "用户数据事件", cls: BuildDataEvent },
             { desc: "更新网络相关", cls: BuildNet },
+            { desc: "更新资源路径3.0", cls: BuildResPath3_0 },
         ];
         let tip = "选择要进行的操作：\n0. 全部执行\n";
         act.forEach((v, index) => tip += `${ index + 1 }. ${ v.desc }\n`);
@@ -57,9 +59,9 @@ export class BatMain {
                     if (index == -1) acts.push(...act);
                     else acts.push(act[index]);
                     acts.length && acts.forEach(v => {
-                        Logger.warn("正在执行 => " + v.desc);
+                        Logger.warn("正在执行aaa => " + v.desc);
                         (new v.cls()).doBuild();
-                        Logger.green(v.desc + " => 执行完毕！")
+                        Logger.green(v.desc + " => 执行完毕aaa！")
                     });
                 } else {
                     Logger.error("错误的选项！");
@@ -79,13 +81,14 @@ export class BatMain {
         const act: Act[] = [
             { desc: "创建 View & ViewCtrl & ViewProxy", cls: BuildView },
             { desc: "导出表配置", cls: BuildConfig },
-            { desc: "更新资源路径", cls: BuildResPath },
+            { desc: "更新资源路径2.0", cls: BuildResPath },
             { desc: "用户数据事件", cls: BuildDataEvent },
             { desc: "更新网络相关", cls: BuildNet },
             { desc: "导出服务器表配置", cls: BuildServerConfig },
             { desc: "更新服务器网络相关", cls: BuildServerNet },
             { desc: "更新ExcelDeclare", cls: BuildExcelDeclare },
             { desc: "更新ProtoDeclare", cls: BuildProtoDeclare },
+            { desc: "更新资源路径3.0", cls: BuildResPath3_0 },
         ];
         if (index == -1) act.forEach(v => this.runLog(v));
         else this.runLog(act[index]);

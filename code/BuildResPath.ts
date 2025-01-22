@@ -14,9 +14,14 @@ interface Config {
 }
 
 export class BuildResPath extends BuildBase {
+    protected _resDir = ResDir;
+    protected _resPathDeclarePath = ResPathDeclarePath;
+    protected _resPathPath = ResPathPath;
+    protected _rootDir = "res/";
+    protected _excludeFile: string[] = [];
     private _config: Config[] = [
         {
-            filter: (name: string) => name.startsWith("res/ui/"),
+            filter: (name: string) => name.startsWith(this._rootDir + "ui/"),
             name: "PkgName",
             pathName: "PkgPath",
             include: ".zip",
@@ -24,7 +29,7 @@ export class BuildResPath extends BuildBase {
             haveExt: false,
         },
         {
-            filter: (name: string) => name.startsWith("res/font/"),
+            filter: (name: string) => name.startsWith(this._rootDir + "font/"),
             name: "FontName",
             pathName: "FontPath",
             include: ".ttf",
@@ -32,7 +37,7 @@ export class BuildResPath extends BuildBase {
             haveExt: true,
         },
         {
-            filter: (name: string) => name.startsWith("res/skeleton/"),
+            filter: (name: string) => name.startsWith(this._rootDir + "skeleton/"),
             name: "SkeletonName",
             pathName: "SkeletonPath",
             include: ".sk",
@@ -41,13 +46,13 @@ export class BuildResPath extends BuildBase {
         },
     ];
     doBuild() {
-        const content = this.buildResEnum(ResDir, "res/");
+        const content = this.buildResEnum(this._resDir, this._rootDir);
         const resPathContent = `${ TS_MODIFY_TIP }export namespace ResPath {\n${ content }}`;
-        writeFileSync(ResPathPath, resPathContent);
+        writeFileSync(this._resPathPath, resPathContent);
         const resPathDeclareContent = resPathContent
             .replace(new RegExp("export namespace", "g"), "declare namespace")
             .replace(new RegExp("export enum", "g"), "enum");
-        writeFileSync(ResPathDeclarePath, resPathDeclareContent);
+        writeFileSync(this._resPathDeclarePath, resPathDeclareContent);
     }
 
     private buildResEnum(dirPath: string, dirName: string, baseContent?: string) {
@@ -61,6 +66,7 @@ export class BuildResPath extends BuildBase {
                 if (fileName.startsWith("$")) return;
                 dirs.push(fileName);
             } else {
+                if (this._excludeFile.find(v => fileName.endsWith(v))) return;
                 files.push(fileName);
             }
         });
@@ -84,7 +90,7 @@ export class BuildResPath extends BuildBase {
         return content;
     }
 
-    private buildEnum(name: string, isPath: boolean, dir: string, files: string[], include: string, haveExt: boolean = true) {
+    protected buildEnum(name: string, isPath: boolean, dir: string, files: string[], include: string, haveExt: boolean = true) {
         let content = "";
         files.forEach(v => {
             if (include && v.endsWith(include) == false) return;

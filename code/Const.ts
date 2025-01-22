@@ -2,6 +2,7 @@ import { resolve } from "path";
 
 export const __workname = process.cwd();
 
+//---------------------------------------------Laya 2.0
 export const ResDir = resolve(__workname, "bin/res");
 export const UiDir = resolve(__workname, "src/core/ui/ui");
 export const ViewDir = resolve(__workname, "src/core/ui/view");
@@ -13,7 +14,7 @@ export const ViewIDDeclarePath = resolve(__workname, "libs_game/view_id.d.ts");
 export const BaseViewCtrlPath = resolve(__workname, "src/core/ui/core/BaseViewCtrl.ts");
 export const BaseProxyPath = resolve(__workname, "src/core/ui/core/BaseProxy.ts");
 export const ViewRegisterPath = resolve(__workname, "src/core/ui/core/ViewRegister.ts");
-export const xlsxDir = resolve(__workname, "../策划");
+export const xlsxDir = resolve(__workname, "../excel");
 export const CfgDataPath = resolve(__workname, "bin/res/config/Config.json");
 export const CfgDir = resolve(__workname, "src/core/config");
 
@@ -32,6 +33,12 @@ export const UserDataEventPath = resolve(UserDataDir, "UserDataEvent.ts");
 //---------------------------------------------Server
 export const Server_NotifyInterfaceDir = resolve(__workname, "src/core/controller/interface/notify");
 export const Server_NetNotifyPath = resolve(__workname, "src/core/enum/NetNotify.ts");
+
+
+//---------------------------------------------Laya 3.0
+export const ResDir3_0 = resolve(__workname, "assets/resources");
+export const ResPathDeclarePath3_0 = resolve(__workname, "engine/libs_game/res_path.d.ts");
+export const ResPathPath3_0 = resolve(__workname, "src/core/common/ResPath.ts");
 
 //---------------------------------------------PaiHun
 export const PaiHun_ExcelDir = resolve(__workname, "excel");
