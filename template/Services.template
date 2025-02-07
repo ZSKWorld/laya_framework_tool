@@ -13,8 +13,9 @@ serviceKeys.forEach(key => {
         configurable: false,
         enumerable: false,
         value: function (data: IUserInput) {
+            data = data || {};
             data.cmd = key;
             return WebSocket.Inst.send(data);
         }
-    })
+    });
 });
