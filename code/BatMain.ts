@@ -11,6 +11,7 @@ import { BuildServerNet } from "./BuildServerNet";
 import { BuildView } from "./BuildView";
 import { Logger } from "./Console";
 import { BuildResPath3_0 } from "./BuildResPath3_0";
+import { BuildConfig3_0 } from "./BuildConfig3_0";
 
 interface Act {
     desc: string,
@@ -89,6 +90,7 @@ export class BatMain {
             { desc: "更新ExcelDeclare", cls: BuildExcelDeclare },
             { desc: "更新ProtoDeclare", cls: BuildProtoDeclare },
             { desc: "更新资源路径3.0", cls: BuildResPath3_0 },
+            { desc: "导出表配置3.0", cls: BuildConfig3_0 },
         ];
         if (index == -1) act.forEach(v => this.runLog(v));
         else this.runLog(act[index]);
