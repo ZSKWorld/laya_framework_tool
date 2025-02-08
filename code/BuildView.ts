@@ -118,11 +118,11 @@ export class BuildView extends BuildBase {
                     if (v.toLowerCase().startsWith("btn")) {
                         const btnName = UpperFirst(v, ["_"], "");
                         msgContent += `\t\tthis.addMessage(${ viewMsg }.On${ btnName }Click, this.on${ btnName }Click);\n`;
-                        funcContent += `\tprivate on${ btnName }Click() {\n\t\n\t}\n\n`;
+                        funcContent += `\tprivate on${ btnName }Click() {\n\n\t}\n\n`;
                     }
                 })
-                msgContent = msgContent ? msgContent.trimEnd() : msgContent;
-                funcContent = funcContent ? funcContent.trimEnd() + "\n" : funcContent;
+                msgContent = msgContent ? msgContent.trim() : msgContent;
+                funcContent = funcContent ? `\n\t${ funcContent.trim() }\n` : funcContent;
             }
             content = content.replace(/#btnMessage#/g, msgContent);
             content = content.replace(/#btnFunctions#/g, funcContent);
@@ -244,20 +244,19 @@ export class BuildView extends BuildBase {
                 const viewPath = tempPath.replace(basename, "view\\" + subDirMap[desc] + basename + "View.ts");
                 const ctrlPath = tempPath.replace(basename, "controller\\" + subDirMap[desc] + basename + "Ctrl.ts");
                 const proxyPath = tempPath.replace(basename, "proxy\\" + subDirMap[desc] + basename + "Proxy.ts");
-                registerCode += `\t\tregister(ViewID.${ basename }View`;
                 if (fs.existsSync(viewPath)) {
-                    registerCode += ", " + basename + "View";
+                    registerCode += `\t\tregister(ViewID.${ basename }View, ${ basename }View`;
                     imports.push(`import { ${ basename }View } from "${ path.relative(viewRegisterDir, mapFunc(viewPath)).replace(/\\/g, "/") }";`);
+                    if (fs.existsSync(ctrlPath)) {
+                        registerCode += ", " + basename + "Ctrl";
+                        imports.push(`import { ${ basename }Ctrl } from "${ path.relative(viewRegisterDir, mapFunc(ctrlPath)).replace(/\\/g, "/") }";`);
+                    }
+                    if (fs.existsSync(proxyPath)) {
+                        registerCode += ", " + basename + "Proxy";
+                        imports.push(`import { ${ basename }Proxy } from "${ path.relative(viewRegisterDir, mapFunc(proxyPath)).replace(/\\/g, "/") }";`);
+                    }
+                    registerCode += ");\n";
                 }
-                if (fs.existsSync(ctrlPath)) {
-                    registerCode += ", " + basename + "Ctrl";
-                    imports.push(`import { ${ basename }Ctrl } from "${ path.relative(viewRegisterDir, mapFunc(ctrlPath)).replace(/\\/g, "/") }";`);
-                }
-                if (fs.existsSync(proxyPath)) {
-                    registerCode += ", " + basename + "Proxy";
-                    imports.push(`import { ${ basename }Proxy } from "${ path.relative(viewRegisterDir, mapFunc(proxyPath)).replace(/\\/g, "/") }";`);
-                }
-                registerCode += ");\n";
             });
         }
         addExtAndRegistCode(btnNames, "Btns");
