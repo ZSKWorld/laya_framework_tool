@@ -3,18 +3,18 @@
 import { WebSocket } from "./WebSocket";
 
 export class NetService {
-
+    constructor() {
+        const serviceKeys = [#serviceKeys#];
+        serviceKeys.forEach(key => {
+            Object.defineProperty(this, key, {
+                configurable: false,
+                enumerable: false,
+                value: function (data: IUserInput) {
+                    data = data || {};
+                    data.cmd = key;
+                    return WebSocket.Inst.send(data);
+                }
+            });
+        });
+    }
 }
-
-const serviceKeys = [#serviceKeys#];
-serviceKeys.forEach(key => {
-    Object.defineProperty(NetService, key, {
-        configurable: false,
-        enumerable: false,
-        value: function (data: IUserInput) {
-            data = data || {};
-            data.cmd = key;
-            return WebSocket.Inst.send(data);
-        }
-    });
-});
