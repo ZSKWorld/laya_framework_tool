@@ -6,11 +6,13 @@ import { UpperFirst } from "./Utils";
 
 interface Config {
     filter: (nam: string) => boolean;
+    nameReplacer?: (name: string) => string;
     name: string;
     pathName: string;
-    include: string;
+    includes: string[];
     haveName: boolean;
     haveExt: boolean;
+    ignoreSubDir?: boolean;
 }
 
 export class BuildResPath extends BuildBase {
@@ -24,7 +26,7 @@ export class BuildResPath extends BuildBase {
             filter: (name: string) => name.startsWith(this._rootDir + "ui/"),
             name: "PkgName",
             pathName: "PkgPath",
-            include: ".zip",
+            includes: [".zip"],
             haveName: true,
             haveExt: false,
         },
@@ -32,7 +34,7 @@ export class BuildResPath extends BuildBase {
             filter: (name: string) => name.startsWith(this._rootDir + "font/"),
             name: "FontName",
             pathName: "FontPath",
-            include: ".ttf",
+            includes: [".ttf"],
             haveName: true,
             haveExt: true,
         },
@@ -40,9 +42,24 @@ export class BuildResPath extends BuildBase {
             filter: (name: string) => name.startsWith(this._rootDir + "skeleton/"),
             name: "SkeletonName",
             pathName: "SkeletonPath",
-            include: ".sk",
+            includes: [".sk"],
             haveName: false,
             haveExt: true,
+        },
+        {
+            filter: (name: string) => name.startsWith(this._rootDir + "scene/"),
+            nameReplacer: (filename: string) => {
+                const [name, ext] = filename.split(".");
+                if (ext == "lh") return "LH_" + name;
+                else if (ext == "ls") return "LS_" + name;
+                else return name;
+            },
+            name: "SceneName",
+            pathName: "ScenePath",
+            includes: [".ls", ".lh"],
+            haveName: false,
+            haveExt: true,
+            ignoreSubDir: true,
         },
     ];
     doBuild() {
@@ -73,8 +90,8 @@ export class BuildResPath extends BuildBase {
         const config = this._config.find(v => v.filter(dirName));
         if (config) {
             if (config.haveName)
-                content += this.buildEnum(config.name, false, dirName, files, config.include, config.haveExt);
-            content += this.buildEnum(config.pathName, true, dirName, files, config.include, config.haveExt);
+                content += this.buildEnum(config.name, false, dirName, files, config.includes, config.haveExt, config.nameReplacer);
+            content += this.buildEnum(config.pathName, true, dirName, files, config.includes, config.haveExt, config.nameReplacer);
         } else {
             if (!baseContent) content += this.buildEnum("UnclassifiedPath", true, dirName, files, null);
             else {
@@ -82,21 +99,23 @@ export class BuildResPath extends BuildBase {
                 content += this.buildEnum(UpperFirst(dirs[dirs.length - 2] + "Path"), true, dirName, files, null);
             }
         }
-        dirs.forEach(fileName => {
-            const filePath = path.resolve(dirPath, fileName);
-            let subDir = dirName + fileName + "/";
-            content = this.buildResEnum(filePath, subDir, content + `\t// ${ subDir }\n`);
-        });
+        if (!config || !config.ignoreSubDir) {
+            dirs.forEach(fileName => {
+                const filePath = path.resolve(dirPath, fileName);
+                let subDir = dirName + fileName + "/";
+                content = this.buildResEnum(filePath, subDir, content + `\t// ${ subDir }\n`);
+            });
+        }
         return content;
     }
 
-    protected buildEnum(name: string, isPath: boolean, dir: string, files: string[], include: string, haveExt: boolean = true) {
+    protected buildEnum(name: string, isPath: boolean, dir: string, files: string[], includes: string[], haveExt: boolean = true, nameReplacer?: (name: string) => string) {
         let content = "";
         files.forEach(v => {
-            if (include && v.endsWith(include) == false) return;
+            if (includes && !includes.find(inclu => v.endsWith(inclu))) return;
             const fileName = v.split(".")[0];
-            if (isPath) content += `\n\t\t${ UpperFirst(fileName) } = "${ dir + (haveExt ? v : fileName) }",`;
-            else content += `\n\t\t${ UpperFirst(fileName) } = "${ fileName }",`;
+            const value = isPath ? (dir + (haveExt ? v : fileName)) : fileName;
+            content += `\n\t\t${ UpperFirst(nameReplacer ? nameReplacer(v) : fileName) } = "${ value }",`;
         });
         if (content) return `\texport enum ${ name } {${ content }\n\t}\n\n`;
         else return `\texport enum ${ name } {}\n\n`;
