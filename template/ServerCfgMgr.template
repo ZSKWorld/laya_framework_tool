@@ -2,9 +2,9 @@
 import * as fs from "fs";
 import * as path from "path";
 
-class CfgManager {
+class CfgManager implements ICfgManager{
 #vars#
-    load() {
+    init() {
 		let cfgData = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../../res/config/Config.json")).toString());
 		if (cfgData) {
 			const keyMap = cfgData.keyMap;
@@ -44,7 +44,7 @@ class CfgManager {
 		});
 		const defineFun = (funName: string) => {
 			Object.defineProperty(cfg, funName, {
-				value: function (callbackfn: Function) { return this.$data[funName](callbackfn); },
+				value: function (...args) { return this.$data[funName](...args); },
 				enumerable: false,
 				configurable: false,
 			});

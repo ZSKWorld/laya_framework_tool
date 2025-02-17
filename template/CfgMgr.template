@@ -44,7 +44,7 @@ export class CfgManager implements ICfgManager {
 		});
 		const defineFun = (funName: string) => {
 			Object.defineProperty(cfg, funName, {
-				value: function (callbackfn: Function) { return this.$data[funName](callbackfn); },
+				value: function (...args) { return this.$data[funName](...args); },
 				enumerable: false,
 				configurable: false,
 			});
