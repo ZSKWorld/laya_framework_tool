@@ -20,6 +20,7 @@
     "@types/node-xlsx": "^0.15.3",
     "crypto": "^1.0.1",
     "install": "^0.13.0",
+    "msgpack5": "^6.0.2",
     "protobufjs": "^7.3.2",
     "sinon": "^9.2.4",
     "tsify": "^4.0.2",
