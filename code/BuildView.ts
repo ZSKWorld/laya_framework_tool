@@ -54,7 +54,7 @@ export class BuildView extends BuildBase {
             let content = this.viewTemplate;
             content = content.replace(/#viewPath#/g, path.relative(viewDir, path.resolve(dirPath, filename)).replace(/\\/g, "/").replace(/\.ts/g, ""))
                 .replace(/#className#/g, viewCls)
-                .replace(/#packageName#/g, pkgName)
+                // .replace(/#packageName#/g, pkgName)
                 .replace(/#fileName#/g, filename);
 
             let [sendContent, compContent, compExtension, messages] = ["", "", "\n", ""];
@@ -105,7 +105,7 @@ export class BuildView extends BuildBase {
             content = content.replace(/#baseViewCtrlPath#/g, path.relative(_ctrlDir, BaseViewCtrlPath).replace(/\\/g, "/").replace(/\.ts/g, ""))
                 .replace(/#viewPath#/g, path.relative(_ctrlDir, viewPath).replace(/\\/g, "/").replace(/\.ts/g, ""))
                 .replace(/#className#/g, ctrlCls)
-                .replace(/#packageName#/g, pkgName)
+                // .replace(/#packageName#/g, pkgName)
                 .replace(/#viewClass#/g, viewCls)
                 .replace(/#viewMsg#/g, viewMsg)
                 .replace(/#dataName#/g, dataName);
