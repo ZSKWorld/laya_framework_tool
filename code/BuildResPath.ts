@@ -118,6 +118,6 @@ export class BuildResPath extends BuildBase {
             content += `\n\t\t${ UpperFirst(nameReplacer ? nameReplacer(v) : fileName) } = "${ value }",`;
         });
         if (content) return `\texport enum ${ name } {${ content }\n\t}\n\n`;
-        else return `\texport enum ${ name } {}\n\n`;
+        else return `\texport enum ${ name } { }\n\n`;
     }
 }

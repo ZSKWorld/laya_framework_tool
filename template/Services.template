@@ -4,7 +4,7 @@ import { WebSocket } from "./WebSocket";
 
 export class NetService {
     constructor() {
-        const serviceKeys = [#serviceKeys#];
+        const serviceKeys = [#SERVICE_KEYS#];
         serviceKeys.forEach(key => {
             Object.defineProperty(this, key, {
                 configurable: false,

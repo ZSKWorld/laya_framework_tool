@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 class CfgManager implements ICfgManager{
-#vars#
+#VARIATES#
     init() {
 		let cfgData = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../../res/config/Config.json")).toString());
 		if (cfgData) {

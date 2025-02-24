@@ -1,13 +1,13 @@
-import #fileName# from "#viewPath#";
+import #FILE_NAME# from "#VIEW_PATH#";
 
-export const enum #fileName#Msg {
-#messages#
+export const enum #FILE_NAME#Msg {
+#MESSAGES#
 }
 
-export class #className# extends ExtensionClass<IView, #fileName#>(#fileName#) {
+export class #CLASS_NAME# extends ExtensionClass<IView, #FILE_NAME#>(#FILE_NAME#) {
 
 	override onCreate() {
-        #allComp#
+        #ALL_COMP#
     }
 
 }

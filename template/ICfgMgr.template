@@ -18,4 +18,4 @@ interface CfgExtension<T> {
 
 declare interface ICfgManager {
 	init():void;
-#vars#}
+#VARIATES#}

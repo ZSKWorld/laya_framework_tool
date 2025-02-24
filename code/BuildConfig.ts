@@ -309,8 +309,8 @@ export class BuildConfig extends BuildBase {
             const configName = `Cfg${ v }`;
             vars += `\t/** ${ nameMap[v] ?? "" } */\n\treadonly ${ v }: ${ configName } & CfgExtension<CfgData<${ configName }>>;\n`;
         });
-        const mgrTxt = this.cfgMgrTemplate.replace("#vars#", vars);
-        const imgrTxt = this.icfgMgrTemplate.replace("#vars#", vars);
+        const mgrTxt = this.cfgMgrTemplate.replace("#VARIATES#", vars);
+        const imgrTxt = this.icfgMgrTemplate.replace("#VARIATES#", vars);
         fs.writeFileSync(path.resolve(CfgDir, "CfgManager.ts"), mgrTxt);
         fs.writeFileSync(path.resolve(CfgDir, "ICfgManager.ts"), imgrTxt);
     }

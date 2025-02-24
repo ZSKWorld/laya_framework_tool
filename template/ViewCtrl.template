@@ -1,14 +1,14 @@
-import { BaseViewCtrl } from "#baseViewCtrlPath#";
-import { #viewMsg#, #viewClass# } from "#viewPath#";
+import { ViewCtrlBase } from "#VIEW_CTRL_BASE_PATH#";
+import { #VIEW_MSG#, #VIEW_CLASS# } from "#VIEW_PATH#";
 
-export interface #dataName# {
+export interface #DATA_NAME# {
 
 }
 
-export class #className# extends BaseViewCtrl<#viewClass#, #dataName#> {
+export class #CLASS_NAME# extends ViewCtrlBase<#VIEW_CLASS#, #DATA_NAME#> {
 
     override onAdded() {
-        #btnMessage#
+        #BTN_MESSAGE#
     }
-    #btnFunctions#
+    #BTN_FUNCTIONS#
 }

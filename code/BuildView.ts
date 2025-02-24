@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { BuildBase } from "./BuildBase";
 import { Logger } from "./Console";
-import { BaseProxyPath, BaseViewCtrlPath, UiDir, ViewDir, ViewIDDeclarePath, ViewIDPath, ViewRegisterPath } from "./Const";
+import { UiDir, ViewCtrlBasePath, ViewDir, ViewIDDeclarePath, ViewIDPath, ViewProxyBasePath, ViewRegisterPath } from "./Const";
 import { GetAllFile, GetTemplateContent, MakeDir, UpperFirst } from "./Utils";
 export class BuildView extends BuildBase {
     private viewTemplate = GetTemplateContent("View");
@@ -52,10 +52,10 @@ export class BuildView extends BuildBase {
         ];
         if (!fs.existsSync(viewPath)) {
             let content = this.viewTemplate;
-            content = content.replace(/#viewPath#/g, path.relative(viewDir, path.resolve(dirPath, filename)).replace(/\\/g, "/").replace(/\.ts/g, ""))
-                .replace(/#className#/g, viewCls)
-                // .replace(/#packageName#/g, pkgName)
-                .replace(/#fileName#/g, filename);
+            content = content.replace(/#VIEW_PATH#/g, path.relative(viewDir, path.resolve(dirPath, filename)).replace(/\\/g, "/").replace(/\.ts/g, ""))
+                .replace(/#CLASS_NAME#/g, viewCls)
+                // .replace(/#PACKAGE_NAME#/g, pkgName)
+                .replace(/#FILE_NAME#/g, filename);
 
             let [sendContent, compContent, compExtension, messages] = ["", "", "\n", ""];
 
@@ -79,9 +79,9 @@ export class BuildView extends BuildBase {
                 compContent = useComps.length > 0 ? `const { ${ useComps.join(", ") } } = this;${ sendContent }` : sendContent;
             }
 
-            content = content.replace(/#allComp#/g, compContent)
-                .replace(/#messages#/g, messages.trimEnd())
-                .replace(/#compExtension#/g, compExtension.trimEnd());
+            content = content.replace(/#ALL_COMP#/g, compContent)
+                .replace(/#MESSAGES#/g, messages.trimEnd())
+                .replace(/#COMP_EXTENSION#/g, compExtension.trimEnd());
             console.log(viewCls);
             fs.writeFileSync(viewPath, content);
         }
@@ -102,13 +102,13 @@ export class BuildView extends BuildBase {
         ];
         if (!fs.existsSync(ctrlPath)) {
             let content = this.ctrlTemplate;
-            content = content.replace(/#baseViewCtrlPath#/g, path.relative(_ctrlDir, BaseViewCtrlPath).replace(/\\/g, "/").replace(/\.ts/g, ""))
-                .replace(/#viewPath#/g, path.relative(_ctrlDir, viewPath).replace(/\\/g, "/").replace(/\.ts/g, ""))
-                .replace(/#className#/g, ctrlCls)
-                // .replace(/#packageName#/g, pkgName)
-                .replace(/#viewClass#/g, viewCls)
-                .replace(/#viewMsg#/g, viewMsg)
-                .replace(/#dataName#/g, dataName);
+            content = content.replace(/#VIEW_CTRL_BASE_PATH#/g, path.relative(_ctrlDir, ViewCtrlBasePath).replace(/\\/g, "/").replace(/\.ts/g, ""))
+                .replace(/#VIEW_PATH#/g, path.relative(_ctrlDir, viewPath).replace(/\\/g, "/").replace(/\.ts/g, ""))
+                .replace(/#CLASS_NAME#/g, ctrlCls)
+                // .replace(/#PACKAGE_NAME#/g, pkgName)
+                .replace(/#VIEW_CLASS#/g, viewCls)
+                .replace(/#VIEW_MSG#/g, viewMsg)
+                .replace(/#DATA_NAME#/g, dataName);
             let [msgContent, funcContent] = ["", ""];
             const matches = fs.readFileSync(path.resolve(dirPath, filename + ".ts")).toString().match(/public.*:.*;/g);
             const uiComps = matches ? matches.filter(v => !v.includes("static")) : [];
@@ -124,8 +124,8 @@ export class BuildView extends BuildBase {
                 msgContent = msgContent ? msgContent.trim() : msgContent;
                 funcContent = funcContent ? `\n\t${ funcContent.trim() }\n` : funcContent;
             }
-            content = content.replace(/#btnMessage#/g, msgContent);
-            content = content.replace(/#btnFunctions#/g, funcContent);
+            content = content.replace(/#BTN_MESSAGE#/g, msgContent);
+            content = content.replace(/#BTN_FUNCTIONS#/g, funcContent);
             console.log(ctrlCls);
             fs.writeFileSync(ctrlPath, content);
         }
@@ -144,10 +144,10 @@ export class BuildView extends BuildBase {
         ];
         if (!fs.existsSync(proxyPath)) {
             let content = this.proxyTemplate;
-            content = content.replace(/#baseProxyPath#/g, path.relative(_proxyDir, BaseProxyPath).replace(/\\/g, "/").replace(/\.ts/g, ""))
-                .replace(/#viewCtrlPath#/g, path.relative(_proxyDir, ctrlPath).replace(/\\/g, "/"))
-                .replace(/#proxyName#/g, proxyCls)
-                .replace(/#viewCtrl#/g, ctrlCls);
+            content = content.replace(/#VIEW_PROXY_BASE_PATH#/g, path.relative(_proxyDir, ViewProxyBasePath).replace(/\\/g, "/").replace(/\.ts/g, ""))
+                .replace(/#VIEW_CTRL_PATH#/g, path.relative(_proxyDir, ctrlPath).replace(/\\/g, "/"))
+                .replace(/#PROXY_NAME#/g, proxyCls)
+                .replace(/#VIEW_CTRL#/g, ctrlCls);
             fs.writeFileSync(proxyPath, content);
         }
     }
@@ -210,9 +210,9 @@ export class BuildView extends BuildBase {
 
     private BuildViewID() {
         const content = this.GetViewIDContent();
-        const viewIDContent = this.viewIDTemplate.replace("#content#", content);
+        const viewIDContent = this.viewIDTemplate.replace("#CONTENT#", content);
         fs.writeFileSync(ViewIDPath, viewIDContent);
-        const viewIDDeclareContent = this.viewIDDeclareTemplate.replace("#content#", content);
+        const viewIDDeclareContent = this.viewIDDeclareTemplate.replace("#CONTENT#", content);
         fs.writeFileSync(ViewIDDeclarePath, viewIDDeclareContent);
     }
 
@@ -265,10 +265,10 @@ export class BuildView extends BuildBase {
         addExtAndRegistCode(uiNames, "UIs");
 
         let content = this.viewRegisterTemplate
-            .replace("#import#", imports.join("\n"))
-            .replace("#binderCode#", binderCode + "\t")
-            .replace("#registerCode#", registerCode + "\t");
-        content = content.replace("#ViewIDContent#", this.GetViewIDContent());
+            .replace("#IMPORT#", imports.join("\n"))
+            .replace("#BINDER_CODE#", binderCode + "\t")
+            .replace("#REGISTER_CODE#", registerCode + "\t");
+        content = content.replace("#VIEW_ID_CONTENT#", this.GetViewIDContent());
         fs.writeFileSync(ViewRegisterPath, content);
     }
 }

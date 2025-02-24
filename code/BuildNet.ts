@@ -83,11 +83,11 @@ export class BuildNet extends BuildBase {
                 methods.push(`\t${ func.substring(0, right + 1) }: Promise<${ type }>;`);
             });
         });
-        const netService = _serviceTemp.replace(/#serviceKeys#/g, serviceKeys.join(", "));
+        const netService = _serviceTemp.replace(/#SERVICE_KEYS#/g, serviceKeys.join(", "));
         fs.writeFileSync(NetServicePath, netService.trim());
         const netServiceDeclare = _serviceDeclareTemp
-            .replace(/#methods#/g, methods.join("\n"))
-            .replace(/#interfaces#/g, netServiceDeclareInterfaces.join(", "));
+            .replace(/#METHODS#/g, methods.join("\n"))
+            .replace(/#INTERFACES#/g, netServiceDeclareInterfaces.join(", "));
         fs.writeFileSync(NetServiceDeclarePath, netServiceDeclare);
     }
 
