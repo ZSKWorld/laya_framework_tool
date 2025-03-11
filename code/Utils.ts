@@ -7,15 +7,13 @@ export function MakeDir(dirPath: string) {
 /**删除目录，包括目录中所有文件和子目录 */
 export function RemoveDir(dir: string) {
     if (fs.existsSync(dir) == false) return;
-    let files = fs.readdirSync(dir)
-    for (var i = 0; i < files.length; i++) {
-        let newPath = path.join(dir, files[i]);
-        let stat = fs.statSync(newPath)
+    const files = fs.readdirSync(dir)
+    for (let i = 0; i < files.length; i++) {
+        const newPath = path.join(dir, files[i]);
+        const stat = fs.statSync(newPath)
         if (stat.isDirectory()) {
-            //如果是文件夹就递归下去
-            this.RemoveDir(newPath);
+            RemoveDir(newPath);
         } else {
-            //删除文件
             fs.unlinkSync(newPath);
         }
     }
@@ -39,7 +37,7 @@ export function GetAllFile(dirPath: string, absolute?: boolean, filter?: (name: 
             names.push(...GetAllFile(filePath, absolute, filter, map));
         } else if (state.isFile()) {
             if (!filter || filter(filename)) {
-                let temp = map ? map(filename) : filename;
+                const temp = map ? map(filename) : filename;
                 absolute ? names.push(path.resolve(dirPath, temp)) : names.push(temp);
             }
         }
@@ -55,9 +53,9 @@ export function UpperFirst(str: string, splits?: string[], joinStr = "_") {
     if (!str) return str;
     if (str.length == 1) return str.toUpperCase();
     else {
-        let temp = str[0].toUpperCase() + str.substring(1);
+        const temp = str[0].toUpperCase() + str.substring(1);
         if (splits && splits.length) {
-            let resultArr = [temp];
+            const resultArr = [temp];
             splits.forEach(v => {
                 let count = resultArr.length;
                 while (count--) {
