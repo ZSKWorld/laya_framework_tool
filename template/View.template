@@ -4,7 +4,7 @@ export const enum #FILE_NAME#Msg {
 #MESSAGES#
 }
 
-export class #CLASS_NAME# extends ExtensionClass<IView, #FILE_NAME#>(#FILE_NAME#) {
+export class #CLASS_NAME# extends ExtensionClass<IView, #FILE_NAME#>(#FILE_NAME#) implements IView {
 
 	override onCreate() {
         #ALL_COMP#
