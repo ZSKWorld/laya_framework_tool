@@ -3,6 +3,7 @@ import { resolve } from "path";
 export const __workname = process.cwd();
 
 //---------------------------------------------Laya 2.0
+export const BinDir = resolve(__workname, "bin");
 export const ResDir = resolve(__workname, "bin/res");
 export const UiDir = resolve(__workname, "src/core/ui/ui");
 export const ViewDir = resolve(__workname, "src/core/ui/view");

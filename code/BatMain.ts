@@ -12,6 +12,7 @@ import { BuildView } from "./BuildView";
 import { Logger } from "./Console";
 import { BuildResPath3_0 } from "./BuildResPath3_0";
 import { BuildConfig3_0 } from "./BuildConfig3_0";
+import { BuildResPath2 } from "./BuildResPath2";
 
 interface Act {
     desc: string,
@@ -82,7 +83,7 @@ export class BatMain {
         const act: Act[] = [
             { desc: "创建 View & ViewCtrl & ViewProxy", cls: BuildView },
             { desc: "导出表配置", cls: BuildConfig },
-            { desc: "更新资源路径2.0", cls: BuildResPath },
+            { desc: "更新资源路径2.0", cls: BuildResPath2 },
             { desc: "用户数据事件", cls: BuildDataEvent },
             { desc: "更新网络相关", cls: BuildNet },
             { desc: "导出服务器表配置", cls: BuildServerConfig },
