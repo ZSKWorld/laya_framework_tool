@@ -236,7 +236,7 @@ export class BuildView extends BuildBase {
         });
 
         const subDirMap = { Btns: "btns\\", Renders: "renders\\", Coms: "coms\\", UIs: "" };
-        const addExtAndRegistCode = (arr: string[], desc: string) => {
+        const addExtAndRegistCode = (arr: string[], desc: string, viewType: string) => {
             registerCode += `\n\t\t//${ desc }\n`;
             arr.forEach(v => {
                 const basename = path.basename(v);
@@ -245,7 +245,7 @@ export class BuildView extends BuildBase {
                 const ctrlPath = tempPath.replace(basename, "controller\\" + subDirMap[desc] + basename + "Ctrl.ts");
                 const proxyPath = tempPath.replace(basename, "proxy\\" + subDirMap[desc] + basename + "Proxy.ts");
                 if (fs.existsSync(viewPath)) {
-                    registerCode += `\t\tregister(ViewID.${ basename }View, ${ basename }View`;
+                    registerCode += `\t\tregister(ViewID.${ basename }View, ViewType.${ viewType }, ${ basename }View`;
                     imports.push(`import { ${ basename }View } from "${ path.relative(viewRegisterDir, mapFunc(viewPath)).replace(/\\/g, "/") }";`);
                     if (fs.existsSync(ctrlPath)) {
                         registerCode += ", " + basename + "Ctrl";
@@ -259,10 +259,10 @@ export class BuildView extends BuildBase {
                 }
             });
         }
-        addExtAndRegistCode(btnNames, "Btns");
-        addExtAndRegistCode(renderNames, "Renders");
-        addExtAndRegistCode(comNames, "Coms");
-        addExtAndRegistCode(uiNames, "UIs");
+        addExtAndRegistCode(btnNames, "Btns", "Button");
+        addExtAndRegistCode(renderNames, "Renders", "Render");
+        addExtAndRegistCode(comNames, "Coms", "Component");
+        addExtAndRegistCode(uiNames, "UIs", "UI");
 
         let content = this.viewRegisterTemplate
             .replace("#IMPORT#", imports.join("\n"))
