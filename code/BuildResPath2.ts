@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { BuildBase } from "./BuildBase";
-import { BinDir, ResDir, ResPathDeclarePath, ResPathPath, TS_MODIFY_TIP } from "./Const";
+import { BinDir, LibResPathPath, ResDir, ResPathDeclarePath, ResPathPath, TS_MODIFY_TIP } from "./Const";
 import { GetAllFile, UpperFirst } from "./Utils";
 
 const enum FileType {
@@ -19,14 +19,11 @@ const enum FileType {
 }
 
 export class BuildResPath2 extends BuildBase {
-    protected _resDir = ResDir;
-    protected _resPathDeclarePath = ResPathDeclarePath;
-    protected _resPathPath = ResPathPath;
     doBuild() {
         const enums: string[] = [];
         const unclassifiedFiles: string[] = [];
-        fs.readdirSync(this._resDir).forEach(v => {
-            const vPath = path.resolve(this._resDir, v);
+        fs.readdirSync(ResDir).forEach(v => {
+            const vPath = path.resolve(ResDir, v);
             const stat = fs.statSync(vPath);
             if (stat.isDirectory()) {
                 switch (v) {
@@ -46,12 +43,13 @@ export class BuildResPath2 extends BuildBase {
             }
         });
         enums.unshift(...this.buildUnclassified(unclassifiedFiles));
-        const pathContent = `${ TS_MODIFY_TIP }export namespace ResPath {\n${ enums.join("\n\n") }\n}`;
-        fs.writeFileSync(this._resPathPath, pathContent);
-        const declareContent = pathContent
-            .replace(new RegExp("export namespace", "g"), "declare namespace")
+        const enumsContent = enums.join("\n\n");
+        const pathContent = `${ TS_MODIFY_TIP }ResPath = {\n${ enumsContent.replace(/export enum /g, "").replace(/ {/g, ": {").replace(/}/g, "},").replace(/ =/g, ":") }\n}`;
+        fs.writeFileSync(LibResPathPath, pathContent);
+
+        const declareContent = `${ TS_MODIFY_TIP }declare namespace ResPath {\n${ enumsContent }\n}`
             .replace(new RegExp("export enum", "g"), "enum");
-        fs.writeFileSync(this._resPathDeclarePath, declareContent);
+        fs.writeFileSync(ResPathDeclarePath, declareContent);
     }
 
     private retifyFilePath(files: string[]) {

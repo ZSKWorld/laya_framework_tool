@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { BuildBase } from "./BuildBase";
 import { Logger } from "./Console";
-import { UiDir, ViewCtrlBasePath, ViewDir, ViewIDDeclarePath, ViewIDPath, ViewProxyBasePath, ViewRegisterPath } from "./Const";
+import { LibViewIDPath, UiDir, ViewCtrlBasePath, ViewDir, ViewIDDeclarePath, ViewIDPath, ViewProxyBasePath, ViewRegisterPath } from "./Const";
 import { GetAllFile, GetTemplateContent, MakeDir, UpperFirst } from "./Utils";
 export class BuildView extends BuildBase {
     private viewTemplate = GetTemplateContent("View");
@@ -210,8 +210,8 @@ export class BuildView extends BuildBase {
 
     private BuildViewID() {
         const content = this.GetViewIDContent();
-        const viewIDContent = this.viewIDTemplate.replace("#CONTENT#", content);
-        fs.writeFileSync(ViewIDPath, viewIDContent);
+        const viewIDContent = this.viewIDTemplate.replace("#CONTENT#", content).replace(/ =/g, ":").replace("export enum ViewID", "ViewID =");
+        fs.writeFileSync(LibViewIDPath, viewIDContent);
         const viewIDDeclareContent = this.viewIDDeclareTemplate.replace("#CONTENT#", content);
         fs.writeFileSync(ViewIDDeclarePath, viewIDDeclareContent);
     }
