@@ -1,7 +1,7 @@
 import { readdirSync, statSync, writeFileSync } from "fs";
 import * as path from "path";
 import { BuildBase } from "./BuildBase";
-import { ResDir, ResPathDeclarePath, ResPathPath, TS_MODIFY_TIP } from "./Const";
+import { Declare_ResPathPath, ResDir, ResPathPath, TS_MODIFY_TIP } from "./Const";
 import { UpperFirst } from "./Utils";
 
 interface Config {
@@ -17,7 +17,7 @@ interface Config {
 
 export class BuildResPath extends BuildBase {
     protected _resDir = ResDir;
-    protected _resPathDeclarePath = ResPathDeclarePath;
+    protected _resPathDeclarePath = Declare_ResPathPath;
     protected _resPathPath = ResPathPath;
     protected _rootDir = "res/";
     protected _excludeFile: string[] = [];

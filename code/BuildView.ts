@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { BuildBase } from "./BuildBase";
 import { Logger } from "./Console";
-import { LibViewIDPath, UiDir, ViewCtrlBasePath, ViewDir, ViewIDDeclarePath, ViewIDPath, ViewProxyBasePath, ViewRegisterPath } from "./Const";
+import { Declare_ViewIDPath, Lib_ViewIDPath, UiDir, ViewCtrlBasePath, ViewDir, ViewProxyBasePath, ViewRegisterPath } from "./Const";
 import { GetAllFile, GetTemplateContent, MakeDir, UpperFirst } from "./Utils";
 export class BuildView extends BuildBase {
     private viewTemplate = GetTemplateContent("View");
@@ -39,7 +39,7 @@ export class BuildView extends BuildBase {
                         filter.funcs.forEach(func => func.call(this, dirPath, filename.replace(".ts", ""), filter.subDir || ""));
                 });
             }
-        })
+        });
     }
 
     private BuildView(dirPath: string, filename: string, subDir: string = "") {
@@ -120,7 +120,7 @@ export class BuildView extends BuildBase {
                         msgContent += `\t\tthis.addMessage(${ viewMsg }.On${ btnName }Click, this.on${ btnName }Click);\n`;
                         funcContent += `\tprivate on${ btnName }Click() {\n\n\t}\n\n`;
                     }
-                })
+                });
                 msgContent = msgContent ? msgContent.trim() : msgContent;
                 funcContent = funcContent ? `\n\t${ funcContent.trim() }\n` : funcContent;
             }
@@ -211,9 +211,9 @@ export class BuildView extends BuildBase {
     private BuildViewID() {
         const content = this.GetViewIDContent();
         const viewIDContent = this.viewIDTemplate.replace("#CONTENT#", content).replace(/ =/g, ":").replace("export enum ViewID", "ViewID =");
-        fs.writeFileSync(LibViewIDPath, viewIDContent);
+        fs.writeFileSync(Lib_ViewIDPath, viewIDContent);
         const viewIDDeclareContent = this.viewIDDeclareTemplate.replace("#CONTENT#", content);
-        fs.writeFileSync(ViewIDDeclarePath, viewIDDeclareContent);
+        fs.writeFileSync(Declare_ViewIDPath, viewIDDeclareContent);
     }
 
     private BuildViewRegister() {
@@ -231,7 +231,7 @@ export class BuildView extends BuildBase {
 
         binderNames.forEach(v => {
             const basename = path.basename(v);
-            binderCode += `\t\t${ basename }.bindAll();\n`
+            binderCode += `\t\t${ basename }.bindAll();\n`;
             imports.push(`import ${ basename } from "${ path.relative(viewRegisterDir, v).replace(/\\/g, "/") }";`);
         });
 
@@ -258,7 +258,7 @@ export class BuildView extends BuildBase {
                     registerCode += ");\n";
                 }
             });
-        }
+        };
         addExtAndRegistCode(btnNames, "Btns", "Button");
         addExtAndRegistCode(renderNames, "Renders", "Render");
         addExtAndRegistCode(comNames, "Coms", "Component");

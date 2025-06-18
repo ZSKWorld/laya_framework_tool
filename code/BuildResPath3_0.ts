@@ -1,10 +1,10 @@
 import { BuildResPath } from "./BuildResPath";
-import { ResDir3_0, ResPathDeclarePath3_0, ResPathPath3_0 } from "./Const";
+import { Declare_ResPathPath3_0, ResDir3_0, ResPathPath3_0 } from "./Const";
 
 
 export class BuildResPath3_0 extends BuildResPath {
     protected _resDir = ResDir3_0;
-    protected _resPathDeclarePath = ResPathDeclarePath3_0;
+    protected _resPathDeclarePath = Declare_ResPathPath3_0;
     protected _resPathPath = ResPathPath3_0;
     protected _rootDir = "assets/resources/";
     protected _excludeFile: string[] = [".meta"];

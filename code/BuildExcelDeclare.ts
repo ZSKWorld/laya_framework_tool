@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as xlsx from "node-xlsx";
 import * as path from "path";
 import { BuildBase } from "./BuildBase";
-import { LUA_MODIFY_TIP, PaiHun_ExcelDeclarePath, PaiHun_ExcelDir } from "./Const";
+import { LUA_MODIFY_TIP, PaiHun_Declare_ExcelPath, PaiHun_ExcelDir } from "./Const";
 
 const enum ExportType {
     Group = "group",
@@ -13,7 +13,7 @@ const enum ExportType {
 
 const xlsxDir = PaiHun_ExcelDir;
 const modify_tip = LUA_MODIFY_TIP;
-const outputPath = PaiHun_ExcelDeclarePath;
+const outputPath = PaiHun_Declare_ExcelPath;
 
 export class BuildExcelDeclare extends BuildBase {
     private typeMap = {
@@ -40,11 +40,11 @@ export class BuildExcelDeclare extends BuildBase {
                 tableNameMap[tableUpperName] = tableName;
                 tableSheetInfo[tableName] ||= {};
                 tableSheetInfo2[tableName] ||= {};
-                const sheets: { name: string, data: string[][] }[] = xlsx.parse(filepath).filter(v => !this.hasChinese(v.name)) as any;
+                const sheets: { name: string, data: string[][]; }[] = xlsx.parse(filepath).filter(v => !this.hasChinese(v.name)) as any;
                 const exportSheet = sheets.shift();
                 exportSheet?.data.shift();
                 //导出类型映射
-                const exportTypeMap: { [tableName: string]: { exportKey: string, exportType: ExportType, exportComment: string } } = {};
+                const exportTypeMap: { [tableName: string]: { exportKey: string, exportType: ExportType, exportComment: string; }; } = {};
                 exportSheet?.data.forEach((v, i) => {
                     exportTypeMap[v[0]] = { exportKey: v[1] || "string", exportType: v[2] as ExportType, exportComment: v[3] ? v[3].replace(new RegExp("\n", "g"), "。") : "" };
                 });
@@ -98,7 +98,7 @@ export class BuildExcelDeclare extends BuildBase {
         });
         let enumContent = `${ modify_tip }\n\n---表名枚举\n---@enum ExcelName\nExcelName = {\n`;
         Object.keys(tableNameMap).forEach(v => {
-            enumContent += `\t${ v } = "${ tableNameMap[v] }",\n`
+            enumContent += `\t${ v } = "${ tableNameMap[v] }",\n`;
         });
         enumContent += "}\n\n---表sheet名枚举\n---@enum SheetName\nSheetName = {\n";
         Object.keys(tableSheetInfo).forEach(tv => {
@@ -110,7 +110,7 @@ export class BuildExcelDeclare extends BuildBase {
                     enumContent += `\t---@see ${ dataType[i] }\n`;
                     enumContent += `\t---@see ${ tableType[i] } ${ exportType[i] }\n`;
                 });
-                enumContent += `\t${ v } = "${ name }",\n`
+                enumContent += `\t${ v } = "${ name }",\n`;
             });
             enumContent += "\n";
         });
@@ -122,7 +122,7 @@ export class BuildExcelDeclare extends BuildBase {
                 const { dataType, tableType, exportType, tableName, sheetName, tableUpperName } = tvData[v];
                 enumContent += `\t---@see ${ dataType }\n`;
                 enumContent += `\t---@see ${ tableType } ${ exportType }\n`;
-                enumContent += `\t${ tableUpperName + "_" + v } = { "${ tableName }", "${ sheetName }" },\n`
+                enumContent += `\t${ tableUpperName + "_" + v } = { "${ tableName }", "${ sheetName }" },\n`;
             });
             enumContent += "\n";
         });
@@ -166,7 +166,7 @@ export class BuildExcelDeclare extends BuildBase {
     }
 
     private getSheetFieldsContent(fields: string[], types: string[], comments: string[]) {
-        const result: { [fieldName: string]: { type: string, isArray: boolean, comments: string[] } } = {};
+        const result: { [fieldName: string]: { type: string, isArray: boolean, comments: string[]; }; } = {};
         fields.forEach((v, i) => {
             const realFieldName = v.replace(/\[\d+\]/g, "");
             result[realFieldName] ||= { type: "", isArray: v != realFieldName, comments: [] };

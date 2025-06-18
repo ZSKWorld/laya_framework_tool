@@ -2,13 +2,13 @@ import * as fs from "fs";
 import * as path from "path";
 import * as protobuf from "protobufjs";
 import { BuildBase } from "./BuildBase";
-import { PaiHun_ProtoLuaDeclarePath, PaiHun_ProtoPath, PaiHun_ProtoReplacePath, PaiHun_ProtoTsDeclarePath } from "./Const";
+import { PaiHun_Declare_ProtoLuaPath, PaiHun_Declare_ProtoTsPath, PaiHun_ProtoPath, PaiHun_ProtoReplacePath } from "./Const";
 import { getDateStr } from "./Utils";
-type KeyMap<T> = { [key: string]: T }
-type IService = protobuf.IService & { name: string }
-type IType = protobuf.IType & { name: string, comment: string }
-type IField = protobuf.IField & { comment: string }
-type ProtoMap = { [key: string]: { services: IService[], msgs: IType[] } }
+type KeyMap<T> = { [key: string]: T; };
+type IService = protobuf.IService & { name: string; };
+type IType = protobuf.IType & { name: string, comment: string; };
+type IField = protobuf.IField & { comment: string; };
+type ProtoMap = { [key: string]: { services: IService[], msgs: IType[]; }; };
 
 export class BuildProtoDeclare extends BuildBase {
     private SubTypeMark = "$";
@@ -18,7 +18,7 @@ export class BuildProtoDeclare extends BuildBase {
         "return", "then", "true", "until", "while", "package", "module"
     ];
     private protoMap: ProtoMap = {};
-    private replaces: KeyMap<KeyMap<KeyMap<{ type: string, tsType: string, luaType: string, omissible: boolean }>> & [string[], ...[string, string, number][]][]>;
+    private replaces: KeyMap<KeyMap<KeyMap<{ type: string, tsType: string, luaType: string, omissible: boolean; }>> & [string[], ...[string, string, number][]][]>;
 
     doBuild(): void {
         let findIndex = -1;
@@ -185,7 +185,7 @@ export class BuildProtoDeclare extends BuildBase {
                         comment += `\n\t\t *@description req: {@link I${ method.requestType }}, res: {@link I${ method.responseType }}\n\t\t */\n`;
                     else
                         comment += ` @description req: {@link I${ method.requestType }}, res: {@link I${ method.responseType }} */\n`;
-                    request += `${ comment }\t\t${ reqName } = "${ reqName }",\n`
+                    request += `${ comment }\t\t${ reqName } = "${ reqName }",\n`;
                 });
             });
             //messages
@@ -236,7 +236,7 @@ export class BuildProtoDeclare extends BuildBase {
                     interfaces += `\t}\n`;
                 } else interfaces += `\tinterface I${ msg.name + extend } {\n\n\t}\n`;
                 interfaces += "\n";
-                msg.comment = oldComment
+                msg.comment = oldComment;
             });
         });
         request = `\t/** 网络请求协议 */\n\tconst enum ERequest {\n${ request }\t}\n`;
@@ -248,7 +248,7 @@ export class BuildProtoDeclare extends BuildBase {
             + customEnum
             + interfaces
             + "}";
-        fs.writeFileSync(PaiHun_ProtoTsDeclarePath, content);
+        fs.writeFileSync(PaiHun_Declare_ProtoTsPath, content);
     }
     /** 创建lua自定义枚举 */
     private buildLuaCustomEnum() {
@@ -297,7 +297,7 @@ export class BuildProtoDeclare extends BuildBase {
                     let comment = "";
                     method.comment?.split("\n").forEach(com => comment += `\t---${ com }\n`);
                     comment += `\t---@see I${ method.requestType } req\n\t---@see I${ method.responseType } res\n`;
-                    request += `\n${ comment }\t${ reqName } = "${ reqName }",\n`
+                    request += `\n${ comment }\t${ reqName } = "${ reqName }",\n`;
                 });
             });
             //messages
@@ -332,7 +332,7 @@ export class BuildProtoDeclare extends BuildBase {
                     interfaces += `---@field ${ this.checkFieldName(key) }${ this.getFieldType(protoKey, msg.name, key, field.type, true) }${ rule } ${ fieldComment }\n`;
                 });
                 interfaces += "\n";
-                msg.comment = oldComment
+                msg.comment = oldComment;
             });
         });
         request = `---@enum ERequest\n---网络请求协议\nERequest = {\n${ request }}\n`;
@@ -342,7 +342,7 @@ export class BuildProtoDeclare extends BuildBase {
             + request + "\n"
             + customEnum
             + interfaces;
-        fs.writeFileSync(PaiHun_ProtoLuaDeclarePath, content);
+        fs.writeFileSync(PaiHun_Declare_ProtoLuaPath, content);
     }
 
 }

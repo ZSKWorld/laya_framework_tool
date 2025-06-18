@@ -1,16 +1,16 @@
 import * as fs from "fs";
 import * as path from "path";
 import { BuildBase } from "./BuildBase";
-import { CMDInterfaceDir, NetCMDPath, NetNotifyPath, NetServiceDeclarePath, NetServicePath, NotifyInterfaceDir, TS_MODIFY_TIP } from "./Const";
+import { CMDInterfaceDir, Declare_MessageIDPath, Declare_NetServicePath, Lib_MessageIDPath, NetNotifyPath, NetServicePath, NotifyInterfaceDir, TS_MODIFY_TIP } from "./Const";
 import { GetTemplateContent, UpperFirst } from "./Utils";
 export class BuildNet extends BuildBase {
-    private _allCMDCtrls: { [key: string]: string[] } = {};
-    private _allNotifyCtrls: { [key: string]: string[] } = {};
+    private _allCMDCtrls: { [key: string]: string[]; } = {};
+    private _allNotifyCtrls: { [key: string]: string[]; } = {};
     private _serviceTemp = GetTemplateContent("Services");
     private _serviceDeclareTemp = GetTemplateContent("ServicesDeclare");
     doBuild() {
         this.getAllCMDController();
-        this.buildNetCMD();
+        this.buildMessageID();
         this.buildService();
 
         this.getAllNotifyController();
@@ -31,9 +31,10 @@ export class BuildNet extends BuildBase {
         });
     }
 
-    private buildNetCMD() {
+    private buildMessageID() {
         const matches: string[] = Object.values(this._allCMDCtrls).flat();
-        let data = TS_MODIFY_TIP + "\nexport const enum NetCMD {\n";
+        let declareContent = "";
+        let libContent = "";
         matches.unshift("syncInfo(data: IUser): void");
         matches.forEach(match => {
             const name = match.substring(0, match.trim().indexOf("("));
@@ -48,8 +49,9 @@ export class BuildNet extends BuildBase {
                     param1 += `\t * @param input {@link ${ type }}\n`;
                 param1 += "\t */\n";
             }
-            data += param1;
-            data += `\t${ temp } = "NetCMD_${ temp }",\n\n`;
+            declareContent += param1;
+            declareContent += `\t${ temp } = "MessageID_${ temp }",\n\n`;
+            libContent += `\t${ temp } = "MessageID_${ temp }",\n\n`;
 
             if (hasInput) {
                 param1 = "";
@@ -60,12 +62,15 @@ export class BuildNet extends BuildBase {
                         param1 += `\t * @param input {@link ${ type }}\n`;
                     param1 += "\t */\n";
                 }
-                data += param1;
-                data += `\t${ temp + "Error" } = "NetCMD_${ temp }_Error",\n\n`;
+                declareContent += param1;
+                declareContent += `\t${ temp + "Error" } = "MessageID_${ temp }_Error",\n\n`;
+                libContent += `\t${ temp + "Error" } = "MessageID_${ temp }_Error",\n\n`;
             }
         });
-        data = data.trim() + "\n}";
-        fs.writeFileSync(NetCMDPath, data);
+        declareContent = TS_MODIFY_TIP + "\ndeclare enum MessageID {\n" +declareContent.trimEnd() + "\n}";
+        libContent = TS_MODIFY_TIP + "MessageID = {\n" + libContent.replace(/ =/g, ":").trimEnd() + "\n}";
+        fs.writeFileSync(Declare_MessageIDPath, declareContent);
+        fs.writeFileSync(Lib_MessageIDPath, libContent);
     }
 
     private buildService() {
@@ -88,7 +93,7 @@ export class BuildNet extends BuildBase {
         const netServiceDeclare = _serviceDeclareTemp
             .replace(/#METHODS#/g, methods.join("\n"))
             .replace(/#INTERFACES#/g, netServiceDeclareInterfaces.join(", "));
-        fs.writeFileSync(NetServiceDeclarePath, netServiceDeclare);
+        fs.writeFileSync(Declare_NetServicePath, netServiceDeclare);
     }
 
     private getAllNotifyController() {

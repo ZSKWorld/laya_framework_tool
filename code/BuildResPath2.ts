@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { BuildBase } from "./BuildBase";
-import { BinDir, LibResPathPath, ResDir, ResPathDeclarePath, ResPathPath, TS_MODIFY_TIP } from "./Const";
+import { BinDir, Declare_ResPathPath, Lib_ResPathPath, ResDir, TS_MODIFY_TIP } from "./Const";
 import { GetAllFile, UpperFirst } from "./Utils";
 
 const enum FileType {
@@ -45,11 +45,11 @@ export class BuildResPath2 extends BuildBase {
         enums.unshift(...this.buildUnclassified(unclassifiedFiles));
         const enumsContent = enums.join("\n\n");
         const pathContent = `${ TS_MODIFY_TIP }ResPath = {\n${ enumsContent.replace(/export enum /g, "").replace(/ {/g, ": {").replace(/}/g, "},").replace(/ =/g, ":") }\n}`;
-        fs.writeFileSync(LibResPathPath, pathContent);
+        fs.writeFileSync(Lib_ResPathPath, pathContent);
 
         const declareContent = `${ TS_MODIFY_TIP }declare namespace ResPath {\n${ enumsContent }\n}`
             .replace(new RegExp("export enum", "g"), "enum");
-        fs.writeFileSync(ResPathDeclarePath, declareContent);
+        fs.writeFileSync(Declare_ResPathPath, declareContent);
     }
 
     private retifyFilePath(files: string[]) {
