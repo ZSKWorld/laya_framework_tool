@@ -35,7 +35,7 @@ export class BuildNet extends BuildBase {
         const matches: string[] = Object.values(this._allCMDCtrls).flat();
         let declareContent = "";
         let libContent = "";
-        matches.unshift("syncInfo(data: IUser): void");
+        // matches.unshift("syncInfo(data: IUser): void");
         matches.forEach(match => {
             const name = match.substring(0, match.trim().indexOf("("));
             const type = match.substring(match.indexOf("(") + 1, match.indexOf(")")).split(":")[1].trim();
