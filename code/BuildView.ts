@@ -2,21 +2,20 @@ import * as fs from "fs";
 import * as path from "path";
 import { BuildBase } from "./BuildBase";
 import { Logger } from "./Console";
-import { Declare_ViewIDPath, Lib_ViewIDPath, UiDir, ViewCtrlBasePath, ViewDir, ViewProxyBasePath, ViewRegisterPath } from "./Const";
+import { Declare_ViewIDPath, InitViewCommandPath, Lib_ViewIDPath, MediatorBasePath, UiDir, ViewDir } from "./Const";
 import { GetAllFile, GetTemplateContent, MakeDir, UpperFirst } from "./Utils";
 export class BuildView extends BuildBase {
     private viewTemplate = GetTemplateContent("View");
-    private ctrlTemplate = GetTemplateContent("ViewCtrl");
-    private proxyTemplate = GetTemplateContent("ViewProxy");
+    private mediatorTemplate = GetTemplateContent("Mediator");
     private viewIDTemplate = GetTemplateContent("ViewID");
     private viewIDDeclareTemplate = GetTemplateContent("ViewIDDeclare");
-    private viewRegisterTemplate = GetTemplateContent("ViewRegister");
+    private initViewCommandTemplate = GetTemplateContent("InitViewCommand");
 
     protected buildFilter = [
-        { sign: "UI", funcs: [this.BuildView, this.BuildCtrl, this.BuildProxy] },
-        { sign: "Com", funcs: [this.BuildView, this.BuildCtrl], subDir: "coms" },
-        { sign: "Btn", funcs: [this.BuildView, this.BuildCtrl], subDir: "btns" },
-        { sign: "Render", funcs: [this.BuildView, this.BuildCtrl], subDir: "renders" },
+        { sign: "UI", funcs: [this.BuildView, this.BuildMediator] },
+        { sign: "Com", funcs: [this.BuildView, this.BuildMediator], subDir: "coms" },
+        { sign: "Btn", funcs: [this.BuildView, this.BuildMediator], subDir: "btns" },
+        { sign: "Render", funcs: [this.BuildView, this.BuildMediator], subDir: "renders" },
     ];
 
     doBuild() {
@@ -87,24 +86,24 @@ export class BuildView extends BuildBase {
         }
     }
 
-    private BuildCtrl(dirPath: string, filename: string, subDir: string) {
+    private BuildMediator(dirPath: string, filename: string, subDir: string) {
         const _viewDir = path.resolve(ViewDir, path.basename(dirPath) + "/view/" + subDir);
-        const _ctrlDir = path.resolve(ViewDir, path.basename(dirPath) + "/controller/" + subDir);
-        MakeDir(_ctrlDir);
-        const [viewCls, viewMsg, ctrlCls, dataName, viewPath, ctrlPath, pkgName] = [
+        const _mediatorDir = path.resolve(ViewDir, path.basename(dirPath) + "/mediator/" + subDir);
+        MakeDir(_mediatorDir);
+        const [viewCls, viewMsg, mediatorCls, dataName, viewPath, mediatorPath, pkgName] = [
             filename + "View",
             filename + "Msg",
-            filename + "Ctrl",
+            filename + "Mediator",
             filename + "Data",
             path.resolve(_viewDir, filename + "View.ts"),
-            path.resolve(_ctrlDir, filename + "Ctrl.ts"),
+            path.resolve(_mediatorDir, filename + "Mediator.ts"),
             path.basename(dirPath),
         ];
-        if (!fs.existsSync(ctrlPath)) {
-            let content = this.ctrlTemplate;
-            content = content.replace(/#VIEW_CTRL_BASE_PATH#/g, path.relative(_ctrlDir, ViewCtrlBasePath).replace(/\\/g, "/").replace(/\.ts/g, ""))
-                .replace(/#VIEW_PATH#/g, path.relative(_ctrlDir, viewPath).replace(/\\/g, "/").replace(/\.ts/g, ""))
-                .replace(/#CLASS_NAME#/g, ctrlCls)
+        if (!fs.existsSync(mediatorPath)) {
+            let content = this.mediatorTemplate;
+            content = content.replace(/#MEDIATOR_BASE_PATH#/g, path.relative(_mediatorDir, MediatorBasePath).replace(/\\/g, "/").replace(/\.ts/g, ""))
+                .replace(/#VIEW_PATH#/g, path.relative(_mediatorDir, viewPath).replace(/\\/g, "/").replace(/\.ts/g, ""))
+                .replace(/#CLASS_NAME#/g, mediatorCls)
                 // .replace(/#PACKAGE_NAME#/g, pkgName)
                 .replace(/#VIEW_CLASS#/g, viewCls)
                 .replace(/#VIEW_MSG#/g, viewMsg)
@@ -126,44 +125,22 @@ export class BuildView extends BuildBase {
             }
             content = content.replace(/#BTN_MESSAGE#/g, msgContent);
             content = content.replace(/#BTN_FUNCTIONS#/g, funcContent);
-            console.log(ctrlCls);
-            fs.writeFileSync(ctrlPath, content);
-        }
-    }
-
-    private BuildProxy(dirPath: string, filename: string, subDir: string) {
-        return;
-        const _ctrlDir = path.resolve(ViewDir, path.basename(dirPath) + "/controller/" + subDir);
-        const _proxyDir = path.resolve(ViewDir, path.basename(dirPath) + "/proxy/" + subDir);
-        MakeDir(_proxyDir);
-        const [ctrlCls, proxyCls, ctrlPath, proxyPath] = [
-            filename + "Ctrl",
-            filename + "Proxy",
-            path.resolve(_ctrlDir, filename + "Ctrl"),
-            path.resolve(_proxyDir, filename + "Proxy.ts"),
-        ];
-        if (!fs.existsSync(proxyPath)) {
-            let content = this.proxyTemplate;
-            content = content.replace(/#VIEW_PROXY_BASE_PATH#/g, path.relative(_proxyDir, ViewProxyBasePath).replace(/\\/g, "/").replace(/\.ts/g, ""))
-                .replace(/#VIEW_CTRL_PATH#/g, path.relative(_proxyDir, ctrlPath).replace(/\\/g, "/"))
-                .replace(/#PROXY_NAME#/g, proxyCls)
-                .replace(/#VIEW_CTRL#/g, ctrlCls);
-            fs.writeFileSync(proxyPath, content);
+            console.log(mediatorCls);
+            fs.writeFileSync(mediatorPath, content);
         }
     }
 
     private RemoveUnused() {
         GetAllFile(
             ViewDir, true,
-            filename => filename.endsWith("View.ts") || filename.endsWith("Ctrl.ts") || filename.endsWith("Proxy.ts")
+            filename => filename.endsWith("View.ts") || filename.endsWith("Mediator.ts")
         ).forEach(filepath => {
             const relative = path.relative(ViewDir, filepath);
             const pkgname = relative.split("\\")[0];
             const filename = path.basename(relative, ".ts");
             let uiname = "";
             if (filename.endsWith("View")) uiname = filename.substring(0, filename.length - 4);
-            else if (filename.endsWith("Ctrl")) uiname = filename.substring(0, filename.length - 4);
-            else if (filename.endsWith("Proxy")) uiname = filename.substring(0, filename.length - 5);
+            else if (filename.endsWith("Mediator")) uiname = filename.substring(0, filename.length - 8);
             else return;
             const uipath = path.resolve(UiDir, pkgname, uiname + ".ts");
             if (!fs.existsSync(uipath)) {
@@ -217,7 +194,7 @@ export class BuildView extends BuildBase {
     }
 
     private BuildViewRegister() {
-        const viewRegisterDir = path.dirname(ViewRegisterPath);
+        const initViewCommandDir = path.dirname(InitViewCommandPath);
         const mapFunc = (fileName: string) => fileName.replace(".ts", "");
         const filterFunc = (start: string, end: string) => (fileName: string) => (!start || fileName.startsWith(start)) && (!end || fileName.endsWith(end));
 
@@ -232,7 +209,7 @@ export class BuildView extends BuildBase {
         binderNames.forEach(v => {
             const basename = path.basename(v);
             binderCode += `\t\t${ basename }.bindAll();\n`;
-            imports.push(`import ${ basename } from "${ path.relative(viewRegisterDir, v).replace(/\\/g, "/") }";`);
+            imports.push(`import ${ basename } from "${ path.relative(initViewCommandDir, v).replace(/\\/g, "/") }";`);
         });
 
         const subDirMap = { Btns: "btns\\", Renders: "renders\\", Coms: "coms\\", UIs: "" };
@@ -242,18 +219,13 @@ export class BuildView extends BuildBase {
                 const basename = path.basename(v);
                 const tempPath = v.replace("ui\\Pkg", "view\\Pkg");
                 const viewPath = tempPath.replace(basename, "view\\" + subDirMap[desc] + basename + "View.ts");
-                const ctrlPath = tempPath.replace(basename, "controller\\" + subDirMap[desc] + basename + "Ctrl.ts");
-                const proxyPath = tempPath.replace(basename, "proxy\\" + subDirMap[desc] + basename + "Proxy.ts");
+                const mediatorPath = tempPath.replace(basename, "mediator\\" + subDirMap[desc] + basename + "Mediator.ts");
                 if (fs.existsSync(viewPath)) {
                     registerCode += `\t\tregister(ViewID.${ basename }View, ViewType.${ viewType }, ${ basename }View`;
-                    imports.push(`import { ${ basename }View } from "${ path.relative(viewRegisterDir, mapFunc(viewPath)).replace(/\\/g, "/") }";`);
-                    if (fs.existsSync(ctrlPath)) {
-                        registerCode += ", " + basename + "Ctrl";
-                        imports.push(`import { ${ basename }Ctrl } from "${ path.relative(viewRegisterDir, mapFunc(ctrlPath)).replace(/\\/g, "/") }";`);
-                    }
-                    if (fs.existsSync(proxyPath)) {
-                        registerCode += ", " + basename + "Proxy";
-                        imports.push(`import { ${ basename }Proxy } from "${ path.relative(viewRegisterDir, mapFunc(proxyPath)).replace(/\\/g, "/") }";`);
+                    imports.push(`import { ${ basename }View } from "${ path.relative(initViewCommandDir, mapFunc(viewPath)).replace(/\\/g, "/") }";`);
+                    if (fs.existsSync(mediatorPath)) {
+                        registerCode += ", " + basename + "Mediator";
+                        imports.push(`import { ${ basename }Mediator } from "${ path.relative(initViewCommandDir, mapFunc(mediatorPath)).replace(/\\/g, "/") }";`);
                     }
                     registerCode += ");\n";
                 }
@@ -264,11 +236,10 @@ export class BuildView extends BuildBase {
         addExtAndRegistCode(comNames, "Coms", "Component");
         addExtAndRegistCode(uiNames, "UIs", "UI");
 
-        let content = this.viewRegisterTemplate
+        let content = this.initViewCommandTemplate
             .replace("#IMPORT#", imports.join("\n"))
-            .replace("#BINDER_CODE#", binderCode + "\t")
-            .replace("#REGISTER_CODE#", registerCode + "\t");
-        content = content.replace("#VIEW_ID_CONTENT#", this.GetViewIDContent());
-        fs.writeFileSync(ViewRegisterPath, content);
+            .replace("#BINDER_CODE#", binderCode.trim())
+            .replace("#REGISTER_CODE#", registerCode.trim());
+        fs.writeFileSync(InitViewCommandPath, content);
     }
 }

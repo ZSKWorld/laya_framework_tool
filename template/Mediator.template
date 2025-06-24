@@ -1,11 +1,11 @@
-import { ViewCtrlBase } from "#VIEW_CTRL_BASE_PATH#";
+import { MediatorBase } from "#MEDIATOR_BASE_PATH#";
 import { #VIEW_MSG#, #VIEW_CLASS# } from "#VIEW_PATH#";
 
 export interface #DATA_NAME# {
 
 }
 
-export class #CLASS_NAME# extends ViewCtrlBase<#VIEW_CLASS#, #DATA_NAME#> {
+export class #CLASS_NAME# extends MediatorBase<#VIEW_CLASS#, #DATA_NAME#> {
 
     override onAdded() {
         #BTN_MESSAGE#

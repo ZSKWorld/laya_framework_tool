@@ -3,7 +3,7 @@
 export class CfgManager implements ICfgManager {
 #VARIATES#
 	init() {
-		const res: Laya.TextResource = Laya.loader.getRes(ResPath.ConfigPath.Config);
+		const res: Laya.TextResource = loadMgr.getRes(ResPath.ConfigPath.Config);
 		const cfgData = res && res.data;
 		if (cfgData) {
 			const keyMap = cfgData.keyMap;
@@ -14,7 +14,7 @@ export class CfgManager implements ICfgManager {
 				this.cfgExtension(data);
 				this[cfgKey] = data;
 			}
-			Laya.loader.clearRes(ResPath.ConfigPath.Config);
+			loadMgr.clearRes(ResPath.ConfigPath.Config);
 			this.init = function () { };
 		}
 	}

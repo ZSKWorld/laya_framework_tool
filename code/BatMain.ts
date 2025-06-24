@@ -37,7 +37,7 @@ export class BatMain {
 
     private run1() {
         const act: Act[] = [
-            { desc: "创建 View & ViewCtrl & ViewProxy", cls: BuildView },
+            { desc: "创建 View & ViewMediator", cls: BuildView },
             { desc: "导出表配置", cls: BuildConfig },
             { desc: "导出服务器表配置", cls: BuildServerConfig },
             { desc: "更新资源路径2.0", cls: BuildResPath },
@@ -81,7 +81,7 @@ export class BatMain {
         if (isNaN(index)) return;
 
         const act: Act[] = [
-            { desc: "创建 View & ViewCtrl & ViewProxy", cls: BuildView },
+            { desc: "创建 View & ViewMediator", cls: BuildView },
             { desc: "导出表配置", cls: BuildConfig },
             { desc: "更新资源路径2.0", cls: BuildResPath2 },
             { desc: "用户数据事件", cls: BuildDataEvent },

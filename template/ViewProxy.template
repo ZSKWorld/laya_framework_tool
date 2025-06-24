@@ -1,6 +1,0 @@
-import { ViewProxyBase } from "#VIEW_PROXY_BASE_PATH#";
-import { #VIEW_CTRL# } from "#VIEW_CTRL_PATH#";
-
-export class #PROXY_NAME# extends ViewProxyBase<#VIEW_CTRL#> {
-    
-}
