@@ -15,7 +15,6 @@ export class CfgManager implements ICfgManager {
 				this[cfgKey] = data;
 			}
 			loadMgr.clearRes(ResPath.ConfigPath.Config);
-			this.init = function () { };
 		}
 	}
 
