@@ -70,7 +70,7 @@ export class BuildView extends BuildBase {
                         let msgName = `On${ UpperFirst(varName, ["_"], "") }Click`;
                         let msgValue = `"${ filename }_${ msgName }"`;
                         messages += `\t${ msgName } = ${ msgValue },\n`;
-                        sendContent += `\n\t\t${ varName }.onClick(this, this.sendMessage, [${ msgEnumName }.${ msgName }]);`;
+                        sendContent += `\n\t\t${ varName }.onClick(this, this.sendEvent, [${ msgEnumName }.${ msgName }]);`;
                     } else return;
                     useComps.push(varName);
                 });
@@ -116,7 +116,7 @@ export class BuildView extends BuildBase {
                     v = v.split(" ")[1].split(":")[0];
                     if (v.toLowerCase().startsWith("btn")) {
                         const btnName = UpperFirst(v, ["_"], "");
-                        msgContent += `\t\tthis.addMessage(${ viewMsg }.On${ btnName }Click, this.on${ btnName }Click);\n`;
+                        msgContent += `\t\tthis.addEvent(${ viewMsg }.On${ btnName }Click, this.on${ btnName }Click);\n`;
                         funcContent += `\tprivate on${ btnName }Click() {\n\n\t}\n\n`;
                     }
                 });
