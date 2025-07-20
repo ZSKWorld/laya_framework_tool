@@ -44,9 +44,9 @@ export class BuildNet extends BuildBase {
             let param1 = "";
             if (type) {
                 param1 += "\t/**\n";
-                param1 += `\t * @param output {@link ${ type.replace("Input", "Output") }}\n`;
                 if (hasInput)
                     param1 += `\t * @param input {@link ${ type }}\n`;
+                param1 += `\t * @param output {@link ${ type.replace("Input", "Output") }}\n`;
                 param1 += "\t */\n";
             }
             declareContent += param1;
@@ -57,9 +57,9 @@ export class BuildNet extends BuildBase {
                 param1 = "";
                 if (type) {
                     param1 += "\t/**\n";
-                    param1 += `\t * @param output {@link ${ type.replace("Input", "Output") }}\n`;
                     if (hasInput)
                         param1 += `\t * @param input {@link ${ type }}\n`;
+                    param1 += `\t * @param output {@link ${ type.replace("Input", "Output") }}\n`;
                     param1 += "\t */\n";
                 }
                 declareContent += param1;
