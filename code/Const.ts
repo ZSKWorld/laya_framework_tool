@@ -32,6 +32,8 @@ export const NetNotifyPath = resolve(NetDir, "enum/NetNotify.ts");
 export const UserDataDir = resolve(__workname, "src/core/userData");
 export const UserDataInterfaceDir = resolve(UserDataDir, "interface");
 export const UserDataEventPath = resolve(UserDataDir, "UserDataEvent.ts");
+export const Lib_UserDataEventPath = resolve(__workname, "bin/libs_game/userdataevent.js");
+export const Declare_UserDataEventPath = resolve(__workname, "libs_game/user_data_event.d.ts");
 
 //---------------------------------------------Server
 export const Server_NotifyInterfaceDir = resolve(__workname, "src/core/controller/interface/notify");
