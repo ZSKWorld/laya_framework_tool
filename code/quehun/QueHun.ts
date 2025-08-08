@@ -45,26 +45,26 @@ function numberToExcelColumn(num: number) {
 const excludes = [
     "函数说明.xlsx",
     "客户端统计id表.xlsx",
-    "ab_match.xlsx",
-    "audio.xlsx",
-    "compose.xlsx",
-    "contest.xlsx",
-    "events.xlsx",
-    "fan.xlsx",
-    "fandesc.xlsx",
-    "game_live.xlsx",
-    "global.xlsx",
-    "info.xlsx",
-    "leaderboard.xlsx",
-    "mail.xlsx",
-    "match_shilian.xlsx",
-    "misc_function.xlsx",
-    "outfit_config.xlsx",
-    "rank_introduce.xlsx",
-    "season.xlsx",
-    "str.xlsx",
-    "tutorial.xlsx",
-    "voice.xlsx",
+    // "ab_match.xlsx",
+    // // "audio.xlsx",
+    // "compose.xlsx",
+    // "contest.xlsx",
+    // "events.xlsx",
+    // "fan.xlsx",
+    // "fandesc.xlsx",
+    // "game_live.xlsx",
+    // "global.xlsx",
+    // "info.xlsx",
+    // "leaderboard.xlsx",
+    // "mail.xlsx",
+    // "match_shilian.xlsx",
+    // "misc_function.xlsx",
+    // "outfit_config.xlsx",
+    // "rank_introduce.xlsx",
+    // "season.xlsx",
+    // "str.xlsx",
+    // "tutorial.xlsx",
+    // "voice.xlsx",
 ];
 function findExcelContent(xlsxDir: string, content: string) {
     const startTime = Date.now();
@@ -151,5 +151,5 @@ function findLuaContent(dirPath: string) {
     fs.writeFileSync("code/quehun/luafind.json", JSON.stringify(result));
 }
 // removeEmptyDirAndSpriteAtlas("D:\\liqi\\liqi_unity_project_dev\\Assets\\MyAssets\\pic");
-findExcelContent("D:\\liqi\\liqi-excel\\data", "music/liqi_23winer");
+findExcelContent("D:\\liqi\\liqi-excel\\data", `뭐"라고`);
 // findLuaContent("D:\\liqi\\liqi_unity_project_dev\\Assets\\Lua\\LuaScript");
