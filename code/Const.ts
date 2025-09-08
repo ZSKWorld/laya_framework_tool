@@ -45,13 +45,13 @@ export const ResDir3_0 = resolve(__workname, "assets/resources");
 export const Declare_ResPathPath3_0 = resolve(__workname, "engine/libs_game/res_path.d.ts");
 export const ResPathPath3_0 = resolve(__workname, "src/core/common/ResPath.ts");
 
-//---------------------------------------------PaiHun
-export const PaiHun_ExcelDir = resolve(__workname, "excel");
-export const PaiHun_Declare_ExcelPath = resolve(__workname, "Lua/LuaScript/Net/ExcelDeclare.lua");
-export const PaiHun_ProtoPath = resolve(__workname, "proto/client.proto");
-export const PaiHun_ProtoReplacePath = resolve(__dirname, "../../data/proto_replace.jsonc");
-export const PaiHun_Declare_ProtoTsPath = resolve(__workname, "Lua/LuaScript/Net/proto.d.ts");
-export const PaiHun_Declare_ProtoLuaPath = resolve(__workname, "Lua/LuaScript/Net/ProtoDeclare.lua");
+//---------------------------------------------Proto & excel Declare
+export const ExcelDir = resolve(__workname, "excel");
+export const Declare_ExcelPath = resolve(__workname, "Lua/LuaScript/Net/ExcelDeclare.lua");
+export const ProtoPath = resolve(__workname, "bin/proto/client.proto");
+export const ProtoReplacePath = resolve(__workname, "bin/proto/proto_replace.jsonc");
+export const Declare_ProtoTsPath = resolve(__workname, "libs_game/proto.d.ts");
+export const Declare_ProtoLuaPath = resolve(__workname, "Lua/LuaScript/Net/ProtoDeclare.lua");
 
 export const TS_MODIFY_TIP = "/** This script is generated automatically, Please do not any modify! */\n";
 export const LUA_MODIFY_TIP = "---This script is generated automatically, Please do not any modify!\n";

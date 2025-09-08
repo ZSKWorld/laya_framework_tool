@@ -44,6 +44,7 @@ export class BatMain {
             { desc: "用户数据事件", cls: BuildDataEvent },
             { desc: "更新网络相关", cls: BuildNet },
             { desc: "更新资源路径3.0", cls: BuildResPath3_0 },
+            { desc: "更新Proto声明文件", cls: BuildProtoDeclare },
         ];
         let tip = "选择要进行的操作：\n0. 全部执行\n";
         act.forEach((v, index) => tip += `${ index + 1 }. ${ v.desc }\n`);
@@ -89,7 +90,7 @@ export class BatMain {
             { desc: "导出服务器表配置", cls: BuildServerConfig },
             { desc: "更新服务器网络相关", cls: BuildServerNet },
             { desc: "更新ExcelDeclare", cls: BuildExcelDeclare },
-            { desc: "更新ProtoDeclare", cls: BuildProtoDeclare },
+            { desc: "更新Proto声明文件", cls: BuildProtoDeclare },
             { desc: "更新资源路径3.0", cls: BuildResPath3_0 },
             { desc: "导出表配置3.0", cls: BuildConfig3_0 },
         ];

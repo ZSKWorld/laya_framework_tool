@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as xlsx from "node-xlsx";
 import * as path from "path";
 import { BuildBase } from "./BuildBase";
-import { LUA_MODIFY_TIP, PaiHun_Declare_ExcelPath, PaiHun_ExcelDir } from "./Const";
+import { Declare_ExcelPath, ExcelDir, LUA_MODIFY_TIP } from "./Const";
 
 const enum ExportType {
     Group = "group",
@@ -11,9 +11,9 @@ const enum ExportType {
     KV = "kv",
 }
 
-const xlsxDir = PaiHun_ExcelDir;
+const xlsxDir = ExcelDir;
 const modify_tip = LUA_MODIFY_TIP;
-const outputPath = PaiHun_Declare_ExcelPath;
+const outputPath = Declare_ExcelPath;
 
 export class BuildExcelDeclare extends BuildBase {
     private typeMap = {
