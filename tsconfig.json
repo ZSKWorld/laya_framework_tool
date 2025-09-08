@@ -4,8 +4,7 @@
     "target": "es6",
     "noEmitHelpers": true,
     "sourceMap": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node"
+    "experimentalDecorators": true
   },
   "exclude": [
     "node_modules",
