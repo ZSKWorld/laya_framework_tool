@@ -186,14 +186,14 @@ export class BuildProtoDeclare extends BuildBase {
         for (const key in notifies) {
             const type = notifies[key];
             const comment = (type.comment || "") + `\nres: {@link I${ key }}`;
-            notifiesContent += `${ this.buildTSComments(comment.trim(), 1) }\t${ key } = "${ type.fullName }",\n`;
+            notifiesContent += `${ this.buildTSComments(comment.trim(), 1) }\t${ key } = "${ key }",\n`;
         }
         notifiesContent = `/** 网络通知 */\ndeclare const enum ENotify {\n${ notifiesContent }}\n`;
 
         let requestContent = "";
         for (const key in methods) {
             const method = methods[key];
-            requestContent += `${ this.buildTSComments(method.comment, 1) }\t${ key } = "${ method.fullName }",\n`;
+            requestContent += `${ this.buildTSComments(method.comment, 1) }\t${ key } = "${ key }",\n`;
         }
         requestContent = `/** 网络请求协议 */\ndeclare const enum ERequest {\n${ requestContent }}\n`;
 
