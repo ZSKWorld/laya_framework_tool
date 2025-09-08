@@ -1,5 +1,4 @@
 import * as fs from "fs";
-import * as path from "path";
 import * as protobuf from "protobufjs";
 import { BuildBase } from "./BuildBase";
 import { Declare_ProtoTsPath, ProtoPath, ProtoReplacePath } from "./Const";
@@ -157,23 +156,21 @@ export class BuildProtoDeclare extends BuildBase {
     }
 
     private buildTSMessage(name: string, msg: IType, isSub: boolean, parent: IType = null, parentName: string = "") {
-        let result = this.buildTSComments(msg.comment, 0);
+        let result = this.buildTSComments(`${msg.fullName}${msg.comment ? "\n" + msg.comment : ""}`, 0);
         result += `declare interface I${ isSub ? parentName + "_" : "" }${ name } extends ${ name.startsWith("Res") ? "IResponse" : "IProto" } {\n`;
         if (msg.fields) {
             for (const key in msg.fields) {
-                if (Object.prototype.hasOwnProperty.call(msg.fields, key)) {
-                    const field = msg.fields[key];
-                    result += this.buildTSComments(field.comment, 1);
-                    const typeArr = field.type.split(".");
-                    if (typeArr[0] == this.packageName) typeArr.shift();
+                const field = msg.fields[key];
+                result += this.buildTSComments(field.comment, 1);
+                const typeArr = field.type.split(".");
+                if (typeArr[0] == this.packageName) typeArr.shift();
 
-
-                    const type = field.type.split(".").pop();
-                    const nested = isSub ? parent.nested : msg.nested;
-                    const isSubTypeField = nested ? !!nested[type] : false;
-                    const fieldType = isSubTypeField ? `I${ isSub ? parentName : name }_${ type }` : (TS_TypeMap[type] || (this.namespace.nested[type] && this.namespace.nested[type].fields ? `I${ type }` : type));
-                    result += `\t${ key }: ${ fieldType }${ field.rule == "repeated" ? "[]" : "" };\n`;
-                }
+                const type = field.type.split(".").pop();
+                const nested = isSub ? parent.nested : msg.nested;
+                const isSubTypeField = nested ? !!nested[type] : false;
+                const fieldType = isSubTypeField ? `I${ isSub ? parentName : name }_${ type }` : (TS_TypeMap[type] || (this.namespace.nested[type] && this.namespace.nested[type].fields ? `I${ type }` : type));
+                if (key == "error" && fieldType == "IError") continue;
+                result += `\t${ key }: ${ fieldType }${ field.rule == "repeated" ? "[]" : "" };\n`;
             }
         }
         result += "}\n\n";
@@ -199,7 +196,7 @@ export class BuildProtoDeclare extends BuildBase {
 
         var omitproto = 'declare type ProtoObject<T> = Omit<T, "toJSON">;\n\n';
         var iproto = "declare interface IProto {\n\ttoJSON?(): ProtoObject<this>;\n}\n\n";
-        let messageContent = omitproto + iproto + "declare interface IResponse extends IProto {\n\terror?: any;\n}\n\n";
+        let messageContent = omitproto + iproto + "declare interface IResponse extends IProto {\n\terror?: IError;\n}\n\n";
         for (const key in nested) {
             const msg = nested[key];
             if (msg.values) {
