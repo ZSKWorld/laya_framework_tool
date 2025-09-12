@@ -6,6 +6,8 @@ import { GetAllFile, UpperFirst } from "./Utils";
 
 const enum FileType {
     Json = ".json",
+    Proto = ".proto",
+    Bin = ".bin",
     Ttf = ".ttf",
     Png = ".png",
     Jpg = ".jpg",
@@ -81,7 +83,7 @@ export class BuildResPath2 extends BuildBase {
     }
 
     private buildConfig(dirPath: string) {
-        const files = this.getAllFile(dirPath, [FileType.Json]);
+        const files = this.getAllFile(dirPath, [FileType.Json, FileType.Proto, FileType.Bin]);
         const pathKVs = this.getPathKVs(files);
         return [
             this.createContent("ConfigPath", pathKVs)

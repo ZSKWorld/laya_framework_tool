@@ -50,9 +50,12 @@ export const ExcelDir = resolve(__workname, "excel");
 export const Declare_ExcelPath = resolve(__workname, "Lua/LuaScript/Net/ExcelDeclare.lua");
 export const ProtoPath = resolve(__workname, "bin/proto/client.proto");
 export const ProtoReplacePath = resolve(__workname, "bin/proto/proto_replace.jsonc");
-export const Declare_ProtoTsPath = resolve(__workname, "libs_game/proto.d.ts");
-export const Declare_ProtoLuaPath = resolve(__workname, "Lua/LuaScript/Net/ProtoDeclare.lua");
+export const Declare_ProtoPath = resolve(__workname, "libs_game/proto.d.ts");
+export const Lib_ProtoPath = resolve(__workname, "bin/libs_leb/proto.d.js");
+export const Declare_ReqMethodPath = resolve(__workname, "src/core/net/IReqMethod.d.ts");
 
+
+//---------------------------------------------Tips
 const TipString = "This script is generated automatically, Please do not any modify!";
-export const TS_MODIFY_TIP = `/** ${TipString} */\n`;
-export const LUA_MODIFY_TIP = `---${TipString}\n`;
+export const TS_MODIFY_TIP = `/** ${ TipString } */\n`;
+export const LUA_MODIFY_TIP = `---${ TipString }\n`;
