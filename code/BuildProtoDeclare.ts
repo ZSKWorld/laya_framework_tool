@@ -244,7 +244,7 @@ export class BuildProtoDeclare extends BuildBase {
             + messageContent + "\n";
         fs.writeFileSync(Declare_ProtoPath, content);
 
-        const libContent = libNotifyContent + libReqContent;
+        const libContent = `${ TS_MODIFY_TIP }\n${ libNotifyContent }\n${ libReqContent }`;
         fs.writeFileSync(Lib_ProtoPath, libContent);
 
         reqMethodContent = `${ TS_MODIFY_TIP }\n${ reqMethodContent }`;
