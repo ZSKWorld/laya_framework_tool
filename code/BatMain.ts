@@ -2,7 +2,6 @@ import * as readline from "readline";
 import { BuildBase } from "./BuildBase";
 import { BuildConfig } from "./BuildConfig";
 import { BuildDataEvent } from "./BuildDataEvent";
-import { BuildExcelDeclare } from "./BuildExcelDeclare";
 import { BuildNet } from "./BuildNet";
 import { BuildProtoDeclare } from "./BuildProtoDeclare";
 import { BuildResPath } from "./BuildResPath";
@@ -13,6 +12,7 @@ import { Logger } from "./Console";
 import { BuildResPath3_0 } from "./BuildResPath3_0";
 import { BuildConfig3_0 } from "./BuildConfig3_0";
 import { BuildResPath2 } from "./BuildResPath2";
+import { BuildExcelDeclare } from "./BuildExcelDeclare";
 
 interface Act {
     desc: string,

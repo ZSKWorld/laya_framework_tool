@@ -46,8 +46,9 @@ export const Declare_ResPathPath3_0 = resolve(__workname, "engine/libs_game/res_
 export const ResPathPath3_0 = resolve(__workname, "src/core/common/ResPath.ts");
 
 //---------------------------------------------Proto & excel Declare
-export const ExcelDir = resolve(__workname, "excel");
-export const Declare_ExcelPath = resolve(__workname, "Lua/LuaScript/Net/ExcelDeclare.lua");
+export const ExcelDir = resolve(__workname, "bin/excel");
+export const Declare_ExcelDir = resolve(__workname, "src/core/config/declare");
+export const Declare_CfgMgrPath = resolve(__workname, "src/core/config/IConfigManager.d.ts");
 export const ProtoPath = resolve(__workname, "bin/proto/client.proto");
 export const ProtoReplacePath = resolve(__workname, "bin/proto/proto_replace.jsonc");
 export const Declare_ProtoPath = resolve(__workname, "libs_game/proto.d.ts");
