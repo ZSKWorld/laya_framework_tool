@@ -1,6 +1,6 @@
 type CfgFieldType<T> = { [P in keyof T]: T[P] }[keyof T];
 interface CfgExtension<T> {
-	rows: CfgFieldType<T>[];
+	rows: (CfgFieldType<T> extends Array<infer U> ? U : CfgFieldType<T>)[];
 	forEach(callbackfn: (value: CfgFieldType<T>, index: number, array: CfgFieldType<T>[]) => void, thisArg?: any): void;
 	filter(predicate: (value: CfgFieldType<T>, index: number, array: CfgFieldType<T>[]) => boolean, thisArg?: any): CfgFieldType<T>[];
 	find(predicate: (value: CfgFieldType<T>, index: number, array: CfgFieldType<T>[]) => boolean, thisArg?: any): CfgFieldType<T>;
@@ -14,4 +14,8 @@ interface CfgExtension<T> {
 	slice(start?: number, end?: number): CfgFieldType<T>[];
 	some(predicate: (value: CfgFieldType<T>, index: number, array: CfgFieldType<T>[]) => boolean, thisArg?: any): boolean;
 }
+interface CfgGroupExtension<T> extends CfgExtension<T> {
+	groups: CfgFieldType<T>[];
+}
 type CfgExt<T> = { [P in keyof T]: T[P] } & CfgExtension<T>;
+type CfgExtGroup<T> = { [P in keyof T]: T[P] } & CfgGroupExtension<T>;

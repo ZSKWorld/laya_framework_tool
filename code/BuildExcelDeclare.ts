@@ -159,7 +159,10 @@ class ExcelData {
             sheetsDeclare.push(v.getDeclare());
             const desc = (v.desc ? `${ v.desc }  ---  ` : "") + v.exportType;
             keyDeclare.push(`\t/** ${ desc } */`);
-            keyDeclare.push(`\t${ v.name }: CfgExt<${ v.sheetDeclareName }>;`);
+            if (v.exportType == ExportType.Group)
+                keyDeclare.push(`\t${ v.name }: CfgExtGroup<${ v.sheetDeclareName }>;`);
+            else
+                keyDeclare.push(`\t${ v.name }: CfgExt<${ v.sheetDeclareName }>;`);
         });
         const declare: string[] = [
             `declare interface ${ this.tableName } {\n${ keyDeclare.join("\n") }\n}`,
