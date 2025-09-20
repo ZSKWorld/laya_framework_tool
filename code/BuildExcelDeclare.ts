@@ -95,10 +95,13 @@ class SheetData {
 
         const keyDeclare: string[] = [];
         if (exportType == ExportType.Group) {
+            keyDeclare.push(`\t[key: string]: ${ dataDeclareName }[];`);
             keys.forEach(v => keyDeclare.push(`\t${ v }: ${ dataDeclareName }[];`));
         } else if (exportType == ExportType.Unique) {
+            keyDeclare.push(`\t[key: string]: ${ dataDeclareName };`);
             keys.forEach(v => keyDeclare.push(`\t${ v }: ${ dataDeclareName };`));
         } else if (exportType == ExportType.KV) {
+            keyDeclare.push(`\t[key: string]: ${ dataDeclareName };`);
             keys.forEach(v => keyDeclare.push(`\t${ v }: ${ dataDeclareName };`));
         }
 
