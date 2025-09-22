@@ -62,7 +62,7 @@ export class BuildView extends BuildBase {
             const uiComps = matches ? matches.filter(v => !v.includes("static")) : [];
             // const uiComps = fs.readFileSync(path.resolve(dirPath, filename + ".ts")).toString().match(/public((?!static).)*;/g);
             if (uiComps.length > 0) {
-                let msgEnumName = `${ filename }Msg`;
+                let msgEnumName = `E${ filename }Msg`;
                 let useComps = [];
                 uiComps.forEach((v, index) => {
                     const [varName, varType] = v.substring(7, v.length - 1).split(":");
@@ -92,9 +92,9 @@ export class BuildView extends BuildBase {
         MakeDir(_mediatorDir);
         const [viewCls, viewMsg, mediatorCls, dataName, viewPath, mediatorPath, pkgName] = [
             filename + "View",
-            filename + "Msg",
+            "E" + filename + "Msg",
             filename + "Mediator",
-            filename + "Data",
+            "I" + filename + "Data",
             path.resolve(_viewDir, filename + "View.ts"),
             path.resolve(_mediatorDir, filename + "Mediator.ts"),
             path.basename(dirPath),
@@ -136,7 +136,10 @@ export class BuildView extends BuildBase {
             filename => filename.endsWith("View.ts") || filename.endsWith("Mediator.ts")
         ).forEach(filepath => {
             const relative = path.relative(ViewDir, filepath);
-            const pkgname = relative.split("\\")[0];
+            const relativeArr = relative.split("\\");
+            const pkgname = relativeArr[0];
+            const dir = relativeArr[1];
+            if (dir != "mediator" && dir != "view") return;
             const filename = path.basename(relative, ".ts");
             let uiname = "";
             if (filename.endsWith("View")) uiname = filename.substring(0, filename.length - 4);

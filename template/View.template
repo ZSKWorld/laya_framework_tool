@@ -1,6 +1,6 @@
 import #FILE_NAME# from "#VIEW_PATH#";
 
-export const enum #FILE_NAME#Msg {
+export const enum E#FILE_NAME#Msg {
 #MESSAGES#
 }
 
