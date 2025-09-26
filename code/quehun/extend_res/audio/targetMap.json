@@ -1,5 +1,5 @@
 {
-    "count": 463,
+    "count": 476,
     "mouseclick.mp3": [
         "audio\\audio_common\\mouseclick.mp3",
         "aac5bd6114c46baf1910eae7cff63a28"
@@ -260,6 +260,10 @@
         "deco\\effect_hupai\\ron_25summer\\ron_25summer.mp3",
         "ce1387999f4e2891cfc67903b9cb300a"
     ],
+    "ron_25yh.mp3": [
+        "deco\\effect_hupai\\ron_25yh\\ron_25yh.mp3",
+        "bc139ae109a491f3535914c72e6775fb"
+    ],
     "ron_akagi.mp3": [
         "deco\\effect_hupai\\ron_akagi\\ron_akagi.mp3",
         "fec39f03852b65bdf63b3f8edb22611d"
@@ -479,6 +483,10 @@
     "effect_liqi_25summer.mp3": [
         "deco\\effect_lizhi\\effect_liqi_25summer\\effect_liqi_25summer.mp3",
         "cc155d9d0e1e232c9ab5a726bce24385"
+    ],
+    "effect_liqi_25yh.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_25yh\\effect_liqi_25yh.mp3",
+        "330318df902eaff2fae2be4b1f272ee1"
     ],
     "effect_liqi_akagi.mp3": [
         "deco\\effect_lizhi\\effect_liqi_akagi\\effect_liqi_akagi.mp3",
@@ -868,6 +876,42 @@
         "ui\\activity\\extend\\2508voyage\\main\\audio\\2508hanghai_sea_wave.mp3",
         "c222d8c9ba1962ecb020d8949c79e74c"
     ],
+    "2510yh_activity_enter.mp3": [
+        "ui\\activity\\extend\\2510yh\\main\\audio\\2510yh_activity_enter.mp3",
+        "ba5be2436747d6a4d7627c2280bd1392"
+    ],
+    "2510yh_bgm.mp3": [
+        "ui\\activity\\extend\\2510yh\\main\\audio\\2510yh_bgm.mp3",
+        "83e65bf3e11be36d3a442bf63bed9205"
+    ],
+    "2510yh_charge.mp3": [
+        "ui\\activity\\extend\\2510yh\\main\\audio\\2510yh_charge.mp3",
+        "ab88fa4b16e9934bb15b3725b1699ce8"
+    ],
+    "2510yh_hire_employee.mp3": [
+        "ui\\activity\\extend\\2510yh\\main\\audio\\2510yh_hire_employee.mp3",
+        "c237546c432ae1b59f3769af9356a604"
+    ],
+    "2510yh_pass.mp3": [
+        "ui\\activity\\extend\\2510yh\\main\\audio\\2510yh_pass.mp3",
+        "05a067b05e206d1c644e528919a03cfb"
+    ],
+    "2510yh_request_great_success.mp3": [
+        "ui\\activity\\extend\\2510yh\\main\\audio\\2510yh_request_great_success.mp3",
+        "a9d33ae36001079feabc93b1cd8eb85d"
+    ],
+    "2510yh_request_start.mp3": [
+        "ui\\activity\\extend\\2510yh\\main\\audio\\2510yh_request_start.mp3",
+        "142798236517f9e5e73d2e32e5046540"
+    ],
+    "2510yh_request_success.mp3": [
+        "ui\\activity\\extend\\2510yh\\main\\audio\\2510yh_request_success.mp3",
+        "815cc663b7b77fac45df0007e5d869c4"
+    ],
+    "2510yh_ui_open.mp3": [
+        "ui\\activity\\extend\\2510yh\\main\\audio\\2510yh_ui_open.mp3",
+        "df118a1788f504b11f0989132560e6e3"
+    ],
     "2408qyzz_formula.mp3": [
         "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_formula.mp3",
         "6286ae88c4a35436f3b718901ea6a47a"
@@ -1151,6 +1195,10 @@
     "gacha_banner_normal.mp3": [
         "ui\\lobby\\main\\audio\\gacha_banner_normal.mp3",
         "90f3682ee68a5b9bcdcff2567eeecc02"
+    ],
+    "gacha_banner_yh.mp3": [
+        "ui\\lobby\\main\\audio\\gacha_banner_yh.mp3",
+        "5bedb14d912887839e75e974becba3e3"
     ],
     "gacha_character.mp3": [
         "ui\\lobby\\main\\audio\\gacha_character.mp3",
@@ -1827,6 +1875,10 @@
     "sea_wave.mp3": [
         "ui\\spot\\audio\\sea_wave.mp3",
         "9baa8a8288080b076c46e2d384444085"
+    ],
+    "xunmi.mp3": [
+        "ui\\spot\\audio\\xunmi.mp3",
+        "c9b3efb76f95a7bc1e68f78020193cb9"
     ],
     "yiliyase01.mp3": [
         "ui\\spot\\audio\\yiliyase01.mp3",
