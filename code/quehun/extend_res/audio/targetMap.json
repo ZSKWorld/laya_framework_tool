@@ -1,0 +1,1855 @@
+{
+    "count": 463,
+    "mouseclick.mp3": [
+        "audio\\audio_common\\mouseclick.mp3",
+        "aac5bd6114c46baf1910eae7cff63a28"
+    ],
+    "2501chunjie_activity_enter.mp3": [
+        "audio\\audio_event\\2501chunjie_activity_enter.mp3",
+        "d13d7af43e9d3f8971b7d1632c9daa48"
+    ],
+    "2501chunjie_add_point.mp3": [
+        "audio\\audio_event\\2501chunjie_add_point.mp3",
+        "849d05dc3e41bff391814a039bccd2c4"
+    ],
+    "2501chunjie_bgm_loop.mp3": [
+        "audio\\audio_event\\2501chunjie_bgm_loop.mp3",
+        "2a7245f266c7eceb42f4db12543b21b9"
+    ],
+    "2501chunjie_failure.mp3": [
+        "audio\\audio_event\\2501chunjie_failure.mp3",
+        "d77fb7648d5ca3f52d92abd51396d6ed"
+    ],
+    "2501chunjie_failure_switch_success.mp3": [
+        "audio\\audio_event\\2501chunjie_failure_switch_success.mp3",
+        "029aaf442da14c0e2e4e4011f5e4ef9c"
+    ],
+    "2501chunjie_great_success.mp3": [
+        "audio\\audio_event\\2501chunjie_great_success.mp3",
+        "9d9d7e8ecef7499fbcbc1d22696a8b4e"
+    ],
+    "2501chunjie_level_up_14_17.mp3": [
+        "audio\\audio_event\\2501chunjie_level_up_14_17.mp3",
+        "d0771abdd21e71234e82e1e5eee549db"
+    ],
+    "2501chunjie_level_up_1_7.mp3": [
+        "audio\\audio_event\\2501chunjie_level_up_1_7.mp3",
+        "aaf395a341f600c210507a77602e0385"
+    ],
+    "2501chunjie_level_up_8_13.mp3": [
+        "audio\\audio_event\\2501chunjie_level_up_8_13.mp3",
+        "6ddd0479480fc3ec4dc8c733ff8ead84"
+    ],
+    "2501chunjie_skill_level_up.mp3": [
+        "audio\\audio_event\\2501chunjie_skill_level_up.mp3",
+        "e5bc15c00627be88e62f6a24fdea2baf"
+    ],
+    "2501chunjie_skill_ui_open.mp3": [
+        "audio\\audio_event\\2501chunjie_skill_ui_open.mp3",
+        "6feb2daa8509d994418fe5ce9e54dcbe"
+    ],
+    "2501chunjie_success.mp3": [
+        "audio\\audio_event\\2501chunjie_success.mp3",
+        "eacc5f6d31b55ff120e1ec9dc75508db"
+    ],
+    "2501chunjie_ui_open.mp3": [
+        "audio\\audio_event\\2501chunjie_ui_open.mp3",
+        "07e95265c5dc092d61d8d5760fcf8858"
+    ],
+    "2501qyzz_lobby_loop.mp3": [
+        "audio\\audio_event\\2501qyzz_lobby_loop.mp3",
+        "12d36571e2b847e875377a5786d04c05"
+    ],
+    "2501qyzz_shop_pop.mp3": [
+        "audio\\audio_event\\2501qyzz_shop_pop.mp3",
+        "71e0ceff7bebdc2d8e2818b2335dfae0"
+    ],
+    "2501qyzz_stage_clear.mp3": [
+        "audio\\audio_event\\2501qyzz_stage_clear.mp3",
+        "6eb3c7d7c6f2959761603bfd74a11bb4"
+    ],
+    "2501qyzz_stage_fevertime.mp3": [
+        "audio\\audio_event\\2501qyzz_stage_fevertime.mp3",
+        "7d3a70e3c956f1ee40bf2594cb9b11f3"
+    ],
+    "2501qyzz_stage_in.mp3": [
+        "audio\\audio_event\\2501qyzz_stage_in.mp3",
+        "17728f05a8b133bf61360522d3cdb814"
+    ],
+    "2501qyzz_stage_show.mp3": [
+        "audio\\audio_event\\2501qyzz_stage_show.mp3",
+        "3f0da27ae788f4afde602ab3d419d3a9"
+    ],
+    "2504beishui_big_fire.mp3": [
+        "audio\\audio_event\\2504beishui_big_fire.mp3",
+        "07c4e64577da02255fdbeda654f3e399"
+    ],
+    "2504beishui_normal_fire.mp3": [
+        "audio\\audio_event\\2504beishui_normal_fire.mp3",
+        "50c84f864dcca1c996fc0ca7d8217ede"
+    ],
+    "2504quedou_activity_enter.mp3": [
+        "audio\\audio_event\\2504quedou_activity_enter.mp3",
+        "aed7ad3a88b9fbc09908aca41e9334c1"
+    ],
+    "2504quedou_event_great_success.mp3": [
+        "audio\\audio_event\\2504quedou_event_great_success.mp3",
+        "58632aa2a3a807373779865c52c769ad"
+    ],
+    "2504quedou_event_normal.mp3": [
+        "audio\\audio_event\\2504quedou_event_normal.mp3",
+        "7ffc60f3e482648528c280acfee4538b"
+    ],
+    "2504quedou_event_show.mp3": [
+        "audio\\audio_event\\2504quedou_event_show.mp3",
+        "7b866d80e606e465f33264c05472f1ed"
+    ],
+    "2504quedou_event_success.mp3": [
+        "audio\\audio_event\\2504quedou_event_success.mp3",
+        "ddb44f2385586a7fb1a0b3134400baa7"
+    ],
+    "2504quedou_lifetime_over.mp3": [
+        "audio\\audio_event\\2504quedou_lifetime_over.mp3",
+        "58f7da34a51fec8ee355f47947310a6f"
+    ],
+    "2504quedou_match_begin.mp3": [
+        "audio\\audio_event\\2504quedou_match_begin.mp3",
+        "b307196ade5a50b0c70d31e7acbacdcf"
+    ],
+    "2504quedou_match_bgm.mp3": [
+        "audio\\audio_event\\2504quedou_match_bgm.mp3",
+        "e3f9f529042ed4123f80dd5cf5ca4b36"
+    ],
+    "2504quedou_match_over.mp3": [
+        "audio\\audio_event\\2504quedou_match_over.mp3",
+        "4dda787455f835441e8fe2a3aa504bac"
+    ],
+    "2504quedou_train_bgm.mp3": [
+        "audio\\audio_event\\2504quedou_train_bgm.mp3",
+        "d199051fe3277fd726fae3b05a766fe1"
+    ],
+    "2504quedou_train_failure.mp3": [
+        "audio\\audio_event\\2504quedou_train_failure.mp3",
+        "f1568229ff61e01fb9d921fd754a6c1d"
+    ],
+    "2504quedou_train_great_success.mp3": [
+        "audio\\audio_event\\2504quedou_train_great_success.mp3",
+        "34d34ea4afb054b045fe31e7accd387c"
+    ],
+    "2504quedou_train_success.mp3": [
+        "audio\\audio_event\\2504quedou_train_success.mp3",
+        "2b012369c5916cf6555a705f7d7c35a5"
+    ],
+    "2504quedou_traveling.mp3": [
+        "audio\\audio_event\\2504quedou_traveling.mp3",
+        "c4d77f5a4701ee6d555cddfc2cd3c4ce"
+    ],
+    "2504quedou_ui_open.mp3": [
+        "audio\\audio_event\\2504quedou_ui_open.mp3",
+        "7656a0661d0ffbee39c642a1bed16525"
+    ],
+    "2504quedou_waiting_enter_match.mp3": [
+        "audio\\audio_event\\2504quedou_waiting_enter_match.mp3",
+        "4a56e9e15f012484d9d25506ee070824"
+    ],
+    "2506xila_bgm.mp3": [
+        "audio\\audio_event\\2506xila_bgm.mp3",
+        "ea5b94a9c7ed878c67cd307c5b3e827c"
+    ],
+    "akagi_rain.mp3": [
+        "audio\\audio_event\\akagi_rain.mp3",
+        "3fad597d711ece68f280d1815804849c"
+    ],
+    "ron_20chunjie.mp3": [
+        "deco\\effect_hupai\\ron_20chunjie\\ron_20chunjie.mp3",
+        "ce0143397008053d3bfb95178098be71"
+    ],
+    "ron_21chunjie.mp3": [
+        "deco\\effect_hupai\\ron_21chunjie\\ron_21chunjie.mp3",
+        "6bff98bb6205a5daa3ca24431558c023"
+    ],
+    "ron_21cyber.mp3": [
+        "deco\\effect_hupai\\ron_21cyber\\ron_21cyber.mp3",
+        "cb75b187d311780fdb76cc590db2e099"
+    ],
+    "ron_21magic.mp3": [
+        "deco\\effect_hupai\\ron_21magic\\ron_21magic.mp3",
+        "0d18a9702c536d4f0004a7d2f66ebd32"
+    ],
+    "ron_21winter.mp3": [
+        "deco\\effect_hupai\\ron_21winter\\ron_21winter.mp3",
+        "7ae7ee8f8c2ddd30e137f1bfd7984b6c"
+    ],
+    "ron_21zhounian.mp3": [
+        "deco\\effect_hupai\\ron_21zhounian\\ron_21zhounian.mp3",
+        "b14d4d2b98e87b733fb3289b398b8322"
+    ],
+    "ron_2211saki.mp3": [
+        "deco\\effect_hupai\\ron_2211saki\\ron_2211saki.mp3",
+        "d28099fd8feb7769477be887e96f3eca"
+    ],
+    "ron_22chunjie.mp3": [
+        "deco\\effect_hupai\\ron_22chunjie\\ron_22chunjie.mp3",
+        "8ece5214ae975573a83549dae006f13f"
+    ],
+    "ron_22rpg.mp3": [
+        "deco\\effect_hupai\\ron_22rpg\\ron_22rpg.mp3",
+        "c9ad4157bfe691d30832cdfe40b3b8a7"
+    ],
+    "ron_22summer.mp3": [
+        "deco\\effect_hupai\\ron_22summer\\ron_22summer.mp3",
+        "ba3bf15df96197b93ad29fae806a4b08"
+    ],
+    "ron_23ex_heidong.mp3": [
+        "deco\\effect_hupai\\ron_23ex_heidong\\ron_23ex_heidong.mp3",
+        "46928ac5e8e2e072ac83e8f7bf1d6218"
+    ],
+    "ron_23ex_liandao.mp3": [
+        "deco\\effect_hupai\\ron_23ex_liandao\\ron_23ex_liandao.mp3",
+        "5b3fda87aa0b12920242c1d380bb41bb"
+    ],
+    "ron_23ex_shuizhu.mp3": [
+        "deco\\effect_hupai\\ron_23ex_shuizhu\\ron_23ex_shuizhu.mp3",
+        "3a7906914f5d85efc9a98b337d4b698d"
+    ],
+    "ron_23rpg.mp3": [
+        "deco\\effect_hupai\\ron_23rpg\\ron_23rpg.mp3",
+        "321551e6adcd95fbecf463d72bf37469"
+    ],
+    "ron_23wansheng.mp3": [
+        "deco\\effect_hupai\\ron_23wansheng\\ron_23wansheng.mp3",
+        "61932dbd896dd11b820e1e0d7d42265f"
+    ],
+    "ron_23wenquan.mp3": [
+        "deco\\effect_hupai\\ron_23wenquan\\ron_23wenquan.mp3",
+        "37a95168e8ad3c986d18e47ae6f3a22c"
+    ],
+    "ron_23winter.mp3": [
+        "deco\\effect_hupai\\ron_23winter\\ron_23winter.mp3",
+        "e223932d1dc0cda9eefa6cfe23b813a2"
+    ],
+    "ron_24ba.mp3": [
+        "deco\\effect_hupai\\ron_24ba\\ron_24ba.mp3",
+        "8cb1bea8eda14ac3911393c37e85f000"
+    ],
+    "ron_24chunjie.mp3": [
+        "deco\\effect_hupai\\ron_24chunjie\\ron_24chunjie.mp3",
+        "89e150e3479e22eb33ee7d3bbee8baa7"
+    ],
+    "ron_24haidao.mp3": [
+        "deco\\effect_hupai\\ron_24haidao\\ron_24haidao.mp3",
+        "384fcab57c0cc1669a5f2ee6c42d1131"
+    ],
+    "ron_24imas.mp3": [
+        "deco\\effect_hupai\\ron_24imas\\ron_24imas.mp3",
+        "405e7ecec0cbc8946e9d907d1bd52726"
+    ],
+    "ron_24maomizhadan.mp3": [
+        "deco\\effect_hupai\\ron_24summer\\ron_24maomizhadan.mp3",
+        "66c5c9aafc9bc8c32b05b07b69688ccd"
+    ],
+    "ron_24winter.mp3": [
+        "deco\\effect_hupai\\ron_24winter\\ron_24winter.mp3",
+        "fe2fdae2ec4f02b6651c42956726eedf"
+    ],
+    "ron_25hf.mp3": [
+        "deco\\effect_hupai\\ron_25hf\\ron_25hf.mp3",
+        "302b2817758ac9b220ca970e5ad766a3"
+    ],
+    "ron_25summer.mp3": [
+        "deco\\effect_hupai\\ron_25summer\\ron_25summer.mp3",
+        "ce1387999f4e2891cfc67903b9cb300a"
+    ],
+    "ron_akagi.mp3": [
+        "deco\\effect_hupai\\ron_akagi\\ron_akagi.mp3",
+        "fec39f03852b65bdf63b3f8edb22611d"
+    ],
+    "ron_beiyuan.mp3": [
+        "deco\\effect_hupai\\ron_beiyuan\\ron_beiyuan.mp3",
+        "5404c71851fd61a190c4123dc7b2dad3"
+    ],
+    "ron_dongcheng.mp3": [
+        "deco\\effect_hupai\\ron_dongcheng\\ron_dongcheng.mp3",
+        "dfb0b9cda6c5840bc8735a5a67a7ef9f"
+    ],
+    "effect_hupai_fire.mp3": [
+        "deco\\effect_hupai\\ron_fire\\effect_hupai_fire.mp3",
+        "c3d69681ae88d8737494b8d0a8918663"
+    ],
+    "ron_gejumeiying.mp3": [
+        "deco\\effect_hupai\\ron_gejumeiying\\ron_gejumeiying.mp3",
+        "0d9713b453bf784596344d18b923a5db"
+    ],
+    "effect_hupai_heihuo.mp3": [
+        "deco\\effect_hupai\\ron_heihuo\\effect_hupai_heihuo.mp3",
+        "d84880a6e48f98f78ea9181d2753b50b"
+    ],
+    "ron_hl.mp3": [
+        "deco\\effect_hupai\\ron_hl\\ron_hl.mp3",
+        "50a3f0272d04ccde53939bd1dded8ee0"
+    ],
+    "ron_huolongjuan.mp3": [
+        "deco\\effect_hupai\\ron_huolongjuan\\ron_huolongjuan.mp3",
+        "75ce62b6062c204ed5f25a4513feb8bc"
+    ],
+    "ron_jd.mp3": [
+        "deco\\effect_hupai\\ron_jd\\ron_jd.mp3",
+        "91a6ee4303e5695263aa001208a16b00"
+    ],
+    "ron_kaguya.mp3": [
+        "deco\\effect_hupai\\ron_kaguya\\ron_kaguya.mp3",
+        "27fc45aa74c0c3cd575bfbc4e3798d9a"
+    ],
+    "ron_keji.mp3": [
+        "deco\\effect_hupai\\ron_keji\\ron_keji.mp3",
+        "aa3f4eb1fbfd3b305a8ece0c351f7c7f"
+    ],
+    "ron_ko.mp3": [
+        "deco\\effect_hupai\\ron_ko\\ron_ko.mp3",
+        "86d5af3939995819321962a199a5c3a0"
+    ],
+    "ron_kuangdu.mp3": [
+        "deco\\effect_hupai\\ron_kuangdu\\ron_kuangdu.mp3",
+        "702218dae708e3c08b9c50297f693b6b"
+    ],
+    "ron_liyang.mp3": [
+        "deco\\effect_hupai\\ron_liyang\\ron_liyang.mp3",
+        "683b5b6e82a4a9613e46f487600547b9"
+    ],
+    "ron_23llx.mp3": [
+        "deco\\effect_hupai\\ron_llx\\ron_23llx.mp3",
+        "374afd2cd5e9ba5abd62b187a6bcac6d"
+    ],
+    "ron_meiguihua.mp3": [
+        "deco\\effect_hupai\\ron_meiguihua\\ron_meiguihua.mp3",
+        "e4576fec3d22c6a583187b55314fb428"
+    ],
+    "ron_mofashaonv.mp3": [
+        "deco\\effect_hupai\\ron_mofashaonv\\ron_mofashaonv.mp3",
+        "351f9dc8b7aec1efaeba6f93127ad744"
+    ],
+    "ron_music.mp3": [
+        "deco\\effect_hupai\\ron_music\\ron_music.mp3",
+        "91e0feabb9515b76992c522f17edc2c2"
+    ],
+    "ron_nanfenghua.mp3": [
+        "deco\\effect_hupai\\ron_nanfenghua\\ron_nanfenghua.mp3",
+        "351c9bc040bca55dba5f00a1e7e29f9b"
+    ],
+    "ron_nilin.mp3": [
+        "deco\\effect_hupai\\ron_nilin\\ron_nilin.mp3",
+        "78ace05f8af15c2cf9c711001a76efb3"
+    ],
+    "ron_nws.mp3": [
+        "deco\\effect_hupai\\ron_nws\\ron_nws.mp3",
+        "023044dc0f4f31667f31d8011ab21730"
+    ],
+    "ron_saki.mp3": [
+        "deco\\effect_hupai\\ron_saki\\ron_saki.mp3",
+        "0cfc7037bddb2a3ecdb793a05c9f472d"
+    ],
+    "effect_hupai_sakura.mp3": [
+        "deco\\effect_hupai\\ron_sakura\\effect_hupai_sakura.mp3",
+        "eb0edec3cb53069cfe3ee402a52f6473"
+    ],
+    "ron_szx.mp3": [
+        "deco\\effect_hupai\\ron_szx\\ron_szx.mp3",
+        "67b509b7a296b71531d00cf4e10a30a5"
+    ],
+    "effect_hupai_feng.mp3": [
+        "deco\\effect_hupai\\ron_wind\\effect_hupai_feng.mp3",
+        "40e7edcd25404abd7e21ad2911ebd3b6"
+    ],
+    "ron_xhzy.mp3": [
+        "deco\\effect_hupai\\ron_xhzy\\ron_xhzy.mp3",
+        "273bc4d7ec124e5732f31a3fa899f426"
+    ],
+    "ron_xiyuansi.mp3": [
+        "deco\\effect_hupai\\ron_xiyuansi\\ron_xiyuansi.mp3",
+        "57f60bb3417f6e36263d4058ad472cae"
+    ],
+    "effect_hupai_yanhua.mp3": [
+        "deco\\effect_hupai\\ron_yanhua\\effect_hupai_yanhua.mp3",
+        "4c4904f45ae798884451d72d6c75b556"
+    ],
+    "ron_23yly.mp3": [
+        "deco\\effect_hupai\\ron_yly\\ron_23yly.mp3",
+        "9c9c914bf255fe79b4031c5d7afd5d1f"
+    ],
+    "effect_ron_youling.mp3": [
+        "deco\\effect_hupai\\ron_youlingaoao\\effect_ron_youling.mp3",
+        "a98d8f0cdffbe89f1d8b3757efa9b4b8"
+    ],
+    "effect_liqi_20chunjie.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_20chunjie\\effect_liqi_20chunjie.mp3",
+        "608db2ecdba3cb8e88c093f4bcab6354"
+    ],
+    "effect_liqi_21chunjie.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_21chunjie\\effect_liqi_21chunjie.mp3",
+        "852b8d03963433e0401317ad0b36c82a"
+    ],
+    "effect_liqi_21cyber.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_21cyber\\effect_liqi_21cyber.mp3",
+        "bb44a75597229a9f01d81a2860edc72b"
+    ],
+    "effect_liqi_21magic.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_21magic\\effect_liqi_21magic.mp3",
+        "f49efb96de34bd013c17f12027a947b6"
+    ],
+    "effect_liqi_21winter.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_21winter\\effect_liqi_21winter.mp3",
+        "acc0dd66b0d5841816ee45d2ec0db8a2"
+    ],
+    "effect_liqi_21zhounian.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_21zhounian\\effect_liqi_21zhounian.mp3",
+        "e3b2669c43250129574ca6d3ce120d3d"
+    ],
+    "effect_liqi_2211saki.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_2211saki\\effect_liqi_2211saki.mp3",
+        "0709ccb2db9a186dc42587f8f76fce37"
+    ],
+    "effect_liqi_22chunjie.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_22chunjie\\effect_liqi_22chunjie.mp3",
+        "e4e27944ef4c9103e2ebf36c8579a2d3"
+    ],
+    "effect_liqi_22rpg.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_22rpg\\effect_liqi_22rpg.mp3",
+        "0cc81238c984e8c3c73b958eb5caab5e"
+    ],
+    "effect_liqi_22summer.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_22summer\\effect_liqi_22summer.mp3",
+        "f18efb0ff212c6716c06662768a26578"
+    ],
+    "effect_liqi_23ex_liandao.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_23ex_liandao\\effect_liqi_23ex_liandao.mp3",
+        "55ab5437bd54b675c67a7d687615e2f1"
+    ],
+    "effect_liqi_23ex_maozhua.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_23ex_maozhua\\effect_liqi_23ex_maozhua.mp3",
+        "bcf21767a3804c4a3b8bda19b6949681"
+    ],
+    "effect_liqi_23ex_xueqiu.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_23ex_xueqiu\\effect_liqi_23ex_xueqiu.mp3",
+        "8e5c6532e7911d2f2d2a03cfa7da7a36"
+    ],
+    "effect_liqi_23rpg.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_23rpg\\effect_liqi_23rpg.mp3",
+        "f02f98c0cc521a840bfe54b68a1dffeb"
+    ],
+    "effect_liqi_23wansheng.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_23wansheng\\effect_liqi_23wansheng.mp3",
+        "36350736684a2ac6444b09f1fb9c19c5"
+    ],
+    "effect_liqi_23wenquan.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_23wenquan\\effect_liqi_23wenquan.mp3",
+        "9ddfb8383c1dde8eca8881ce4c1f33e1"
+    ],
+    "effect_liqi_23winter.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_23winter\\effect_liqi_23winter.mp3",
+        "76aa94d88581b361daf74057d816ec7f"
+    ],
+    "effect_liqi_24ba.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_24ba\\effect_liqi_24ba.mp3",
+        "42fed93657222848a41fde2594ee5c2a"
+    ],
+    "effect_liqi_24chunjie.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_24chunjie\\effect_liqi_24chunjie.mp3",
+        "5de51b903104d59e4de56675edeee334"
+    ],
+    "effect_liqi_24haidao.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_24haidao\\effect_liqi_24haidao.mp3",
+        "352513b31f38f60fc19f7454238aab79"
+    ],
+    "effect_liqi_24imas.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_24imas\\effect_liqi_24imas.mp3",
+        "a14e092c17bc711eea45fabc39ca50b2"
+    ],
+    "effect_liqi_24maomizhadan.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_24summer\\effect_liqi_24maomizhadan.mp3",
+        "5637e32ab592d63483560a72b944ab9c"
+    ],
+    "effect_liqi_24winter.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_24winter\\effect_liqi_24winter.mp3",
+        "f1105878e6a4807e766164484e150a7a"
+    ],
+    "effect_liqi_25hf.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_25hf\\effect_liqi_25hf.mp3",
+        "d8ebbdbad7e7a59829b037b3e7821c96"
+    ],
+    "effect_liqi_25summer.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_25summer\\effect_liqi_25summer.mp3",
+        "cc155d9d0e1e232c9ab5a726bce24385"
+    ],
+    "effect_liqi_akagi.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_akagi\\effect_liqi_akagi.mp3",
+        "92a0bd51d6ecd52ebb3eef58167cd9ab"
+    ],
+    "effect_liqi_beiyuan.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_beiyuan\\effect_liqi_beiyuan.mp3",
+        "f2b3db0d7156bd4d72ccdccb82005520"
+    ],
+    "effect_liqi_bianfu.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_bianfujiejie\\effect_liqi_bianfu.mp3",
+        "37597c3db2700ae98ea6f7e033bf5c5b"
+    ],
+    "effect_liqi_canying.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_canying\\effect_liqi_canying.mp3",
+        "4de5d21fccd14ab452c691119bb5ea4e"
+    ],
+    "effect_liqi_ding.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_ding\\effect_liqi_ding.mp3",
+        "954500a064a18d5411e9cd5cbe8def7b"
+    ],
+    "effect_liqi_dongcheng.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_dongcheng\\effect_liqi_dongcheng.mp3",
+        "4cd88b195476c77054dec7a782166fc3"
+    ],
+    "effect_liqi_feichangshitai.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_feichangshitai\\effect_liqi_feichangshitai.mp3",
+        "5e62cd79b1f97974fef36d6db0e28ccd"
+    ],
+    "effect_liqi_feiyu.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_feiyu\\effect_liqi_feiyu.mp3",
+        "6e8b070322abd67fd7d68dc7359a870e"
+    ],
+    "effect_rich_fire.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_fire\\effect_rich_fire.mp3",
+        "cef3f52d04284d3c5e364e1f1bb114a2"
+    ],
+    "effect_liqi_hl.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_hl\\effect_liqi_hl.mp3",
+        "ef75825652436c5ad13773eaad2843cc"
+    ],
+    "effect_rich_frozen.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_ice\\effect_rich_frozen.mp3",
+        "0e74be42af4c589d4f87559a8f6b0410"
+    ],
+    "effect_liqi_jd.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_jd\\effect_liqi_jd.mp3",
+        "15fa19295d165fe959a7d0c6e940c5e8"
+    ],
+    "effect_liqi_kaguya.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_kaguya\\effect_liqi_kaguya.mp3",
+        "dc2b51f18f46bf18691b9092ac741649"
+    ],
+    "effect_liqi_kuangdu.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_kuangdu\\effect_liqi_kuangdu.mp3",
+        "f56c18a4b4ebcb463952148590605f51"
+    ],
+    "effect_liqi_liyang.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_liyang\\effect_liqi_liyang.mp3",
+        "2d0ed8ad074a88550dd4b4ef3787adc0"
+    ],
+    "effect_liqi_23llx.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_llx\\effect_liqi_23llx.mp3",
+        "ff658ee2281f4e01cf5014949fb8faf7"
+    ],
+    "effect_liqi_longteng.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_longteng\\effect_liqi_longteng.mp3",
+        "462f4582249a41f05e0429997f8043ac"
+    ],
+    "effect_liqi_mofashaonv.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_mofashaonv\\effect_liqi_mofashaonv.mp3",
+        "d19a53b427d281bf6bfb58af900d32f1"
+    ],
+    "effect_liqi_music.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_music\\effect_liqi_music.mp3",
+        "27a0f7972850fd5ba87ceb43f68a648e"
+    ],
+    "effect_liqi_nanfenghua.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_nanfenghua\\effect_liqi_nanfenghua.mp3",
+        "b661261cba407f9d6215f482ef83fa3e"
+    ],
+    "effect_liqi_nws.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_nws\\effect_liqi_nws.mp3",
+        "c4736d948aa53d79fb6971c6031f5f7c"
+    ],
+    "effect_liqi_saki.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_saki\\effect_liqi_saki.mp3",
+        "6bdd99f7d1ee603b62679a771cbb917b"
+    ],
+    "effect_liqi_szx.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_szx\\effect_liqi_szx.mp3",
+        "886b3907b1ab22a63e383c345d6b76a2"
+    ],
+    "effect_liqi_xhzy.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_xhzy\\effect_liqi_xhzy.mp3",
+        "1b6d16d97fea417336f63a3555666880"
+    ],
+    "effect_liqi_xiyuansi.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_xiyuansi\\effect_liqi_xiyuansi.mp3",
+        "8219f0b1999a319914f8b24135d4f31a"
+    ],
+    "effect_liqi_23yly.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_yly\\effect_liqi_23yly.mp3",
+        "ed6ca975df199276a676b1d10b4a5b4d"
+    ],
+    "fan_chunzhengjiulianbaodeng.mp3": [
+        "scenes\\mj\\effect_yiman\\chunzhengjiulianbaodeng\\common\\audio\\fan_chunzhengjiulianbaodeng.mp3",
+        "477fe23f664a3f57fd0e90bce6dbd892"
+    ],
+    "fan_dasanyuan.mp3": [
+        "scenes\\mj\\effect_yiman\\dasanyuan\\common\\audio\\fan_dasanyuan.mp3",
+        "0539534f2ef9aa988746c02752de8322"
+    ],
+    "fan_dasixi.mp3": [
+        "scenes\\mj\\effect_yiman\\dasixi\\common\\audio\\fan_dasixi.mp3",
+        "bc3c810446d2499d41056fd21c78effa"
+    ],
+    "fan_dihu.mp3": [
+        "scenes\\mj\\effect_yiman\\dihu\\common\\audio\\fan_dihu.mp3",
+        "e79b2d07477362b1f1724fdfdddc2c45"
+    ],
+    "fan_guoshishisanmian.mp3": [
+        "scenes\\mj\\effect_yiman\\guoshishisanmian\\common\\audio\\fan_guoshishisanmian.mp3",
+        "f8b94ea2a694a4af2c3908855e174fee"
+    ],
+    "fan_guoshiwushuang.mp3": [
+        "scenes\\mj\\effect_yiman\\guoshiwushuang\\common\\audio\\fan_guoshiwushuang.mp3",
+        "e258a62e550d700729409ac18f9d253c"
+    ],
+    "fan_jiulianbaodeng.mp3": [
+        "scenes\\mj\\effect_yiman\\jiulianbaodeng\\common\\audio\\fan_jiulianbaodeng.mp3",
+        "0cedecc474d52d966ebd2a52719d2571"
+    ],
+    "fan_lvyise.mp3": [
+        "scenes\\mj\\effect_yiman\\lvyise\\common\\audio\\fan_lvyise.mp3",
+        "4e2bed61643f3430436a29b71f7cc93d"
+    ],
+    "yiman_preload.mp3": [
+        "scenes\\mj\\effect_yiman\\main\\audio\\yiman_preload.mp3",
+        "e2c43838ff16b63a71c542e314611173"
+    ],
+    "fan_qinglaotou.mp3": [
+        "scenes\\mj\\effect_yiman\\qinglaotou\\common\\audio\\fan_qinglaotou.mp3",
+        "e96b2d006aebb953c95df2fdf8847fc9"
+    ],
+    "fan_sianke.mp3": [
+        "scenes\\mj\\effect_yiman\\sianke\\common\\audio\\fan_sianke.mp3",
+        "96d2b98f346f4f3f7db7f1acd9096bfc"
+    ],
+    "fan_siankedanqi.mp3": [
+        "scenes\\mj\\effect_yiman\\siankedanqi\\common\\audio\\fan_siankedanqi.mp3",
+        "73459373a3b46bdef712b59e4c302963"
+    ],
+    "fan_sigangzi.mp3": [
+        "scenes\\mj\\effect_yiman\\sigangzi\\common\\audio\\fan_sigangzi.mp3",
+        "679e787873e1b05875eef898719ea57e"
+    ],
+    "fan_tianhu.mp3": [
+        "scenes\\mj\\effect_yiman\\tianhu\\common\\audio\\fan_tianhu.mp3",
+        "410832e757702030ba6bfbaa03c4a155"
+    ],
+    "fan_xiaosixi.mp3": [
+        "scenes\\mj\\effect_yiman\\xiaosixi\\common\\audio\\fan_xiaosixi.mp3",
+        "14936c409f579a05acbc905583daa37c"
+    ],
+    "fan_ziyise.mp3": [
+        "scenes\\mj\\effect_yiman\\ziyise\\common\\audio\\fan_ziyise.mp3",
+        "7499038b94095cebce026b2d98415f23"
+    ],
+    "2312winter_combine.mp3": [
+        "ui\\activity\\extend\\2312combine\\main\\audio\\2312winter_combine.mp3",
+        "7cef2d09521447b9f0c8fa3672bf89cb"
+    ],
+    "2312winter_delivery.mp3": [
+        "ui\\activity\\extend\\2312combine\\main\\audio\\2312winter_delivery.mp3",
+        "fd3dbc844585495431d7997d1c2ddc25"
+    ],
+    "2312winter_new.mp3": [
+        "ui\\activity\\extend\\2312combine\\main\\audio\\2312winter_new.mp3",
+        "82f9e3058e7d3339940f18f15742b7f9"
+    ],
+    "2401chunjie_activity_enter.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_activity_enter.mp3",
+        "bc0d2e2684fbdda2cc55c4692e720879"
+    ],
+    "2401chunjie_area_increase.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_area_increase.mp3",
+        "3a6d8b33b6d771436d17791f67a5275e"
+    ],
+    "2401chunjie_bailongmiao_close.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_bailongmiao_close.mp3",
+        "2a956e66a6641b479f799ea0fe82e640"
+    ],
+    "2401chunjie_bailongmiao_open.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_bailongmiao_open.mp3",
+        "a82e1012fefe3d3f7699cb3d496bc9b1"
+    ],
+    "2401chunjie_bgm_intro.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_bgm_intro.mp3",
+        "b067b65bd7927a3b38876034ea0e6f8d"
+    ],
+    "2401chunjie_bgm_loop.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_bgm_loop.mp3",
+        "53de745480f7063d6ae2862e5a60a975"
+    ],
+    "2401chunjie_cloud.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_cloud.mp3",
+        "cd115b1060d316572c91c77b7b305ce1"
+    ],
+    "2401chunjie_farmer_remove.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_farmer_remove.mp3",
+        "0be4323268aca74658b8db7af4578e6f"
+    ],
+    "2401chunjie_farmer_send.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_farmer_send.mp3",
+        "0b3911da9c34b5b6b4337306f87ac45a"
+    ],
+    "2401chunjie_get_food.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_get_food.mp3",
+        "268193e2e388306e00968979f82ba473"
+    ],
+    "2401chunjie_get_fruit.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_get_fruit.mp3",
+        "7eb015d497c1f35ff4cd3d8cf9b2c793"
+    ],
+    "2401chunjie_get_stone.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_get_stone.mp3",
+        "5be9a7202ae1aa239f08bec2d26b448b"
+    ],
+    "2401chunjie_get_wood.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_get_wood.mp3",
+        "d88f6a98ff5c435b74fd59501a25d75d"
+    ],
+    "2401chunjie_travel.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_travel.mp3",
+        "0d0064a1d0b6d70deab561ee54c38291"
+    ],
+    "2401chunjie_ui_open.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_ui_open.mp3",
+        "748107c5300e95feb6759f0ad91f4744"
+    ],
+    "2401chunjie_unlock.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_unlock.mp3",
+        "79d1ef497bd1a54fc1aa0d20cbe13acf"
+    ],
+    "2401chunjie_upgrade.mp3": [
+        "ui\\activity\\extend\\2401village\\main\\audio\\2401chunjie_upgrade.mp3",
+        "e3c7f6f5fb7151d151e8e619dd5c7cd6"
+    ],
+    "2406haidao_activity_enter.mp3": [
+        "ui\\activity\\extend\\2406haidao\\main\\audio\\2406haidao_activity_enter.mp3",
+        "c265a745c09ac5536027b9a1d443777c"
+    ],
+    "2406haidao_bag_grid_unlock.mp3": [
+        "ui\\activity\\extend\\2406haidao\\main\\audio\\2406haidao_bag_grid_unlock.mp3",
+        "e5b06426efac9999dbf00c648a04ae4b"
+    ],
+    "2406haidao_bag_switch.mp3": [
+        "ui\\activity\\extend\\2406haidao\\main\\audio\\2406haidao_bag_switch.mp3",
+        "34eb3eb31bb4cc3d2d593abe18d7085b"
+    ],
+    "2406haidao_bgm_loop.mp3": [
+        "ui\\activity\\extend\\2406haidao\\main\\audio\\2406haidao_bgm_loop.mp3",
+        "5520a9f74772be79f122d7a608f6fbb5"
+    ],
+    "2406haidao_level_up.mp3": [
+        "ui\\activity\\extend\\2406haidao\\main\\audio\\2406haidao_level_up.mp3",
+        "0bbaec83beaf69ff8c9de8921e7d5c11"
+    ],
+    "2406haidao_put.mp3": [
+        "ui\\activity\\extend\\2406haidao\\main\\audio\\2406haidao_put.mp3",
+        "4d3b450c9aa05c8934950f6830d16b1a"
+    ],
+    "2406haidao_reward_ui_open.mp3": [
+        "ui\\activity\\extend\\2406haidao\\main\\audio\\2406haidao_reward_ui_open.mp3",
+        "a8623943fd5de0733807284c187f12ef"
+    ],
+    "2406haidao_start_move.mp3": [
+        "ui\\activity\\extend\\2406haidao\\main\\audio\\2406haidao_start_move.mp3",
+        "35096075d469e3121696189a2b8acd42"
+    ],
+    "2408zhuyun_activity_enter.mp3": [
+        "ui\\activity\\extend\\2408story\\main\\audio\\2408zhuyun_activity_enter.mp3",
+        "f4cb7fecb267dd25a1c31c7d3105013c"
+    ],
+    "2408zhuyun_building_finish.mp3": [
+        "ui\\activity\\extend\\2408story\\main\\audio\\2408zhuyun_building_finish.mp3",
+        "90b13d3ef6786c02a778fabc1d1d20f4"
+    ],
+    "2408zhuyun_building_unlock.mp3": [
+        "ui\\activity\\extend\\2408story\\main\\audio\\2408zhuyun_building_unlock.mp3",
+        "8c437c2ca99507a9a0c9ed06259eaa31"
+    ],
+    "2408zhuyun_story_ui_open.mp3": [
+        "ui\\activity\\extend\\2408story\\main\\audio\\2408zhuyun_story_ui_open.mp3",
+        "0fdf9a41cd927e36a316c7ebe541b877"
+    ],
+    "2411imas_activity_enter.mp3": [
+        "ui\\activity\\extend\\2411imas\\main\\audio\\2411imas_activity_enter.mp3",
+        "ddc2a0f128ebb8b4bd37281108f00a85"
+    ],
+    "2411imas_bgm_loop.mp3": [
+        "ui\\activity\\extend\\2411imas\\main\\audio\\2411imas_bgm_loop.mp3",
+        "93423c5f996b9a974f3ef8590372cedf"
+    ],
+    "2411imas_level_big.mp3": [
+        "ui\\activity\\extend\\2411imas\\main\\audio\\2411imas_level_big.mp3",
+        "0c6243821fc9af0c6ac4bd05814aed93"
+    ],
+    "2411imas_level_small.mp3": [
+        "ui\\activity\\extend\\2411imas\\main\\audio\\2411imas_level_small.mp3",
+        "cac31227c9d72a70838cd033c0f091f4"
+    ],
+    "2411imas_level_up.mp3": [
+        "ui\\activity\\extend\\2411imas\\main\\audio\\2411imas_level_up.mp3",
+        "afdc02530b7f090e0e56a309ce17e8e3"
+    ],
+    "2411imas_match.mp3": [
+        "ui\\activity\\extend\\2411imas\\main\\audio\\2411imas_match.mp3",
+        "0238635d6a3decc0807262c09a748331"
+    ],
+    "2411imas_skill_level_up.mp3": [
+        "ui\\activity\\extend\\2411imas\\main\\audio\\2411imas_skill_level_up.mp3",
+        "d5b81958adc5e73b994f681e3922ec01"
+    ],
+    "2411imas_ui_close.mp3": [
+        "ui\\activity\\extend\\2411imas\\main\\audio\\2411imas_ui_close.mp3",
+        "5b6784ac5b736d2b0459ac04ef0c18fd"
+    ],
+    "2411imas_ui_open.mp3": [
+        "ui\\activity\\extend\\2411imas\\main\\audio\\2411imas_ui_open.mp3",
+        "b5cf0ddff3efc849fcf3a3c9f8d83dca"
+    ],
+    "2412touzi_activity_enter.mp3": [
+        "ui\\activity\\extend\\2412richman\\main\\audio\\2412touzi_activity_enter.mp3",
+        "308c39295132fb8c3d1121935c264dc0"
+    ],
+    "2412touzi_bank.mp3": [
+        "ui\\activity\\extend\\2412richman\\main\\audio\\2412touzi_bank.mp3",
+        "2e178f8aadf52318563876957dfda45f"
+    ],
+    "2412touzi_chest_appear.mp3": [
+        "ui\\activity\\extend\\2412richman\\main\\audio\\2412touzi_chest_appear.mp3",
+        "625dba53852df218e7e9a92b2e490403"
+    ],
+    "2412touzi_chest_disappear.mp3": [
+        "ui\\activity\\extend\\2412richman\\main\\audio\\2412touzi_chest_disappear.mp3",
+        "a62e87dc3a519a898368938d49da3c11"
+    ],
+    "2412touzi_qizi_buff.mp3": [
+        "ui\\activity\\extend\\2412richman\\main\\audio\\2412touzi_qizi_buff.mp3",
+        "c06125ab4238d693eb6f38deb3bcd7df"
+    ],
+    "2412touzi_qizi_debuff.mp3": [
+        "ui\\activity\\extend\\2412richman\\main\\audio\\2412touzi_qizi_debuff.mp3",
+        "b6c006aef44d51c2b87de2b37eb9bb27"
+    ],
+    "2412touzi_qizi_lvup.mp3": [
+        "ui\\activity\\extend\\2412richman\\main\\audio\\2412touzi_qizi_lvup.mp3",
+        "64b62a63162e2a19865c1ed6d9b00194"
+    ],
+    "2412touzi_qizi_move.mp3": [
+        "ui\\activity\\extend\\2412richman\\main\\audio\\2412touzi_qizi_move.mp3",
+        "4a54ec120b5940426570f0b27de92bac"
+    ],
+    "2412touzi_touzi.mp3": [
+        "ui\\activity\\extend\\2412richman\\main\\audio\\2412touzi_touzi.mp3",
+        "645b6a90ce9c64b2aaa7ca798d257bc8"
+    ],
+    "2412touzi_touzi_red.mp3": [
+        "ui\\activity\\extend\\2412richman\\main\\audio\\2412touzi_touzi_red.mp3",
+        "bebcfa482bbab791c83dabcdcbeea59e"
+    ],
+    "2508hanghai_boom.mp3": [
+        "ui\\activity\\extend\\2508voyage\\main\\audio\\2508hanghai_boom.mp3",
+        "19ed0219c9ee41314f3cf1586667867e"
+    ],
+    "2508hanghai_rain.mp3": [
+        "ui\\activity\\extend\\2508voyage\\main\\audio\\2508hanghai_rain.mp3",
+        "203fd084e3f5eb22a31459693191480c"
+    ],
+    "2508hanghai_sea_bird.mp3": [
+        "ui\\activity\\extend\\2508voyage\\main\\audio\\2508hanghai_sea_bird.mp3",
+        "1b9b1872d0b93408237263e35a6fc1f5"
+    ],
+    "2508hanghai_sea_wave.mp3": [
+        "ui\\activity\\extend\\2508voyage\\main\\audio\\2508hanghai_sea_wave.mp3",
+        "c222d8c9ba1962ecb020d8949c79e74c"
+    ],
+    "2408qyzz_formula.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_formula.mp3",
+        "6286ae88c4a35436f3b718901ea6a47a"
+    ],
+    "2408qyzz_game_over.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_game_over.mp3",
+        "4a2cdcd05f0b9c65dc1210e130746b16"
+    ],
+    "2408qyzz_getcard.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_getcard.mp3",
+        "b62cf0ea3d0421996c42ee57712c8c41"
+    ],
+    "2408qyzz_lobby_loop.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_lobby_loop.mp3",
+        "278254d916b92cec9204faf1ad690a8c"
+    ],
+    "2408qyzz_point.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_point.mp3",
+        "c1a4899d97ff8f4fb4ae787f915ee9e1"
+    ],
+    "2408qyzz_point_long.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_point_long.mp3",
+        "e89c7d7c9cac40c45a8256f8c334108b"
+    ],
+    "2408qyzz_shop_buypack.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_shop_buypack.mp3",
+        "d3c93a15744aaf391ce8b4e9b09a902b"
+    ],
+    "2408qyzz_shop_clickpack.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_shop_clickpack.mp3",
+        "f97242ebdb58aca55c9cfa2516a3bff5"
+    ],
+    "2408qyzz_shop_pop.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_shop_pop.mp3",
+        "13f0b77c6ccc6c55633b83f44f84b617"
+    ],
+    "2408qyzz_shop_selectcard.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_shop_selectcard.mp3",
+        "0ea3b626a01b379d7cd84543d232633c"
+    ],
+    "2408qyzz_shop_upgrade.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_shop_upgrade.mp3",
+        "bb3242efc618e76eeebbb300a124b51d"
+    ],
+    "2408qyzz_stage_changepai.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_stage_changepai.mp3",
+        "9e7792fd2f6cd9d82e6d054566e4c7dd"
+    ],
+    "2408qyzz_stage_clear.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_stage_clear.mp3",
+        "d69c593c12dbf5bf753b11a7b7dd5c49"
+    ],
+    "2408qyzz_stage_feverpai.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_stage_feverpai.mp3",
+        "8acb4317b5f6494bb3d77d31e3738903"
+    ],
+    "2408qyzz_stage_getmoney.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_stage_getmoney.mp3",
+        "5b0968c969d1fc520f769870b77826b1"
+    ],
+    "2408qyzz_stage_getpai.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_stage_getpai.mp3",
+        "13fdd3fd07bbd21f9a83763d95e5c3f4"
+    ],
+    "2408qyzz_stage_in.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_stage_in.mp3",
+        "2cd59dab072edfce2f76dc577ef5cde5"
+    ],
+    "2408qyzz_stage_show.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_stage_show.mp3",
+        "be5d5ca71c73556baf77bf0e0536bc49"
+    ],
+    "2408qyzz_start3card.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_start3card.mp3",
+        "15f3834e023d923f7fb54cca5ad38408"
+    ],
+    "2408qyzz_win_big.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_win_big.mp3",
+        "881342d6a22dc3657df1f08c1abd9e4f"
+    ],
+    "2408qyzz_win_bigpoint.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_win_bigpoint.mp3",
+        "2efb0e99db54ed281b399e3af59a54c7"
+    ],
+    "2408qyzz_win_calculate.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_win_calculate.mp3",
+        "1b5af7bab08ae32509dc23bc208a3c1c"
+    ],
+    "2408qyzz_win_cardeffect.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_win_cardeffect.mp3",
+        "7b9e32b7681b29e57761c9b92e888afe"
+    ],
+    "2408qyzz_win_medium.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_win_medium.mp3",
+        "5c99a27c660b8e1250690c24e84b2225"
+    ],
+    "2408qyzz_win_paieffect.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_win_paieffect.mp3",
+        "b4856dcb3b1d9e99ac515ef0d9da195c"
+    ],
+    "2408qyzz_win_small.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2408qyzz_win_small.mp3",
+        "07f43b342f818a0a59a1193e760e4a82"
+    ],
+    "2508qyzz_lobby_boss_loop.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2508qyzz_lobby_boss_loop.mp3",
+        "e70b0bf36e85c50818da788250cd280b"
+    ],
+    "2508qyzz_lobby_breathing.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2508qyzz_lobby_breathing.mp3",
+        "d9eea204b8d3231d63d4138e739b5e3b"
+    ],
+    "2508qyzz_lobby_in.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2508qyzz_lobby_in.mp3",
+        "1f9166ba2290cd406feceae0fe6427f9"
+    ],
+    "2508qyzz_lobby_lighting.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2508qyzz_lobby_lighting.mp3",
+        "8f9b11644cd841712893e806294fd367"
+    ],
+    "2508qyzz_lobby_normal_loop.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2508qyzz_lobby_normal_loop.mp3",
+        "129a42e4518daa8eace153fc05754bcd"
+    ],
+    "2508qyzz_lobby_shooting.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2508qyzz_lobby_shooting.mp3",
+        "b66ef69c49b05dfb0369728c9944f4a2"
+    ],
+    "2508qyzz_shop_pop.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2508qyzz_shop_pop.mp3",
+        "afb4ba4e14b88c26511f5216945f5128"
+    ],
+    "2508qyzz_stage_amulet_transform.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2508qyzz_stage_amulet_transform.mp3",
+        "6755d45477c94bee025bdfddc17504d5"
+    ],
+    "2508qyzz_stage_clear.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2508qyzz_stage_clear.mp3",
+        "7c443317114c4c4ceef5f5dec0d0d4a7"
+    ],
+    "2508qyzz_stage_fevertime.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2508qyzz_stage_fevertime.mp3",
+        "674b8c76648c2b65500e046ea2e01cc6"
+    ],
+    "2508qyzz_stage_game_over.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2508qyzz_stage_game_over.mp3",
+        "1fe14cb7cf21ec6cf359321359b84d73"
+    ],
+    "2508qyzz_stage_show.mp3": [
+        "ui\\activity\\extend\\amulet\\main\\audio\\2508qyzz_stage_show.mp3",
+        "3092242ed4efd886027c5da01ecd9e82"
+    ],
+    "2404ba_activity_enter.mp3": [
+        "ui\\activity\\extend\\festival\\main\\audio\\2404ba_activity_enter.mp3",
+        "92f3156d15022986058176af9a37fd33"
+    ],
+    "2404ba_bgm_loop.mp3": [
+        "ui\\activity\\extend\\festival\\main\\audio\\2404ba_bgm_loop.mp3",
+        "64bb4d395674721638ff3784e6d4c8ea"
+    ],
+    "2404ba_failure.mp3": [
+        "ui\\activity\\extend\\festival\\main\\audio\\2404ba_failure.mp3",
+        "1beec7e1fa571ea2a48c3e077e81c9d0"
+    ],
+    "2404ba_failure_switch_success.mp3": [
+        "ui\\activity\\extend\\festival\\main\\audio\\2404ba_failure_switch_success.mp3",
+        "6f9a177fe187ac78c5672006a989dc28"
+    ],
+    "2404ba_gaizhang.mp3": [
+        "ui\\activity\\extend\\festival\\main\\audio\\2404ba_gaizhang.mp3",
+        "5ac133b7b6f7e05f32ba70b211645a0d"
+    ],
+    "2404ba_great_success.mp3": [
+        "ui\\activity\\extend\\festival\\main\\audio\\2404ba_great_success.mp3",
+        "10ef71f17be4377a432be8df3ef5cc81"
+    ],
+    "2404ba_level_up.mp3": [
+        "ui\\activity\\extend\\festival\\main\\audio\\2404ba_level_up.mp3",
+        "187734b0677dfd28d41d8d3c13cb1201"
+    ],
+    "2404ba_procure_proposal.mp3": [
+        "ui\\activity\\extend\\festival\\main\\audio\\2404ba_procure_proposal.mp3",
+        "6699c028f663adb3ab5e1e40e711b7c1"
+    ],
+    "2404ba_success.mp3": [
+        "ui\\activity\\extend\\festival\\main\\audio\\2404ba_success.mp3",
+        "2d615267e3f766da41aab4750ad9f083"
+    ],
+    "2404ba_switch.mp3": [
+        "ui\\activity\\extend\\festival\\main\\audio\\2404ba_switch.mp3",
+        "c670323ac8a47e2a460a8474cc28e6a1"
+    ],
+    "2404ba_ui_open.mp3": [
+        "ui\\activity\\extend\\festival\\main\\audio\\2404ba_ui_open.mp3",
+        "80f9563cd91b2f9ea308c901c18c91c9"
+    ],
+    "2409sanliou_activity_enter.mp3": [
+        "ui\\activity\\extend\\niudan\\main\\audio\\2409sanliou_activity_enter.mp3",
+        "d7e7757ca7b3727edc8ef1d881fa112d"
+    ],
+    "2409sanliou_gacha.mp3": [
+        "ui\\activity\\extend\\niudan\\main\\audio\\2409sanliou_gacha.mp3",
+        "80640a75b50ebb8432e2e2dd2e6bdad8"
+    ],
+    "xunmi_1.mp3": [
+        "ui\\lobby\\extend\\treasure\\main\\audio\\xunmi_1.mp3",
+        "95e8c08e505bbc96753eb8c140687631"
+    ],
+    "xunmi_1_2.mp3": [
+        "ui\\lobby\\extend\\treasure\\main\\audio\\xunmi_1_2.mp3",
+        "407b0de60eddd36bef3312744a6ce50c"
+    ],
+    "xunmi_1_5.mp3": [
+        "ui\\lobby\\extend\\treasure\\main\\audio\\xunmi_1_5.mp3",
+        "b1d4eab270ce73a1f8e4fdfa1a7b41ee"
+    ],
+    "xunmi_2_loop.mp3": [
+        "ui\\lobby\\extend\\treasure\\main\\audio\\xunmi_2_loop.mp3",
+        "7b06220f47ceb8350bf4e96045f1fa07"
+    ],
+    "xunmi_3.mp3": [
+        "ui\\lobby\\extend\\treasure\\main\\audio\\xunmi_3.mp3",
+        "519187976f1ea3ccdf4f02aac9edeab9"
+    ],
+    "xunmi_3_star.mp3": [
+        "ui\\lobby\\extend\\treasure\\main\\audio\\xunmi_3_star.mp3",
+        "9108078447f18122d1bf6949126736ea"
+    ],
+    "xunmi_4_chara1.mp3": [
+        "ui\\lobby\\extend\\treasure\\main\\audio\\xunmi_4_chara1.mp3",
+        "b9f0d5de69aa6809c36c1ccb6117648b"
+    ],
+    "xunmi_4_chara2.mp3": [
+        "ui\\lobby\\extend\\treasure\\main\\audio\\xunmi_4_chara2.mp3",
+        "6832c968d45482d5aa98bebcb8b58fa5"
+    ],
+    "xunmi_4_deco.mp3": [
+        "ui\\lobby\\extend\\treasure\\main\\audio\\xunmi_4_deco.mp3",
+        "a4729b1b02f459777afe779314639bfb"
+    ],
+    "xunmi_4_item.mp3": [
+        "ui\\lobby\\extend\\treasure\\main\\audio\\xunmi_4_item.mp3",
+        "afaa4ea29847f4010d6c5c1bfef7f7db"
+    ],
+    "xunmi_5.mp3": [
+        "ui\\lobby\\extend\\treasure\\main\\audio\\xunmi_5.mp3",
+        "2d85965ccd049ee01518c0f5b1a92ad4"
+    ],
+    "xunmi_bgm_1.mp3": [
+        "ui\\lobby\\extend\\treasure\\main\\audio\\xunmi_bgm_1.mp3",
+        "c9b3efb76f95a7bc1e68f78020193cb9"
+    ],
+    "xunmi_bgm_loop.mp3": [
+        "ui\\lobby\\extend\\treasure\\main\\audio\\xunmi_bgm_loop.mp3",
+        "2edd419363ada4fc499fc59f5b221d88"
+    ],
+    "buy_success.mp3": [
+        "ui\\lobby\\main\\audio\\buy_success.mp3",
+        "ef02e4d399a66af3a75cab90254c3e6d"
+    ],
+    "composite.mp3": [
+        "ui\\lobby\\main\\audio\\composite.mp3",
+        "9398aaaf73c8708a03b41396188b187c"
+    ],
+    "flyin.mp3": [
+        "ui\\lobby\\main\\audio\\flyin.mp3",
+        "24fccbbfdb2047c9c90d47d326c0f2e0"
+    ],
+    "gacha_banner_fate.mp3": [
+        "ui\\lobby\\main\\audio\\gacha_banner_fate.mp3",
+        "452e70bea72c79b9021cba7d2eb8cbdc"
+    ],
+    "gacha_banner_liyang.mp3": [
+        "ui\\lobby\\main\\audio\\gacha_banner_liyang.mp3",
+        "1f728fe5ac8b9733072ca05039c5f3e0"
+    ],
+    "gacha_banner_nanfenghua.mp3": [
+        "ui\\lobby\\main\\audio\\gacha_banner_nanfenghua.mp3",
+        "2a9c82c3c27739a6d04f1d7ee3ad353f"
+    ],
+    "gacha_banner_normal.mp3": [
+        "ui\\lobby\\main\\audio\\gacha_banner_normal.mp3",
+        "90f3682ee68a5b9bcdcff2567eeecc02"
+    ],
+    "gacha_character.mp3": [
+        "ui\\lobby\\main\\audio\\gacha_character.mp3",
+        "d3a80291a04bc13993525707ec07440e"
+    ],
+    "gacha_character_bai.mp3": [
+        "ui\\lobby\\main\\audio\\gacha_character_bai.mp3",
+        "9241c981948bd87c4e7d7903fa9477dd"
+    ],
+    "gacha_tree_out.mp3": [
+        "ui\\lobby\\main\\audio\\gacha_tree_out.mp3",
+        "366f559606f739e9866ee19d2e1bc269"
+    ],
+    "gacha_wupin.mp3": [
+        "ui\\lobby\\main\\audio\\gacha_wupin.mp3",
+        "970be135bdedcbce7d4bfc5aa4dce6b5"
+    ],
+    "gacha_zhuangban.mp3": [
+        "ui\\lobby\\main\\audio\\gacha_zhuangban.mp3",
+        "f488c723671e5a3f9ec23301fcd588e0"
+    ],
+    "heart_levelup.mp3": [
+        "ui\\lobby\\main\\audio\\heart_levelup.mp3",
+        "841dc373cb471e20e4ca6eb455ec669d"
+    ],
+    "heart_levelup_bai.mp3": [
+        "ui\\lobby\\main\\audio\\heart_levelup_bai.mp3",
+        "4be349f9f3fcf83fe4502553e11eba91"
+    ],
+    "maka_1.mp3": [
+        "ui\\lobby\\main\\audio\\maka_1.mp3",
+        "f132cbe735896f99179c00130b673816"
+    ],
+    "maka_2.mp3": [
+        "ui\\lobby\\main\\audio\\maka_2.mp3",
+        "4fe83199ae60bee097abd5468d6f0a6c"
+    ],
+    "maka_3.mp3": [
+        "ui\\lobby\\main\\audio\\maka_3.mp3",
+        "06858fbeb592f38657acb22609c391a5"
+    ],
+    "matchcomplete.mp3": [
+        "ui\\lobby\\main\\audio\\matchcomplete.mp3",
+        "7eee0727415d6ae713b328e1cc5c78f9"
+    ],
+    "normalflyin.mp3": [
+        "ui\\lobby\\main\\audio\\normalflyin.mp3",
+        "3585f155c734c027c0e11557d5ce5860"
+    ],
+    "sound_gacha.mp3": [
+        "ui\\lobby\\main\\audio\\sound_gacha.mp3",
+        "1472fe95b48bc981912716133ee90fdd"
+    ],
+    "tournament_bgm.mp3": [
+        "ui\\lobby\\main\\audio\\tournament_bgm.mp3",
+        "859ffdf04794b8b6abc82f04805f102a"
+    ],
+    "yueka_alarm.mp3": [
+        "ui\\lobby\\main\\audio\\yueka_alarm.mp3",
+        "8213af29fae5151f2d95a977e76ef260"
+    ],
+    "yueka_claim_1.mp3": [
+        "ui\\lobby\\main\\audio\\yueka_claim_1.mp3",
+        "65e34d120934cf408e862b9d332070ce"
+    ],
+    "yueka_claim_2.mp3": [
+        "ui\\lobby\\main\\audio\\yueka_claim_2.mp3",
+        "6321af935354222a39ff61e87b25a7d4"
+    ],
+    "anpai_cutin.mp3": [
+        "ui\\mj\\main\\audio\\anpai_cutin.mp3",
+        "d274af68cdcd71ede9b1c3a096d9b744"
+    ],
+    "anpai_reverse.mp3": [
+        "ui\\mj\\main\\audio\\anpai_reverse.mp3",
+        "e2d9d0f4411c1261260ef7d5b2354d7e"
+    ],
+    "beiman.mp3": [
+        "ui\\mj\\main\\audio\\beiman.mp3",
+        "2512dfa5d2401e272351220b76f6820a"
+    ],
+    "btn_appear.mp3": [
+        "ui\\mj\\main\\audio\\btn_appear.mp3",
+        "13e31eef293dcb1446cb22f380249ac3"
+    ],
+    "btn_cancel.mp3": [
+        "ui\\mj\\main\\audio\\btn_cancel.mp3",
+        "65eed03723d5d6820385750fcf8ac428"
+    ],
+    "btn_click.mp3": [
+        "ui\\mj\\main\\audio\\btn_click.mp3",
+        "adbcedeb51fec8c9e2f0e84b6adaa89c"
+    ],
+    "click_pai.mp3": [
+        "ui\\mj\\main\\audio\\click_pai.mp3",
+        "81c22fa4f1e6f1fb85411e8d121c344d"
+    ],
+    "countdown5.mp3": [
+        "ui\\mj\\main\\audio\\countdown5.mp3",
+        "f72a8e3c07fe01797efb71affa4e4794"
+    ],
+    "cutin.mp3": [
+        "ui\\mj\\main\\audio\\cutin.mp3",
+        "c761c3f5f0dec757b6705a206e699419"
+    ],
+    "discard_tile.mp3": [
+        "ui\\mj\\main\\audio\\discard_tile.mp3",
+        "97e9615ba2e419b126c10ba74597bc01"
+    ],
+    "effect_biaoqing_appmiao.mp3": [
+        "ui\\mj\\main\\audio\\effect_biaoqing_appmiao.mp3",
+        "486abc66b5857597894f85310890fca2"
+    ],
+    "effect_biaoqing_chiyuebin.mp3": [
+        "ui\\mj\\main\\audio\\effect_biaoqing_chiyuebin.mp3",
+        "d153c673e66f10a4e139711f788f03e7"
+    ],
+    "effect_biaoqing_guoqingmiao.mp3": [
+        "ui\\mj\\main\\audio\\effect_biaoqing_guoqingmiao.mp3",
+        "486abc66b5857597894f85310890fca2"
+    ],
+    "effect_biaoqing_WSJ.mp3": [
+        "ui\\mj\\main\\audio\\effect_biaoqing_WSJ.mp3",
+        "4863da7cf2e73da2782da1314c650eae"
+    ],
+    "effect_moshi_baopai.mp3": [
+        "ui\\mj\\main\\audio\\effect_moshi_baopai.mp3",
+        "01f3d6860c0085abf161509774ba9b7c"
+    ],
+    "effect_moshi_fanbaopai.mp3": [
+        "ui\\mj\\main\\audio\\effect_moshi_fanbaopai.mp3",
+        "bcccdd9963c004d56e52fc88a730a3a5"
+    ],
+    "effect_yakumanchance.mp3": [
+        "ui\\mj\\main\\audio\\effect_yakumanchance.mp3",
+        "6ba9a36ae4dce70f03ece1b1dec67c5a"
+    ],
+    "effect_yakumanready.mp3": [
+        "ui\\mj\\main\\audio\\effect_yakumanready.mp3",
+        "dd1e111d3a8e15f8ea72ef03c1869746"
+    ],
+    "fulu.mp3": [
+        "ui\\mj\\main\\audio\\fulu.mp3",
+        "bfca191820e4eb45f8c92a97c8d8b71b"
+    ],
+    "fu_appear.mp3": [
+        "ui\\mj\\main\\audio\\fu_appear.mp3",
+        "725b8d75ea155e30411baab9a243397a"
+    ],
+    "gang.mp3": [
+        "ui\\mj\\main\\audio\\gang.mp3",
+        "85392f9e4797c63c7d63277ae92124b5"
+    ],
+    "hule_fan_out.mp3": [
+        "ui\\mj\\main\\audio\\hule_fan_out.mp3",
+        "62ae12cf942c2448dc28702fad704cec"
+    ],
+    "hule_point1.mp3": [
+        "ui\\mj\\main\\audio\\hule_point1.mp3",
+        "cf621b6bd6c932104d8294844cf1d6bd"
+    ],
+    "huntianlevelup.mp3": [
+        "ui\\mj\\main\\audio\\huntianlevelup.mp3",
+        "7ff9019bf14e835c11b636ca12449ef0"
+    ],
+    "hunzhiyiji_countdown.mp3": [
+        "ui\\mj\\main\\audio\\hunzhiyiji_countdown.mp3",
+        "5b9b412aec5b77cdb68d8f84d4adfb0c"
+    ],
+    "hunzhiyiji_countstart.mp3": [
+        "ui\\mj\\main\\audio\\hunzhiyiji_countstart.mp3",
+        "aa52aa26dad375c512e0f7a05af0c9a0"
+    ],
+    "hunzhiyiji_overload.mp3": [
+        "ui\\mj\\main\\audio\\hunzhiyiji_overload.mp3",
+        "df4bb67b5e630dc30d979a3520edb202"
+    ],
+    "hupai.mp3": [
+        "ui\\mj\\main\\audio\\hupai.mp3",
+        "003a39ed0c472aafb6ae3ebc90e5752f"
+    ],
+    "jianzhou_open.mp3": [
+        "ui\\mj\\main\\audio\\jianzhou_open.mp3",
+        "d0a0b7a7798853758094ff814488d3e1"
+    ],
+    "mangan.mp3": [
+        "ui\\mj\\main\\audio\\mangan.mp3",
+        "b0f86ffa844faa2b692f95e53b9cc798"
+    ],
+    "moshi_longzhimuyu.mp3": [
+        "ui\\mj\\main\\audio\\moshi_longzhimuyu.mp3",
+        "c3f41e9479af3bb8b07ad4d9fd947ef5"
+    ],
+    "newround_pais.mp3": [
+        "ui\\mj\\main\\audio\\newround_pais.mp3",
+        "47131ccac5820a6087980a621f5d79bb"
+    ],
+    "new_dora.mp3": [
+        "ui\\mj\\main\\audio\\new_dora.mp3",
+        "9b898f6fda00ff4428076cd72ca8ac79"
+    ],
+    "put_liqi.mp3": [
+        "ui\\mj\\main\\audio\\put_liqi.mp3",
+        "3d0814089cbba2fe5f7e2e5f01094e42"
+    ],
+    "quehun_flash.mp3": [
+        "ui\\mj\\main\\audio\\quehun_flash.mp3",
+        "2fa177c036b519ca4221f38ed935a837"
+    ],
+    "queshi_down.mp3": [
+        "ui\\mj\\main\\audio\\queshi_down.mp3",
+        "9092077594c409b0196c5d7f010196fc"
+    ],
+    "rank1.mp3": [
+        "ui\\mj\\main\\audio\\rank1.mp3",
+        "3b9fbf4236b70e11393482652b66d5cf"
+    ],
+    "rank234.mp3": [
+        "ui\\mj\\main\\audio\\rank234.mp3",
+        "de14053b795014e5e94f1b9cb794e4f8"
+    ],
+    "rankchange.mp3": [
+        "ui\\mj\\main\\audio\\rankchange.mp3",
+        "5bda0ef7f8ced75bee834293369c7cf5"
+    ],
+    "score_appear.mp3": [
+        "ui\\mj\\main\\audio\\score_appear.mp3",
+        "8a15ad1b1cf8c0641e2041f3d30e015d"
+    ],
+    "score_change.mp3": [
+        "ui\\mj\\main\\audio\\score_change.mp3",
+        "5bda0ef7f8ced75bee834293369c7cf5"
+    ],
+    "showtile.mp3": [
+        "ui\\mj\\main\\audio\\showtile.mp3",
+        "1159a0227c732d8ef0905456125d4b47"
+    ],
+    "sys_event02.mp3": [
+        "ui\\mj\\main\\audio\\sys_event02.mp3",
+        "2f2265f673388e7a6a3d68e6ff5cfeb2"
+    ],
+    "winlose.mp3": [
+        "ui\\mj\\main\\audio\\winlose.mp3",
+        "547dae5bebbbd305d6a46aee10e724c7"
+    ],
+    "word_line.mp3": [
+        "ui\\mj\\main\\audio\\word_line.mp3",
+        "74792cacdb436294a79a5e167e5214e3"
+    ],
+    "yakuman.mp3": [
+        "ui\\mj\\main\\audio\\yakuman.mp3",
+        "8c8dfd3b20fd8a47c55b8fe283069939"
+    ],
+    "zimo.mp3": [
+        "ui\\mj\\main\\audio\\zimo.mp3",
+        "4c9a3f61d62d8bcd759cc8016494b00a"
+    ],
+    "anchaoyongdong.mp3": [
+        "ui\\spot\\audio\\anchaoyongdong.mp3",
+        "2a9bccd6881026523c436ee27de27445"
+    ],
+    "baopo.mp3": [
+        "ui\\spot\\audio\\baopo.mp3",
+        "19ed0219c9ee41314f3cf1586667867e"
+    ],
+    "bubble01.mp3": [
+        "ui\\spot\\audio\\bubble01.mp3",
+        "726c84a7cc8e8626169d3319aea0b4eb"
+    ],
+    "bubble02.mp3": [
+        "ui\\spot\\audio\\bubble02.mp3",
+        "746e68cd92f247dfa776a59ced61c3d7"
+    ],
+    "bubble03.mp3": [
+        "ui\\spot\\audio\\bubble03.mp3",
+        "87134638f0c9ba74252f08d906162035"
+    ],
+    "bubble04.mp3": [
+        "ui\\spot\\audio\\bubble04.mp3",
+        "c55172ed11fd80338156bff6be725c7a"
+    ],
+    "bubble05.mp3": [
+        "ui\\spot\\audio\\bubble05.mp3",
+        "78ccd2376ab8ce95c331843b9abff516"
+    ],
+    "bubble06.mp3": [
+        "ui\\spot\\audio\\bubble06.mp3",
+        "d4efbdd28db372012ac9fe62235d77e5"
+    ],
+    "bubble07.mp3": [
+        "ui\\spot\\audio\\bubble07.mp3",
+        "9bf1b22abc6afe25e54f37ed2ad4522c"
+    ],
+    "bubble08.mp3": [
+        "ui\\spot\\audio\\bubble08.mp3",
+        "beeadc71f406d14c60a0cb574d70c77f"
+    ],
+    "bubble09.mp3": [
+        "ui\\spot\\audio\\bubble09.mp3",
+        "c7c65de796b7e8b87dcc8c1940e4b0b3"
+    ],
+    "bubble10.mp3": [
+        "ui\\spot\\audio\\bubble10.mp3",
+        "fac7f3555aabd6ab0db6c3fcdc9c13af"
+    ],
+    "bubble11.mp3": [
+        "ui\\spot\\audio\\bubble11.mp3",
+        "fa65fb26a4a57ba63c5795a8d9995696"
+    ],
+    "bubble12.mp3": [
+        "ui\\spot\\audio\\bubble12.mp3",
+        "90787f09af617aa514ae8309dc1683eb"
+    ],
+    "bubble13.mp3": [
+        "ui\\spot\\audio\\bubble13.mp3",
+        "2c477c4d9ed815d14f66f089f1c4f3cd"
+    ],
+    "bubble14.mp3": [
+        "ui\\spot\\audio\\bubble14.mp3",
+        "7bcf2f005ab1118b72ac40d5057b8ff0"
+    ],
+    "bubble15.mp3": [
+        "ui\\spot\\audio\\bubble15.mp3",
+        "4098830b86681b3905fad2b9eb98724c"
+    ],
+    "bubble16.mp3": [
+        "ui\\spot\\audio\\bubble16.mp3",
+        "a50497c1c9b7053a3e9ded24db5e892a"
+    ],
+    "bubble17.mp3": [
+        "ui\\spot\\audio\\bubble17.mp3",
+        "19f7c660115906f7e60a55f87d86b0df"
+    ],
+    "bubble18.mp3": [
+        "ui\\spot\\audio\\bubble18.mp3",
+        "d0ebebed8beb1e5792bf2407587f1d9d"
+    ],
+    "bubble19.mp3": [
+        "ui\\spot\\audio\\bubble19.mp3",
+        "49a4a86deb895f474298d283846d258e"
+    ],
+    "cat_meow_1.mp3": [
+        "ui\\spot\\audio\\cat_meow_1.mp3",
+        "d70ca16a7918dc052622aa62fdbabf07"
+    ],
+    "cat_meow_2.mp3": [
+        "ui\\spot\\audio\\cat_meow_2.mp3",
+        "2a84779f1552b3cb02a0552015c4b741"
+    ],
+    "cat_meow_3.mp3": [
+        "ui\\spot\\audio\\cat_meow_3.mp3",
+        "dc737217e248a9522efc4ba4475a3fcd"
+    ],
+    "chenguangchuxian.mp3": [
+        "ui\\spot\\audio\\chenguangchuxian.mp3",
+        "39bfe23719fffc51574db0a21c1c0165"
+    ],
+    "dc_gt_001.mp3": [
+        "ui\\spot\\audio\\dc_gt_001.mp3",
+        "ce67da3b5dbbd288d0f0830b68dcf3b3"
+    ],
+    "dc_gt_002.mp3": [
+        "ui\\spot\\audio\\dc_gt_002.mp3",
+        "3a9616d14934efa4bd94a2160f73d281"
+    ],
+    "dc_gt_003.mp3": [
+        "ui\\spot\\audio\\dc_gt_003.mp3",
+        "7a8430e649ccaa91058ee259d387d4f6"
+    ],
+    "dc_gt_004.mp3": [
+        "ui\\spot\\audio\\dc_gt_004.mp3",
+        "c524ff6ae105f416b42f142a46cb4082"
+    ],
+    "dc_gt_005.mp3": [
+        "ui\\spot\\audio\\dc_gt_005.mp3",
+        "544cb9e3e374ba63332e835e0b27194f"
+    ],
+    "dc_gt_006.mp3": [
+        "ui\\spot\\audio\\dc_gt_006.mp3",
+        "b6cfc44cdd80d5112fc5ef7e429ff6e5"
+    ],
+    "dc_gt_007.mp3": [
+        "ui\\spot\\audio\\dc_gt_007.mp3",
+        "ca79c003c400801876d8e9e4c603cd29"
+    ],
+    "dc_gt_008.mp3": [
+        "ui\\spot\\audio\\dc_gt_008.mp3",
+        "351f7bbb76d1bc936087fe025b483c16"
+    ],
+    "dc_gt_009.mp3": [
+        "ui\\spot\\audio\\dc_gt_009.mp3",
+        "9432cbcb40a92817c0ebf7b20239e030"
+    ],
+    "dc_gt_010.mp3": [
+        "ui\\spot\\audio\\dc_gt_010.mp3",
+        "63e8ef704a53a6afcc10d3b8346e2dd2"
+    ],
+    "dc_gt_011.mp3": [
+        "ui\\spot\\audio\\dc_gt_011.mp3",
+        "a399ac0669dbeb275354fe8cb48050f7"
+    ],
+    "dc_gt_012.mp3": [
+        "ui\\spot\\audio\\dc_gt_012.mp3",
+        "0dcb0e5a9035d25a596fbef777a44f02"
+    ],
+    "dc_gt_013.mp3": [
+        "ui\\spot\\audio\\dc_gt_013.mp3",
+        "87c28f04234ed969492863305fc08f5e"
+    ],
+    "dc_gt_014.mp3": [
+        "ui\\spot\\audio\\dc_gt_014.mp3",
+        "30ef277f48819c34ecc23e1653843428"
+    ],
+    "dc_gt_015.mp3": [
+        "ui\\spot\\audio\\dc_gt_015.mp3",
+        "b3689679681efbe4f4c3c9ee1ca93d9a"
+    ],
+    "dc_gt_016.mp3": [
+        "ui\\spot\\audio\\dc_gt_016.mp3",
+        "b3909fecafc334c797e93d03bb044a2a"
+    ],
+    "dc_gt_017.mp3": [
+        "ui\\spot\\audio\\dc_gt_017.mp3",
+        "f495e9ded8bb01990d2e49e18b48e2a2"
+    ],
+    "dc_gt_018.mp3": [
+        "ui\\spot\\audio\\dc_gt_018.mp3",
+        "d5790975caa159a55231207dcd408502"
+    ],
+    "dc_sould5_001.mp3": [
+        "ui\\spot\\audio\\dc_sould5_001.mp3",
+        "305bdc38284af9f1f0b84f6b708b1429"
+    ],
+    "dc_sould5_002.mp3": [
+        "ui\\spot\\audio\\dc_sould5_002.mp3",
+        "9f45666e7367d58d14af399351620944"
+    ],
+    "dc_sould5_003.mp3": [
+        "ui\\spot\\audio\\dc_sould5_003.mp3",
+        "cd49ff5d9af133f8e837c956c964cdb5"
+    ],
+    "dc_sould5_004.mp3": [
+        "ui\\spot\\audio\\dc_sould5_004.mp3",
+        "bf637f7143d3eaa9419cc12db8287d5a"
+    ],
+    "dc_sould5_005.mp3": [
+        "ui\\spot\\audio\\dc_sould5_005.mp3",
+        "9ea6f0b4723c972756cba6a8c15876d6"
+    ],
+    "dc_xxd2_001.mp3": [
+        "ui\\spot\\audio\\dc_xxd2_001.mp3",
+        "7b8b809c61da434a1ee3af23b286c1ae"
+    ],
+    "dc_xxd2_001_1.mp3": [
+        "ui\\spot\\audio\\dc_xxd2_001_1.mp3",
+        "f9029ed6d6b55151beb4b57e8c4520ed"
+    ],
+    "dc_xxd2_002.mp3": [
+        "ui\\spot\\audio\\dc_xxd2_002.mp3",
+        "d49ab34bf5a621e0be3153397b89fc39"
+    ],
+    "dc_xxd2_003.mp3": [
+        "ui\\spot\\audio\\dc_xxd2_003.mp3",
+        "87d2e3dc4a81b1281f7162b06c8a8fad"
+    ],
+    "dc_xxd2_004.mp3": [
+        "ui\\spot\\audio\\dc_xxd2_004.mp3",
+        "831a4aa34352a0072a607cb72c7f1028"
+    ],
+    "dc_xxd2_005.mp3": [
+        "ui\\spot\\audio\\dc_xxd2_005.mp3",
+        "332cf6cfa9511437a35e914a386aa7c3"
+    ],
+    "dc_xxd3_001.mp3": [
+        "ui\\spot\\audio\\dc_xxd3_001.mp3",
+        "fa4b9de8a308727ffe84e0b26a5c6cf8"
+    ],
+    "dc_xxd3_002.mp3": [
+        "ui\\spot\\audio\\dc_xxd3_002.mp3",
+        "dce6709d1d8a5e98568c909a724d4417"
+    ],
+    "dc_xxd3_003.mp3": [
+        "ui\\spot\\audio\\dc_xxd3_003.mp3",
+        "7e204592eae11a1876751cd6314c3977"
+    ],
+    "dc_xxd3_004.mp3": [
+        "ui\\spot\\audio\\dc_xxd3_004.mp3",
+        "a8f882434132e4c5ec1922c25b200e9d"
+    ],
+    "dc_xxd3_005.mp3": [
+        "ui\\spot\\audio\\dc_xxd3_005.mp3",
+        "edd2ce64f909acf7d1c9e6671863f96c"
+    ],
+    "dc_xxd3_006.mp3": [
+        "ui\\spot\\audio\\dc_xxd3_006.mp3",
+        "dc65083e02f54d965f502d7220175f49"
+    ],
+    "dc_xxd3_007.mp3": [
+        "ui\\spot\\audio\\dc_xxd3_007.mp3",
+        "475c6e87765493600bbcc0f41d8d8a23"
+    ],
+    "dc_xxd3_008.mp3": [
+        "ui\\spot\\audio\\dc_xxd3_008.mp3",
+        "25fe407187fc8edfb228f6ab8195684d"
+    ],
+    "dc_xxd3_009.mp3": [
+        "ui\\spot\\audio\\dc_xxd3_009.mp3",
+        "2ade3e889d532017eb1db8c745f2f681"
+    ],
+    "dc_xxd3_010.mp3": [
+        "ui\\spot\\audio\\dc_xxd3_010.mp3",
+        "b731fe7bb043957effcabd60a4de5c35"
+    ],
+    "dc_xxd3_011.mp3": [
+        "ui\\spot\\audio\\dc_xxd3_011.mp3",
+        "56ca4fb82972111966a14f5f116a0d9f"
+    ],
+    "dc_xxd3_012.mp3": [
+        "ui\\spot\\audio\\dc_xxd3_012.mp3",
+        "87f3d127ce2bcb58628764b8a4767521"
+    ],
+    "dc_xxd3_013.mp3": [
+        "ui\\spot\\audio\\dc_xxd3_013.mp3",
+        "fd87f6b9df006e8867daee1009097eca"
+    ],
+    "dc_xxd4_001.mp3": [
+        "ui\\spot\\audio\\dc_xxd4_001.mp3",
+        "0773cab9d6ea84dc614a13fd2b1c2ba2"
+    ],
+    "dc_xxd4_002.mp3": [
+        "ui\\spot\\audio\\dc_xxd4_002.mp3",
+        "a8b6407402e40ba3d227a18660fe32a5"
+    ],
+    "dc_xxd4_003.mp3": [
+        "ui\\spot\\audio\\dc_xxd4_003.mp3",
+        "de41d3781b98a8e106af13f1b0efabbb"
+    ],
+    "dc_xxd4_004.mp3": [
+        "ui\\spot\\audio\\dc_xxd4_004.mp3",
+        "a926980d4253a61680387a99078c1d33"
+    ],
+    "dc_xxd4_005.mp3": [
+        "ui\\spot\\audio\\dc_xxd4_005.mp3",
+        "608d7e053b556dcd283489ddcf32f24e"
+    ],
+    "dc_xxd5_001.mp3": [
+        "ui\\spot\\audio\\dc_xxd5_001.mp3",
+        "ee0237ff9400288114ecc1689d1dc9b8"
+    ],
+    "dc_xxd5_002.mp3": [
+        "ui\\spot\\audio\\dc_xxd5_002.mp3",
+        "7397f2658dc4f188868fc96ff9e7326e"
+    ],
+    "dc_xxd5_003.mp3": [
+        "ui\\spot\\audio\\dc_xxd5_003.mp3",
+        "d7d419c96200d2f0e4b6843bc53a0e67"
+    ],
+    "dc_xxd5_004.mp3": [
+        "ui\\spot\\audio\\dc_xxd5_004.mp3",
+        "85dc9c6c9484702861542a9870e6ebce"
+    ],
+    "dc_xxd5_005.mp3": [
+        "ui\\spot\\audio\\dc_xxd5_005.mp3",
+        "f06d912b867cafeec633fc77170d2403"
+    ],
+    "dc_xxd5_006.mp3": [
+        "ui\\spot\\audio\\dc_xxd5_006.mp3",
+        "8e4d302dbe1b8ded8685d9b002a63190"
+    ],
+    "dc_xxd5_007.mp3": [
+        "ui\\spot\\audio\\dc_xxd5_007.mp3",
+        "778e7472783191be6ce592211edb1be7"
+    ],
+    "hd_01_001.mp3": [
+        "ui\\spot\\audio\\hd_01_001.mp3",
+        "92a348ed1d45bb87313395f74074a3b2"
+    ],
+    "hd_01_002.mp3": [
+        "ui\\spot\\audio\\hd_01_002.mp3",
+        "09f19be2e30f5a8d5ee9bb5543c28c75"
+    ],
+    "hd_02_001.mp3": [
+        "ui\\spot\\audio\\hd_02_001.mp3",
+        "8a1f85bb20da836f373af6aca66bf279"
+    ],
+    "hd_02_002.mp3": [
+        "ui\\spot\\audio\\hd_02_002.mp3",
+        "d237df4fdcb0f2b056fbbe2d6094ef75"
+    ],
+    "hd_02_003.mp3": [
+        "ui\\spot\\audio\\hd_02_003.mp3",
+        "9db57954de853063d495ceeea1f27de2"
+    ],
+    "hd_02_004.mp3": [
+        "ui\\spot\\audio\\hd_02_004.mp3",
+        "b8e2f2b12bac44dd9c678eb19040f7ea"
+    ],
+    "hd_02_005.mp3": [
+        "ui\\spot\\audio\\hd_02_005.mp3",
+        "308d6008bcea8062a831e8403810334e"
+    ],
+    "hd_02_006.mp3": [
+        "ui\\spot\\audio\\hd_02_006.mp3",
+        "d7d55a40f0d7e7853234658e2ae83f91"
+    ],
+    "hd_04_001.mp3": [
+        "ui\\spot\\audio\\hd_04_001.mp3",
+        "a2a4f6b68123a5d163abeae98899a13b"
+    ],
+    "hd_04_002_g.mp3": [
+        "ui\\spot\\audio\\hd_04_002_g.mp3",
+        "db3b86f0d73cd06d54b40786d6b1a9a7"
+    ],
+    "hd_07_001_a.mp3": [
+        "ui\\spot\\audio\\hd_07_001_a.mp3",
+        "842bbae74f20a7063288b8f1acc5bf5b"
+    ],
+    "hd_07_001_c.mp3": [
+        "ui\\spot\\audio\\hd_07_001_c.mp3",
+        "75752fd434277f6dd7ef4b8ea531baf2"
+    ],
+    "hd_07_002_a.mp3": [
+        "ui\\spot\\audio\\hd_07_002_a.mp3",
+        "5aff0815c896cf56b0d7302d2977ccf4"
+    ],
+    "hd_07_002_c.mp3": [
+        "ui\\spot\\audio\\hd_07_002_c.mp3",
+        "acb8b23cde96d36121d74bd4547b206f"
+    ],
+    "hd_08_001.mp3": [
+        "ui\\spot\\audio\\hd_08_001.mp3",
+        "153cf6a7e834d591a796fd8653799f48"
+    ],
+    "hd_08_002.mp3": [
+        "ui\\spot\\audio\\hd_08_002.mp3",
+        "44ad7cef1d55997f9064bfcc783df561"
+    ],
+    "hd_08_003.mp3": [
+        "ui\\spot\\audio\\hd_08_003.mp3",
+        "eacadc64f568b6d9405d4f846bdbc951"
+    ],
+    "hd_09_001.mp3": [
+        "ui\\spot\\audio\\hd_09_001.mp3",
+        "a42c2876a6c35793c073ccd2c200dc81"
+    ],
+    "hd_09_002.mp3": [
+        "ui\\spot\\audio\\hd_09_002.mp3",
+        "e709859ae9057fe15313630230a3d998"
+    ],
+    "jiuriyixiang.mp3": [
+        "ui\\spot\\audio\\jiuriyixiang.mp3",
+        "8712ce3eb6c250014b7651e28edac11c"
+    ],
+    "jt_04_001.mp3": [
+        "ui\\spot\\audio\\jt_04_001.mp3",
+        "d22530faae962609847477146f249efc"
+    ],
+    "rain_big.mp3": [
+        "ui\\spot\\audio\\rain_big.mp3",
+        "8e4d302dbe1b8ded8685d9b002a63190"
+    ],
+    "rain_thunder.mp3": [
+        "ui\\spot\\audio\\rain_thunder.mp3",
+        "f06d912b867cafeec633fc77170d2403"
+    ],
+    "rain_thunder_2.mp3": [
+        "ui\\spot\\audio\\rain_thunder_2.mp3",
+        "991eb888b90a480678828026a18f0010"
+    ],
+    "sea_bird.mp3": [
+        "ui\\spot\\audio\\sea_bird.mp3",
+        "1b9b1872d0b93408237263e35a6fc1f5"
+    ],
+    "sea_wave.mp3": [
+        "ui\\spot\\audio\\sea_wave.mp3",
+        "9baa8a8288080b076c46e2d384444085"
+    ],
+    "yiliyase01.mp3": [
+        "ui\\spot\\audio\\yiliyase01.mp3",
+        "9c8b4067623d5a1219b0820babda0921"
+    ],
+    "yiliyase02.mp3": [
+        "ui\\spot\\audio\\yiliyase02.mp3",
+        "a869a720f86703a85d94342a86725003"
+    ],
+    "youzaiyouzai.mp3": [
+        "ui\\spot\\audio\\youzaiyouzai.mp3",
+        "8f2b464119a3b4fae2c9db0d5f8918cd"
+    ],
+    "ZYQD_zongci_01_001.mp3": [
+        "ui\\spot\\audio\\ZYQD_zongci_01_001.mp3",
+        "f5274a64520d8a59d835da49f386e588"
+    ],
+    "ZYQD_zongci_01_002.mp3": [
+        "ui\\spot\\audio\\ZYQD_zongci_01_002.mp3",
+        "8c0c0c1c093d357c7f5f10899fde3975"
+    ],
+    "ZYQD_zongci_01_003.mp3": [
+        "ui\\spot\\audio\\ZYQD_zongci_01_003.mp3",
+        "5467833fba4a7669bacbb52586a16d58"
+    ]
+}

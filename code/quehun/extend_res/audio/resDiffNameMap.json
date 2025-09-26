@@ -1,0 +1,58 @@
+{
+    "bs.mp3": [
+        "audio_lobby\\2308event\\bs.mp3",
+        "9bfd76f9fb5621dc35322f3345d7ecf6"
+    ],
+    "f.mp3": [
+        "audio_lobby\\2308event\\f.mp3",
+        "b49eff10793555693f5aa0f4eb530c47"
+    ],
+    "ss.mp3": [
+        "audio_lobby\\2308event\\ss.mp3",
+        "043a4a4d78fa07b988171ac18c3716f7"
+    ],
+    "attack1.mp3": [
+        "audio_lobby\\rpg\\attack1.mp3",
+        "9a9efe29a1cdcf0ecceb8a09e6b3cc4b"
+    ],
+    "attack2.mp3": [
+        "audio_lobby\\rpg\\attack2.mp3",
+        "09bf4f3dcc331fe093146552c4f2f3f5"
+    ],
+    "attack3.mp3": [
+        "audio_lobby\\rpg\\attack3.mp3",
+        "c636852e1553c03d0618ad500d29f7d9"
+    ],
+    "critical1.mp3": [
+        "audio_lobby\\rpg\\critical1.mp3",
+        "e0066497140cf0c7afdab99f17f5fed1"
+    ],
+    "critical2.mp3": [
+        "audio_lobby\\rpg\\critical2.mp3",
+        "8bde36b913fc5977d627531da622a631"
+    ],
+    "critical3.mp3": [
+        "audio_lobby\\rpg\\critical3.mp3",
+        "1924941adb015d9c486c44ad82b037c0"
+    ],
+    "doge1.mp3": [
+        "audio_lobby\\rpg\\doge1.mp3",
+        "abc3db4add654c27926000f8ce17196d"
+    ],
+    "doge2.mp3": [
+        "audio_lobby\\rpg\\doge2.mp3",
+        "5cc86a6ad72f58229cd70a9f15c27b38"
+    ],
+    "doge3.mp3": [
+        "audio_lobby\\rpg\\doge3.mp3",
+        "0fb536c89f92feee6e6cae141c8e4038"
+    ],
+    "move.mp3": [
+        "audio_lobby\\rpg\\move.mp3",
+        "103804e20268f07dbcb0beb72970d778"
+    ],
+    "rpg_start.mp3": [
+        "audio_lobby\\rpg\\rpg_start.mp3",
+        "b14d4d2b98e87b733fb3289b398b8322"
+    ]
+}
