@@ -4,7 +4,7 @@ import { BuildBase } from "./BuildBase";
 import { BinDir, Declare_ResPathPath, Lib_ResPathPath, ResDir, TS_MODIFY_TIP } from "./Const";
 import { GetAllFile, UpperFirst } from "./Utils";
 
-const enum FileType {
+const enum EFileType {
     Json = ".json",
     Proto = ".proto",
     Bin = ".bin",
@@ -58,7 +58,7 @@ export class BuildResPath2 extends BuildBase {
         return files.map(v => v.replace(BinDir + "\\", "").replace(/\\/g, "/"));
     }
 
-    private getAllFile(dirPath: string, filters: FileType[]) {
+    private getAllFile(dirPath: string, filters: EFileType[]) {
         return this.retifyFilePath(GetAllFile(dirPath, true, v => filters.some(v1 => v.endsWith(v1))));
     }
 
@@ -78,12 +78,12 @@ export class BuildResPath2 extends BuildBase {
 
     private createContent(name: string, kvs: string[][]) {
         const content = kvs.map(v => `\t\t${ v[0] } = "${ v[1] }",`).join("\n");
-        if (content) return `\texport enum ${ name } {\n${ content }\n\t}`;
-        else return `\texport enum ${ name } { }`;
+        if (content) return `\texport enum E${ name } {\n${ content }\n\t}`;
+        else return `\texport enum E${ name } { }`;
     }
 
     private buildConfig(dirPath: string) {
-        const files = this.getAllFile(dirPath, [FileType.Json, FileType.Proto, FileType.Bin]);
+        const files = this.getAllFile(dirPath, [EFileType.Json, EFileType.Proto, EFileType.Bin]);
         const pathKVs = this.getPathKVs(files);
         return [
             this.createContent("ConfigPath", pathKVs)
@@ -91,7 +91,7 @@ export class BuildResPath2 extends BuildBase {
     }
 
     private buildFont(dirPath: string) {
-        const files = this.getAllFile(dirPath, [FileType.Ttf]);
+        const files = this.getAllFile(dirPath, [EFileType.Ttf]);
         const nameKVs = this.getNameKVs(files);
         const pathKVs = this.getPathKVs(files);
         return [
@@ -101,7 +101,7 @@ export class BuildResPath2 extends BuildBase {
     }
 
     private buildPrescreen(dirPath: string) {
-        const files = this.getAllFile(dirPath, [FileType.Png, FileType.Jpg]);
+        const files = this.getAllFile(dirPath, [EFileType.Png, EFileType.Jpg]);
         const pathKVs = this.getPathKVs(files);
         return [
             this.createContent("PrescreenPath", pathKVs),
@@ -109,9 +109,9 @@ export class BuildResPath2 extends BuildBase {
     }
 
     private buildScene(dirPath: string) {
-        const sceneFiles = this.getAllFile(dirPath, [FileType.Scene]);
+        const sceneFiles = this.getAllFile(dirPath, [EFileType.Scene]);
         const scenePathKVs = this.getPathKVs(sceneFiles).map(v => ["Scene_" + v[0], v[1]]);
-        const sprite3dFiles = this.getAllFile(dirPath, [FileType.Sprite3D]);
+        const sprite3dFiles = this.getAllFile(dirPath, [EFileType.Sprite3D]);
         const sprite3dPathKVs = this.getPathKVs(sprite3dFiles).map(v => ["Sprite3D_" + v[0], v[1]]);
         return [
             this.createContent("ScenePath", [...scenePathKVs, ...sprite3dPathKVs]),
@@ -119,7 +119,7 @@ export class BuildResPath2 extends BuildBase {
     }
 
     private buildSkeleton(dirPath: string) {
-        const files = this.getAllFile(dirPath, [FileType.SK]);
+        const files = this.getAllFile(dirPath, [EFileType.SK]);
         const pathKVs = this.getPathKVs(files);
         return [
             this.createContent("SkeletonPath", pathKVs),
@@ -127,9 +127,9 @@ export class BuildResPath2 extends BuildBase {
     }
 
     private buildSound(dirPath: string) {
-        const mp3Files = this.getAllFile(dirPath, [FileType.Mp3]);
+        const mp3Files = this.getAllFile(dirPath, [EFileType.Mp3]);
         const mp3PathKVs = this.getPathKVs(mp3Files).map(v => ["MP3_" + v[0], v[1]]);
-        const wavFiles = this.getAllFile(dirPath, [FileType.Wav]);
+        const wavFiles = this.getAllFile(dirPath, [EFileType.Wav]);
         const wavPathKVs = this.getPathKVs(wavFiles).map(v => ["WAV_" + v[0], v[1]]);
         return [
             this.createContent("SoundPath", [...mp3PathKVs, ...wavPathKVs]),
@@ -137,7 +137,7 @@ export class BuildResPath2 extends BuildBase {
     }
 
     private buildSpine(dirPath: string) {
-        const files = this.getAllFile(dirPath, [FileType.Spine]);
+        const files = this.getAllFile(dirPath, [EFileType.Spine]);
         const pathKVs = this.getPathKVs(files);
         return [
             this.createContent("SpinePath", pathKVs),
@@ -145,9 +145,9 @@ export class BuildResPath2 extends BuildBase {
     }
 
     private buildTexture(dirPath: string) {
-        const pngFiles = this.getAllFile(dirPath, [FileType.Png]);
+        const pngFiles = this.getAllFile(dirPath, [EFileType.Png]);
         const pngPathKVs = this.getPathKVs(pngFiles).map(v => ["PNG_" + v[0], v[1]]);
-        const jpgFiles = this.getAllFile(dirPath, [FileType.Jpg]);
+        const jpgFiles = this.getAllFile(dirPath, [EFileType.Jpg]);
         const jpgPathKVs = this.getPathKVs(jpgFiles).map(v => ["JPG_" + v[0], v[1]]);
         return [
             this.createContent("TexturePath", [...pngPathKVs, ...jpgPathKVs]),
@@ -155,7 +155,7 @@ export class BuildResPath2 extends BuildBase {
     }
 
     private buildUI(dirPath: string) {
-        const files = this.getAllFile(dirPath, [FileType.Zip]);
+        const files = this.getAllFile(dirPath, [EFileType.Zip]);
         const nameKVs = this.getNameKVs(files);
         const pathKVs = this.getPathKVs(files, false);
         return [

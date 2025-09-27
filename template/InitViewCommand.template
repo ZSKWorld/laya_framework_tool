@@ -6,7 +6,7 @@ export class InitViewCommand extends Command {
     override execute(notifyName: string, data?: any) {
         #BINDER_CODE#
 
-        const register = facade.registerView.bind(facade) as typeof facade.registerView;
+        const register = $facade.registerView.bind($facade) as typeof $facade.registerView;
         #REGISTER_CODE#
     }
 }

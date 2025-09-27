@@ -190,7 +190,7 @@ export class BuildView extends BuildBase {
 
     private BuildViewID() {
         const content = this.GetViewIDContent();
-        const viewIDContent = this.viewIDTemplate.replace("#CONTENT#", content).replace(/ =/g, ":").replace("export enum ViewID", "ViewID =");
+        const viewIDContent = this.viewIDTemplate.replace("#CONTENT#", content).replace(/ =/g, ":").replace("export enum EViewID", "EViewID =");
         fs.writeFileSync(Lib_ViewIDPath, viewIDContent);
         const viewIDDeclareContent = this.viewIDDeclareTemplate.replace("#CONTENT#", content);
         fs.writeFileSync(Declare_ViewIDPath, viewIDDeclareContent);
@@ -224,7 +224,7 @@ export class BuildView extends BuildBase {
                 const viewPath = tempPath.replace(basename, "view\\" + subDirMap[desc] + basename + "View.ts");
                 const mediatorPath = tempPath.replace(basename, "mediator\\" + subDirMap[desc] + basename + "Mediator.ts");
                 if (fs.existsSync(viewPath)) {
-                    registerCode += `\t\tregister(ViewID.${ basename }View, ViewType.${ viewType }, ${ basename }View`;
+                    registerCode += `\t\tregister(EViewID.${ basename }View, EViewType.${ viewType }, ${ basename }View`;
                     imports.push(`import { ${ basename }View } from "${ path.relative(initViewCommandDir, mapFunc(viewPath)).replace(/\\/g, "/") }";`);
                     if (fs.existsSync(mediatorPath)) {
                         registerCode += ", " + basename + "Mediator";
