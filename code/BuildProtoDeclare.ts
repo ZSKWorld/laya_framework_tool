@@ -212,8 +212,8 @@ export class BuildProtoDeclare extends BuildBase {
         libReqContent = `EMessageID = {\n${ libReqContent }}\n`;
         reqMethodContent = `declare interface IReqMethod {\n${ reqMethodContent }}\n`;
 
-        var omitproto = 'declare type ProtoObject<T> = Omit<T, "toJSON">;\n\n';
-        var iproto = "declare interface IProto {\n\ttoJSON?(): ProtoObject<this>;\n}\n\n";
+        var omitproto = 'declare type ProtoObject<T> = Omit<T, "toJSON" | "$type">;\n\n';
+        var iproto = "declare interface IProto {\n\t$type?: protobuf.Type;\n\ttoJSON?(): ProtoObject<this>;\n}\n\n";
         let messageContent = omitproto + iproto + "declare interface IResponse extends IProto {\n\terror?: IError;\n}\n\n";
         for (const key in nested) {
             const msg = nested[key];
