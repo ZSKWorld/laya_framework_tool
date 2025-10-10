@@ -24,7 +24,7 @@ const activityDirs = [
 //     });
 // });
 
-function replacePathSign(str: string, reverse?:boolean) {
+function replacePathSign(str: string, reverse?: boolean) {
     if (!str) return str;
     if (reverse) return str.replace(/\//g, "\\\\");
     else return str.replace(/\\/g, "/");
@@ -383,6 +383,7 @@ function exchangeKeyValue<T>(obj: T): T {
 }
 
 enum BannerType {
+    Unused = "unused",
     /** 大厅主界面使用 */
     Lobby = "lobby",
     /** 主体内使用 */
@@ -393,55 +394,17 @@ enum BannerType {
     RotationalMatch = "rotationalmatch",
 }
 function getBannerMap() {
-    const bannerMap: KeyMap<BannerType | string> = {
-        "myres2/activity_banner/24wenjuan1.png": BannerType.Tab,
-        "myres2/activity_banner/24wenjuan2.png": BannerType.Tab,
-        "myres2/activity_banner/24wenjuan3.png": BannerType.Tab,
-        "myres2/activity_banner/25balei.png": BannerType.Tab,
-        "myres2/activity_banner/25balei_0.png": BannerType.Lobby,
-        "myres2/activity_banner/25balei_b.jpg": BannerType.Tab,
-        "myres2/activity_banner/25chunjie2.png": BannerType.Tab,
-        "myres2/activity_banner/25chunjie2_0.png": BannerType.Lobby,
-        "myres2/activity_banner/25chunjie2_b.jpg": BannerType.Tab,
-        "myres2/activity_banner/25fate_signin_0.png": BannerType.Lobby,
-        "myres2/activity_banner/25hf.png": BannerType.Tab,
-        "myres2/activity_banner/25hf_0.png": BannerType.Lobby,
-        "myres2/activity_banner/25hf_b.jpg": BannerType.Tab,
-        "myres2/activity_banner/25lifu1.png": BannerType.Tab,
-        "myres2/activity_banner/25lifu1_b.jpg": BannerType.Tab,
-        "myres2/activity_banner/25lifu2.png": BannerType.Tab,
-        "myres2/activity_banner/25lifu2_b.jpg": BannerType.Tab,
-        "myres2/activity_banner/25lunhuan.png": BannerType.Tab,
-        "myres2/activity_banner/25lunhuan_b.jpg": BannerType.Tab,
-        "myres2/activity_banner/25wenquan1.png": BannerType.Tab,
-        "myres2/activity_banner/25wenquan1_b.jpg": BannerType.Tab,
-        "myres2/activity_banner/25wenquan2.png": BannerType.Tab,
-        "myres2/activity_banner/25wenquan2_b.jpg": BannerType.Tab,
-        "myres2/activity_banner/daily_mission.png": BannerType.Tab,
-        "myres2/activity_banner/fuhuo.png": BannerType.Tab,
-        "myres2/activity_banner/interval/anye.png": BannerType.RotationalMatch,
-        "myres2/activity_banner/interval/baopai.png": BannerType.RotationalMatch,
+    const bannerMap: KeyMap<BannerType> = {
         "myres2/activity_banner/interval/beishui.png": BannerType.RotationalMatch,
-        "myres2/activity_banner/interval/chiyu.png": BannerType.RotationalMatch,
-        "myres2/activity_banner/interval/huanjing.png": BannerType.RotationalMatch,
-        "myres2/activity_banner/interval/hunzhiyiji.png": BannerType.RotationalMatch,
-        "myres2/activity_banner/interval/longzhimuyu.png": BannerType.RotationalMatch,
-        "myres2/activity_banner/interval/tianming.png": BannerType.RotationalMatch,
-        "myres2/activity_banner/interval/wanxiang.png": BannerType.RotationalMatch,
-        "myres2/activity_banner/interval/xiuluo.png": BannerType.RotationalMatch,
-        "myres2/activity_banner/interval/yongchang.png": BannerType.RotationalMatch,
-        "myres2/activity_banner/interval/zhanxing.png": BannerType.RotationalMatch,
-        "myres2/activity_banner/level_1.png": BannerType.Tab,
-        "myres2/activity_banner/level_1_selected.png": BannerType.Tab,
-        "myres2/activity_banner/level_2.png": BannerType.Tab,
-        "myres2/activity_banner/level_2_selected.png": BannerType.Tab,
-        "myres2/activity_banner/weekly_mission.png": BannerType.Tab,
-        "myres2/activity_banner/yushou.png": BannerType.Tab,
-        "myres2/activity_banner/25jk1_b.jpg": BannerType.Tab,
-        "myres2/activity_banner/25jk1.png": BannerType.Tab,
-        "myres2/activity_banner/25jk2_b.jpg": BannerType.Tab,
-        "myres2/activity_banner/25jk2.png": BannerType.Tab,
     };
+    forEachExcel(desktop_sheets, "matchmode", ["AG"], (row, colNum, colName, value: string) => {
+        if (!value) return;
+        if (!value.trim()) return;
+        value = replacePathSign(value.trim());
+        switch (colName) {
+            case "AG": bannerMap[value] = BannerType.RotationalMatch; break;
+        }
+    });
     forEachExcel(activity_sheets, "activity_banner", ["E", "F", "G", "H", "I"], (row, colNum, colName, value: string) => {
         if (!value) return;
         if (!value.trim()) return;
@@ -453,13 +416,32 @@ function getBannerMap() {
             case "H": bannerMap[value] = BannerType.Tab; break;
             case "I": bannerMap[value] = BannerType.Tab; break;
         }
-    });;
+    });
+
+    const unusedBanner: KeyMap<string> = {};
+    langType.forEach(lang => {
+        const prefix = path.join(resDir, lang, "/");
+        const bannerTexes = getAllFile(
+            path.join(prefix, "myres2/activity_banner"),
+            name => name.endsWith(".png") || name.endsWith(".jpg"),
+            filepath => replacePathSign(filepath.replace(prefix, "")),
+        );
+        bannerTexes.forEach(v => {
+            if (!bannerMap[v]) {
+                bannerMap[v] = BannerType.Unused;
+                unusedBanner[v] = BannerType.Unused;
+                console.log(v);
+            }
+        });
+    });
+
+    const bannerItem: KeyMap<string> = {};
     for (const key in bannerMap) {
         const ele = bannerMap[key];
         const keyArr = key.split("/");
-        bannerMap[key] = `${ keyArr[0] }/${ keyArr[1] }/${ ele }/${ keyArr[keyArr.length - 1] }`;
+        bannerItem[key] = `${ keyArr[0] }/${ keyArr[1] }/${ ele }/${ keyArr[keyArr.length - 1] }`;
     }
-    return bannerMap;
+    return { bannerItem, unusedBanner };
 }
 
 const itemsMap = createItemsMap();
@@ -481,7 +463,8 @@ for (const key in items) {
         items[key] = replacePathSign(newPath);
     }
 }
-const old_to_new = { ...items, ...getBannerMap() };
+const bannerMap = getBannerMap();
+const old_to_new = { ...items, ...bannerMap.bannerItem };
 const new_to_old = exchangeKeyValue(old_to_new);
 
 fs.writeFileSync(
@@ -495,6 +478,10 @@ fs.writeFileSync(
 fs.writeFileSync(
     "code/quehun/extend_res/output/unsed.json",
     replacePathSign(JSON.stringify(Object.keys(itemsMap.unusedItems), null, 4), true)
+);
+fs.writeFileSync(
+    "code/quehun/extend_res/output/unsed_banner.json",
+    replacePathSign(JSON.stringify(Object.keys(bannerMap.unusedBanner), null, 4), true)
 );
 
 for (const key in itemsMap.activityItems) {
