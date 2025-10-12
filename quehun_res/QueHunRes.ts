@@ -65,43 +65,49 @@ function copyImage() {
     const tDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets";
     const img_map = JSON.parse(fs.readFileSync("quehun_res/img_map.json").toString());
     const copied_map = JSON.parse(fs.readFileSync("quehun_res/copied_map.json").toString());
-    const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgCommon/Texture";
+    const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgMain/Texture";
     if (!fs.existsSync(ttDir)) return console.error("目标路径不存在");
     const copyImgs = [
-        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/pop_panel/bg.png", 
-        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/pop_panel/btn_b.png", 
-        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/pop_panel/btn_close.png", 
-        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/pop_panel/btn_g.png", 
-        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/pop_panel/btn_w.png", 
-        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/pop_panel/btn_y.png", 
-        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/pop_panel/deco_l.png", 
-        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/pop_panel/deco_r.png", 
-        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/pop_panel/frame.png", 
-        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/pop_panel/slider.png", 
-        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/pop_panel/slider_bg.png", 
-        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/pop_panel/split_left.png", 
-        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/pop_panel/split_mid.png",
+        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/denglong.png", 
+        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/icon_act.png", 
     ];
-    let hasChanged = false;
+    let hasError = false;
     copyImgs.forEach(v => {
-        if (!fs.existsSync(v)) return console.error("图片路径不存在", v);
+        if (!fs.existsSync(v)) {
+            hasError = true;
+        }
         const md5 = createFileMD5(v);
         if (img_map[md5]) {
             const imgName = img_map[md5];
-            delete img_map[md5];
-            copied_map[md5] = [imgName, path.relative(tDir, ttDir)];
-            fs.renameSync(path.join(targetDir, imgName), path.join(ttDir, imgName));
-            hasChanged = true;
-        } else if (copied_map[md5]) {
-            console.error(`已复制的图片==${ v }==${ copied_map[md5][0] }==${ copied_map[md5][1] }`);
+            const targetPath = path.join(targetDir, imgName);
+            
+            if (!fs.existsSync(targetPath)) {
+                hasError = true;
+                console.error("图片不存在", v, imgName);
+            }
+         }
+        else if (copied_map[md5]) {
+            hasError = true;
+            console.error(`已复制的图片 == ${ v } == ${ copied_map[md5][0] } == ${ copied_map[md5][1] }`);
         } else {
+            hasError = true;
             console.error("未记录的图片", v);
         }
     });
-    if (hasChanged) {
-        fs.writeFileSync("quehun_res/img_map.json", JSON.stringify(img_map, null, 4));
-        fs.writeFileSync("quehun_res/copied_map.json", JSON.stringify(copied_map, null, 4));
-    }
+    if (hasError) return;
+    copyImgs.forEach(v => {
+        const md5 = createFileMD5(v);
+        if (copied_map[md5]) return;
+        const imgName = img_map[md5];
+        delete img_map[md5];
+        copied_map[md5] = [imgName, path.relative(tDir, ttDir)];
+        const r = path.join(targetDir, imgName);
+        const t = path.join(ttDir, imgName);
+        fs.renameSync(r, t);
+        console.error("复制", r, t);
+    });
+    fs.writeFileSync("quehun_res/img_map.json", JSON.stringify(img_map, null, 4));
+    fs.writeFileSync("quehun_res/copied_map.json", JSON.stringify(copied_map, null, 4));
 }
 copyImage();
 

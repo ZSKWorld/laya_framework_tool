@@ -206,7 +206,7 @@ export class BuildProtoDeclare extends BuildBase {
             const method = methods[key];
             reqContent += `${ this.buildTSComments(method.comment, 1) }\t${ key } = "${ key }",\n`;
             libReqContent += `\t${ key }: "${ key }",\n`;
-            reqMethodContent += `${ this.buildTSComments(method.comment, 1) }\t${ key }(data: I${ method.requestType }): Promise<I${ method.responseType }>;\n`;
+            reqMethodContent += `${ this.buildTSComments(method.comment, 1) }\t${ key }(data?: I${ method.requestType }): Promise<I${ method.responseType }>;\n`;
         }
         reqContent = `/** 网络请求协议 */\ndeclare enum EMessageID {\n${ reqContent }}\n`;
         libReqContent = `EMessageID = {\n${ libReqContent }}\n`;
