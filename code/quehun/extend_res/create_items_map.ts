@@ -202,7 +202,7 @@ findExcelContent(item_definition_sheets, "currency", ["M", "N"], excelValues, It
 //24summer1 30900044
 findExcelContent(item_definition_sheets, "item", ["U", "V"], excelValues, (data) => {
     const id = +data.id;
-    if (id == 309201 || id == 309037 || id == 30900044) { //这三个图策划确认会有用，放到main里
+    if (id == 309201 || id == 309037 || id == 30900044 || 30900093 || 30900094) { //这三个图策划确认会有用，放到main里
         return ItemType.Main;
     }
     const category: ItemCategory = +data.category;
