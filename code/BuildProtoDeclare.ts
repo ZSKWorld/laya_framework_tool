@@ -94,17 +94,19 @@ export class BuildProtoDeclare extends BuildBase {
     }
 
     /** 提取嵌套type至顶层type */
-    private extractSubTypes(type: IType, parent: IType) {
+    private extractSubTypes(type: IType, parent: IType, ro: protobuf.Type) {
         if (type.nested) {
             for (const key in type.nested) {
                 const ele = type.nested[key];
+                const ro2 = ro.nested[key] as protobuf.Type;
+                ele.fullName = ro2.fullName;
                 if (parent) {
                     parent.nested = parent.nested || {};
                     if (!parent.nested[key]) {
                         parent.nested[key] = ele;
                     }
                 }
-                this.extractSubTypes(ele, parent || type);
+                this.extractSubTypes(ele, parent || type, ro2);
             }
         }
         if (parent)
@@ -139,7 +141,7 @@ export class BuildProtoDeclare extends BuildBase {
                 }
             } else target_ns.nested[key] = type;
             if (type.fields && key.startsWith("Notify")) target_ns.notifies[key] = type;
-            this.extractSubTypes(type, null);
+            this.extractSubTypes(type, null, pbType as protobuf.Type);
         }
     }
 
