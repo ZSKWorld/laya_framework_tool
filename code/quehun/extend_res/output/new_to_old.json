@@ -495,6 +495,7 @@
     "extendRes\\items\\activity\\2312combine\\25xila2_0.png": "extendRes\\items2\\25xila2_0.png",
     "extendRes\\items\\activity\\2510questcrew\\25yh.jpg": "extendRes\\items2\\25yh.jpg",
     "extendRes\\items\\activity\\2510questcrew\\25yh_0.png": "extendRes\\items2\\25yh_0.png",
+    "extendRes\\items\\activity\\2509wuxia\\25yuehui.jpg": "extendRes\\items2\\25yuehui.jpg",
     "extendRes\\items\\deco\\lizhibang\\liqi_akagi.jpg": "extendRes\\items2\\akagi_liqi.jpg",
     "extendRes\\items\\deco\\effect_lizhi\\effect_liqi_akagi.jpg": "extendRes\\items2\\akagi_liqi_effect.jpg",
     "extendRes\\items\\deco\\mjpai\\mjp_akagi.jpg": "extendRes\\items2\\akagi_pai.jpg",
@@ -844,5 +845,8 @@
     "myres2\\activity_banner\\lobby\\25yh_signin_0.png": "myres2\\activity_banner\\25yh_signin_0.png",
     "myres2\\activity_banner\\lobby\\25yh_0.png": "myres2\\activity_banner\\25yh_0.png",
     "myres2\\activity_banner\\tab\\25yh_b.jpg": "myres2\\activity_banner\\25yh_b.jpg",
-    "myres2\\activity_banner\\tab\\25yh.png": "myres2\\activity_banner\\25yh.png"
+    "myres2\\activity_banner\\tab\\25yh.png": "myres2\\activity_banner\\25yh.png",
+    "myres2\\activity_banner\\lobby\\25yuehui_0.png": "myres2\\activity_banner\\25yuehui_0.png",
+    "myres2\\activity_banner\\tab\\25yuehui_b.jpg": "myres2\\activity_banner\\25yuehui_b.jpg",
+    "myres2\\activity_banner\\tab\\25yuehui.png": "myres2\\activity_banner\\25yuehui.png"
 }
