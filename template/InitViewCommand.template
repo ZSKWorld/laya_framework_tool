@@ -3,10 +3,10 @@
 import { Command } from "../core/mvc/controller/Command";
 
 export class InitViewCommand extends Command {
-    override execute(notifyName: string, data?: any) {
-        #BINDER_CODE#
+	override execute(notifyName: string, data?: any) {
+		#BINDER_CODE#
 
-        const register = $facade.registerView.bind($facade) as typeof $facade.registerView;
-        #REGISTER_CODE#
-    }
+		const register = $facade.registerView.bind($facade) as typeof $facade.registerView;
+		#REGISTER_CODE#
+	}
 }

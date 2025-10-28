@@ -7,8 +7,8 @@ export interface #DATA_NAME# {
 
 export class #CLASS_NAME# extends MediatorBase<#VIEW_CLASS#, #DATA_NAME#> {
 
-    override onAwake() {
-        #BTN_MESSAGE#
-    }
-    #BTN_FUNCTIONS#
+	override onAwake() {
+		#BTN_MESSAGE#
+	}
+	#BTN_FUNCTIONS#
 }

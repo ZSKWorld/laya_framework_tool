@@ -68,9 +68,38 @@ function copyImage() {
     const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgMain/Texture";
     if (!fs.existsSync(ttDir)) return console.error("目标路径不存在");
     const copyImgs = [
-        // "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/btn_rule_desc.png",
-        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/bg_back0.png",
-        "E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/img_return2.png"
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_zhanxing.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_ab_match.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_activity.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_anye.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_beishuizhizhan.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_chiyu.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_createroom.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_dora3.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_huanjing.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_hunzhiyiji.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_jinzhijian.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_joinroom.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_luandou.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_mingjing.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_muyu.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_peipai.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_saishidating.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_sanrendong.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_sanrennan.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_shilian.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_sirendong.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_sirennan.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_tianming.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_tongzhijian.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_wangzuo.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_wanxiangxiuluo.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_xiuluo.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_xiuxian.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_yijushengfu.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_yinzhijian.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_yongchang.png", 
+        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_yuzhijian.png",
     ];
     let hasError = false;
     copyImgs.forEach(v => {
