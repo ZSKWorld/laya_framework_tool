@@ -1,5 +1,5 @@
 {
-    "count": 476,
+    "count": 482,
     "mouseclick.mp3": [
         "audio\\audio_common\\mouseclick.mp3",
         "aac5bd6114c46baf1910eae7cff63a28"
@@ -875,6 +875,30 @@
     "2508hanghai_sea_wave.mp3": [
         "ui\\activity\\extend\\2508voyage\\main\\audio\\2508hanghai_sea_wave.mp3",
         "c222d8c9ba1962ecb020d8949c79e74c"
+    ],
+    "2511yuehui_defeat_enemy.mp3": [
+        "ui\\activity\\extend\\2509wuxia\\main\\audio\\2511yuehui_defeat_enemy.mp3",
+        "2e6f48682629742734e2aa10a378e7f7"
+    ],
+    "2511yuehui_enter_game.mp3": [
+        "ui\\activity\\extend\\2509wuxia\\main\\audio\\2511yuehui_enter_game.mp3",
+        "80676f19167c073cc3c475c85af125cc"
+    ],
+    "2511yuehui_exchange_page.mp3": [
+        "ui\\activity\\extend\\2509wuxia\\main\\audio\\2511yuehui_exchange_page.mp3",
+        "717fd3e362c43013f66e56fc30282ae4"
+    ],
+    "2511yuehui_hit_enemy.mp3": [
+        "ui\\activity\\extend\\2509wuxia\\main\\audio\\2511yuehui_hit_enemy.mp3",
+        "9eb0f96365491419d8ac9e331b26cd19"
+    ],
+    "2511yuehui_move_airplane.mp3": [
+        "ui\\activity\\extend\\2509wuxia\\main\\audio\\2511yuehui_move_airplane.mp3",
+        "ab048d6983978ec5fbcc891d0692ea70"
+    ],
+    "2511yuehui_shoot_bullet.mp3": [
+        "ui\\activity\\extend\\2509wuxia\\main\\audio\\2511yuehui_shoot_bullet.mp3",
+        "c15cc8bbfcb65f32b14dc8c1e146e26e"
     ],
     "2510yh_activity_enter.mp3": [
         "ui\\activity\\extend\\2510questcrew\\main\\audio\\2510yh_activity_enter.mp3",

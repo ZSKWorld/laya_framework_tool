@@ -1,5 +1,5 @@
 {
-    "count": 490,
+    "count": 496,
     "2312winter_combine.mp3": [
         "audio_event\\2312winter_combine.mp3",
         "7cef2d09521447b9f0c8fa3672bf89cb"
@@ -611,6 +611,30 @@
     "2510yh_ui_open.mp3": [
         "audio_event\\2510yh_ui_open.mp3",
         "df118a1788f504b11f0989132560e6e3"
+    ],
+    "2511yuehui_defeat_enemy.mp3": [
+        "audio_event\\2511yuehui_defeat_enemy.mp3",
+        "2e6f48682629742734e2aa10a378e7f7"
+    ],
+    "2511yuehui_enter_game.mp3": [
+        "audio_event\\2511yuehui_enter_game.mp3",
+        "80676f19167c073cc3c475c85af125cc"
+    ],
+    "2511yuehui_exchange_page.mp3": [
+        "audio_event\\2511yuehui_exchange_page.mp3",
+        "717fd3e362c43013f66e56fc30282ae4"
+    ],
+    "2511yuehui_hit_enemy.mp3": [
+        "audio_event\\2511yuehui_hit_enemy.mp3",
+        "9eb0f96365491419d8ac9e331b26cd19"
+    ],
+    "2511yuehui_move_airplane.mp3": [
+        "audio_event\\2511yuehui_move_airplane.mp3",
+        "ab048d6983978ec5fbcc891d0692ea70"
+    ],
+    "2511yuehui_shoot_bullet.mp3": [
+        "audio_event\\2511yuehui_shoot_bullet.mp3",
+        "c15cc8bbfcb65f32b14dc8c1e146e26e"
     ],
     "akagi_rain.mp3": [
         "audio_event\\akagi_rain.mp3",
