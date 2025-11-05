@@ -51,18 +51,8 @@ function forEachExcel(excelName: string, sheetName: string, colNames: string[], 
 }
 
 let result = [];
-forEachExcel("item_definition", "view", ["C"], (row, col, colName, data) => {
-    if (data.res_name == "effect_liqi_xiyuansi"
-        || data.res_name == "effect_liqi_nanfenghua"
-        || data.res_name == "effect_liqi_beiyuan"
-        || data.res_name == "effect_liqi_22summer"
-        || data.res_name == "effect_liqi_22chunjie"
-        || data.res_name == "effect_liqi_23ex_liandao"
-        || data.res_name == "effect_liqi_2211saki"
-        || data.res_name == "effect_liqi_23rpg"
-        || data.res_name == "effect_liqi_yly"
-        || data.res_name == "effect_liqi_24summer"
-    )
+forEachExcel("item_definition", "skin", ["C"], (row, col, colName, data) => {
+    if (data.character_id == 200048)
         result.push(data.id + "-1")
 });
 console.log(result.join(","))

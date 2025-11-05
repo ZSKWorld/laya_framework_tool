@@ -6,23 +6,6 @@ type KeyMap<T> = { [key: string]: T; };
 type ExcelData = { name: string, data: string[][]; }[];
 const resDir = "D:\\liqi\\majsoul-extendres\\";
 const langType = ["chs", "chs_t", "common", "en", "en_chs_t", "en_kr", "jp", "kr"];
-const activityDirs = [
-    "voteskin", "2212winter", "2301chunjie", "2309spot", "2311dongri", "2312combine", "2401village", "2403broadcast",
-    "2406haidao", "2408story", "2411imas", "2412richman", "2504simulation", "abMatch", "amulet",
-    /** "banner", */    "bannerbase", "catchat", "festival", "guide", "niudan", "questionnaire", "sign", "sign_sp",
-];
-
-//创建活动文件夹
-// activityDirs.forEach(v => {
-//     langType.forEach(lang => {
-//         const dir = "D:/liqi/majsoul-extendres/" + lang + "/extendRes/items/";
-//         if (fs.existsSync(dir)) {
-//             const dPath = dir + "activity/" + v;
-//             if (!fs.existsSync(dPath))
-//                 fs.mkdirSync(dPath, { recursive: true });
-//         }
-//     });
-// });
 
 function replacePathSign(str: string, reverse?: boolean) {
     if (!str) return str;
