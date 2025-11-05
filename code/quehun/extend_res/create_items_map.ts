@@ -4,8 +4,31 @@ import * as path from "path";
 
 type KeyMap<T> = { [key: string]: T; };
 type ExcelData = { name: string, data: string[][]; }[];
-const resDir = "D:\\liqi\\majsoul-extendres\\";
+const resDir = "D:\\liqi\\majsoul-extendres_test\\";
+const xlsxPath = "D:\\liqi\\liqi-excel\\data\\";
+const activity_items_json = "code/quehun/extend_res/output/activity_items.json";
+const old_to_new_json = "code/quehun/extend_res/output/old_to_new.json";
+const new_to_old_json = "code/quehun/extend_res/output/new_to_old.json";
+const unsed_json = "code/quehun/extend_res/output/unsed.json";
+const unsed_banner_json = "code/quehun/extend_res/output/unsed_banner.json";
+
 const langType = ["chs", "chs_t", "common", "en", "en_chs_t", "en_kr", "jp", "kr"];
+
+function removeEmptyDir(dir: string) {
+    if (!fs.existsSync(dir)) return;
+    fs.readdirSync(dir).forEach(v => {
+        const vPath = path.resolve(dir, v);
+        if (!fs.existsSync(vPath)) return;
+        const stat = fs.statSync(vPath);
+        if (stat.isDirectory()) {
+            removeEmptyDir(vPath);
+            const vDirInfos = fs.readdirSync(vPath);
+            if (vDirInfos.length == 0) {
+                fs.rmdirSync(vPath);
+            }
+        }
+    });
+}
 
 function replacePathSign(str: string, reverse?: boolean) {
     if (!str) return str;
@@ -52,6 +75,31 @@ function columnNameToNumber(columnName: string) {
         result += index * Math.pow(26, columnName.length - 1 - i); // 从右向左计算26进制数，例如AB是28（1*26^1 + 2*26^0）
     }
     return result;
+}
+
+function exchangeKeyValue<T>(obj: T): T {
+    const result = {} as any;
+    for (const key in obj) {
+        const ele = obj[key];
+        if (typeof (ele) == "object") {
+            result[key] = exchangeKeyValue(ele);
+        } else {
+            result[ele] = key;
+        }
+    }
+    return result;
+}
+
+enum BannerType {
+    Unused = "unused",
+    /** 大厅主界面使用 */
+    Lobby = "lobby",
+    /** 主体内使用 */
+    Main = "main",
+    /** 活动页面使用 */
+    Tab = "tab",
+    /** 轮换模式特殊处理 */
+    RotationalMatch = "rotationalmatch",
 }
 
 enum ItemType {
@@ -170,72 +218,13 @@ function findExcelContent(excelData: ExcelData, sheetName: string, colNames: str
     }
 }
 
-const xlsxPath = "D:\\liqi\\liqi-excel\\data\\";
-const item_definition_sheets: ExcelData = xlsx.parse(xlsxPath + "item_definition.xlsx");
-const desktop_sheets: ExcelData = xlsx.parse(xlsxPath + "desktop.xlsx");
-const exchange_sheets: ExcelData = xlsx.parse(xlsxPath + "exchange.xlsx");
-const mall_sheets: ExcelData = xlsx.parse(xlsxPath + "mall.xlsx");
-const shops_sheets: ExcelData = xlsx.parse(xlsxPath + "shops.xlsx");
-const activity_sheets: ExcelData = xlsx.parse(xlsxPath + "activity.xlsx");
 const excelValues: KeyMap<ItemType> = {};
-findExcelContent(item_definition_sheets, "currency", ["M", "N"], excelValues, ItemType.Main);
-
-//chiyuebin 309201
-//fankaijihui 309037
-//24summer1 30900044
-findExcelContent(item_definition_sheets, "item", ["U", "V"], excelValues, (data) => {
-    const id = +data.id;
-    if (id == 309201 || id == 309037 || id == 30900044 || id == 30900093 || id == 30900094) { //这三个图策划确认会有用，放到main里
-        return ItemType.Main;
-    }
-    const category: ItemCategory = +data.category;
-    const type = +data.type;
-    let itemType: ItemType = ItemType.None;
-    switch (category) {
-        case ItemCategory.PuTong:
-        case ItemCategory.LiWu:
-        case ItemCategory.FuDai: itemType = ItemType.Main; break;
-        case ItemCategory.JueSeZhuangBan: break;
-        case ItemCategory.TongYongZhuangBan:
-            const subType = type as unknown as ItemCategory_TongYongZhuangBan_Type;
-            switch (subType) {
-                case ItemCategory_TongYongZhuangBan_Type.LiZhiBang: itemType = ItemType.Deco_LiZhiBang; break;
-                case ItemCategory_TongYongZhuangBan_Type.HuPaiTeXiao: itemType = ItemType.Deco_Effect_HuPai; break;
-                case ItemCategory_TongYongZhuangBan_Type.LiZhiTeXiao: itemType = ItemType.Deco_Effect_LiZhi; break;
-                case ItemCategory_TongYongZhuangBan_Type.ShouDeYangShi: itemType = ItemType.Deco_Hand; break;
-                case ItemCategory_TongYongZhuangBan_Type.LiZhiYinYue: itemType = ItemType.Deco_LiZhiBgm; break;
-                case ItemCategory_TongYongZhuangBan_Type.TouXiangKuang: itemType = ItemType.Deco_HeadFrame; break;
-                case ItemCategory_TongYongZhuangBan_Type.ZhuoBo:
-                    itemType = ItemType.Deco_TableCloth;
-                    break;
-                case ItemCategory_TongYongZhuangBan_Type.PaiBei: itemType = ItemType.Deco_MJPai; break;
-                case ItemCategory_TongYongZhuangBan_Type.DaTingBeiJing: itemType = ItemType.Deco_LobbyBackground; break;
-                case ItemCategory_TongYongZhuangBan_Type.BeiJingYinYue: itemType = ItemType.Deco_Bgm; break;
-                case ItemCategory_TongYongZhuangBan_Type.MingPaiZhiShi: itemType = ItemType.Deco_Effect_MingPaiZhiShi; break;
-                case ItemCategory_TongYongZhuangBan_Type.XianShiChengHao: break;
-                case ItemCategory_TongYongZhuangBan_Type.ChaHuaLoadingTu: break;
-                case ItemCategory_TongYongZhuangBan_Type.MaJiangPaiZhengMian: itemType = ItemType.Deco_MJFace; break;
-            }
-            break;
-        case ItemCategory.HuoDongDaoJu: itemType = ItemType.Activity; break;
-        case ItemCategory.XianShiChengHao: break;
-        case ItemCategory.BuCanYuChengJiuDeZhuangBan: break;
-        default:
-            break;
-    }
-    return itemType;
-});
-findExcelContent(item_definition_sheets, "function_item", ["I", "J"], excelValues, (data) => {
-    if (data.type == 2) return ItemType.Main;//月卡图标放到main里
-    return ItemType.Activity;
-});
-findExcelContent(desktop_sheets, "chest", ["I"], excelValues, ItemType.Main);
-findExcelContent(exchange_sheets, "exchange", ["G"], excelValues, ItemType.Main);
-findExcelContent(exchange_sheets, "searchexchange", ["G"], excelValues, ItemType.Main);
-findExcelContent(exchange_sheets, "fushiquanexchange", ["G"], excelValues, ItemType.Main);
-findExcelContent(mall_sheets, "month_ticket", ["L"], excelValues, ItemType.Main);
-findExcelContent(mall_sheets, "goods", ["N"], excelValues, ItemType.Main);
-findExcelContent(shops_sheets, "zhp_goods", ["C"], excelValues, ItemType.Main);
+let item_definition_sheets: ExcelData;
+let desktop_sheets: ExcelData;
+let exchange_sheets: ExcelData;
+let mall_sheets: ExcelData;
+let shops_sheets: ExcelData;
+let activity_sheets: ExcelData;
 
 const unusedTranslateMap: KeyMap<[ItemType, string]> = {
     "extendRes/items/book0.jpg": [ItemType.Main, ""],
@@ -352,30 +341,6 @@ function createItemsMap() {
     return { items, unusedItems, activityItems };
 }
 
-function exchangeKeyValue<T>(obj: T): T {
-    const result = {} as any;
-    for (const key in obj) {
-        const ele = obj[key];
-        if (typeof (ele) == "object") {
-            result[key] = exchangeKeyValue(ele);
-        } else {
-            result[ele] = key;
-        }
-    }
-    return result;
-}
-
-enum BannerType {
-    Unused = "unused",
-    /** 大厅主界面使用 */
-    Lobby = "lobby",
-    /** 主体内使用 */
-    Main = "main",
-    /** 活动页面使用 */
-    Tab = "tab",
-    /** 轮换模式特殊处理 */
-    RotationalMatch = "rotationalmatch",
-}
 function getBannerMap() {
     const bannerMap: KeyMap<BannerType> = {
         "myres2/activity_banner/interval/beishui.png": BannerType.RotationalMatch,
@@ -427,52 +392,164 @@ function getBannerMap() {
     return { bannerItem, unusedBanner };
 }
 
-const itemsMap = createItemsMap();
-const activityItemsMap: KeyMap<ItemType> = JSON.parse(fs.readFileSync("code/quehun/extend_res/output/activity_items.json").toString());
-for (const key in activityItemsMap) {
-    const element = activityItemsMap[key];
-    delete activityItemsMap[key];
-    activityItemsMap[replacePathSign(key)] = element;
-}
-const items = { ...itemsMap.items } as KeyMap<string>;
-for (const key in items) {
-    const itemType = items[key];
-    const filename = unusedTranslateMap[key] && unusedTranslateMap[key][1] || path.basename(key);
-    if (itemType == ItemType.Activity && activityItemsMap[key]) {
-        const newPath = path.join("extendRes/items/activity", activityItemsMap[key], filename);
-        items[key] = replacePathSign(newPath);
-    } else {
-        const newPath = path.join("extendRes/items", itemType, filename);
-        items[key] = replacePathSign(newPath);
-    }
-}
-const bannerMap = getBannerMap();
-const old_to_new = { ...items, ...bannerMap.bannerItem };
-const new_to_old = exchangeKeyValue(old_to_new);
+function build() {
+    item_definition_sheets = xlsx.parse(path.join(xlsxPath, "item_definition.xlsx"));
+    desktop_sheets = xlsx.parse(path.join(xlsxPath, "desktop.xlsx"));
+    exchange_sheets = xlsx.parse(path.join(xlsxPath, "exchange.xlsx"));
+    mall_sheets = xlsx.parse(path.join(xlsxPath, "mall.xlsx"));
+    shops_sheets = xlsx.parse(path.join(xlsxPath, "shops.xlsx"));
+    activity_sheets = xlsx.parse(path.join(xlsxPath, "activity.xlsx"));
 
-fs.writeFileSync(
-    "code/quehun/extend_res/output/old_to_new.json",
-    replacePathSign(JSON.stringify(old_to_new, null, 4), true)
-);
-fs.writeFileSync(
-    "code/quehun/extend_res/output/new_to_old.json",
-    replacePathSign(JSON.stringify(new_to_old, null, 4), true)
-);
-fs.writeFileSync(
-    "code/quehun/extend_res/output/unsed.json",
-    replacePathSign(JSON.stringify(Object.keys(itemsMap.unusedItems), null, 4), true)
-);
-fs.writeFileSync(
-    "code/quehun/extend_res/output/unsed_banner.json",
-    replacePathSign(JSON.stringify(Object.keys(bannerMap.unusedBanner), null, 4), true)
-);
+    findExcelContent(item_definition_sheets, "currency", ["M", "N"], excelValues, ItemType.Main);
 
-for (const key in itemsMap.activityItems) {
-    if (!activityItemsMap[key]) {
-        activityItemsMap[key] = ItemType.Unused;
+    //chiyuebin 309201
+    //fankaijihui 309037
+    //24summer1 30900044
+    findExcelContent(item_definition_sheets, "item", ["U", "V"], excelValues, (data) => {
+        const id = +data.id;
+        if (id == 309201 || id == 309037 || id == 30900044 || id == 30900093 || id == 30900094) { //这三个图策划确认会有用，放到main里
+            return ItemType.Main;
+        }
+        const category: ItemCategory = +data.category;
+        const type = +data.type;
+        let itemType: ItemType = ItemType.None;
+        switch (category) {
+            case ItemCategory.PuTong:
+            case ItemCategory.LiWu:
+            case ItemCategory.FuDai: itemType = ItemType.Main; break;
+            case ItemCategory.JueSeZhuangBan: break;
+            case ItemCategory.TongYongZhuangBan:
+                const subType = type as unknown as ItemCategory_TongYongZhuangBan_Type;
+                switch (subType) {
+                    case ItemCategory_TongYongZhuangBan_Type.LiZhiBang: itemType = ItemType.Deco_LiZhiBang; break;
+                    case ItemCategory_TongYongZhuangBan_Type.HuPaiTeXiao: itemType = ItemType.Deco_Effect_HuPai; break;
+                    case ItemCategory_TongYongZhuangBan_Type.LiZhiTeXiao: itemType = ItemType.Deco_Effect_LiZhi; break;
+                    case ItemCategory_TongYongZhuangBan_Type.ShouDeYangShi: itemType = ItemType.Deco_Hand; break;
+                    case ItemCategory_TongYongZhuangBan_Type.LiZhiYinYue: itemType = ItemType.Deco_LiZhiBgm; break;
+                    case ItemCategory_TongYongZhuangBan_Type.TouXiangKuang: itemType = ItemType.Deco_HeadFrame; break;
+                    case ItemCategory_TongYongZhuangBan_Type.ZhuoBo:
+                        itemType = ItemType.Deco_TableCloth;
+                        break;
+                    case ItemCategory_TongYongZhuangBan_Type.PaiBei: itemType = ItemType.Deco_MJPai; break;
+                    case ItemCategory_TongYongZhuangBan_Type.DaTingBeiJing: itemType = ItemType.Deco_LobbyBackground; break;
+                    case ItemCategory_TongYongZhuangBan_Type.BeiJingYinYue: itemType = ItemType.Deco_Bgm; break;
+                    case ItemCategory_TongYongZhuangBan_Type.MingPaiZhiShi: itemType = ItemType.Deco_Effect_MingPaiZhiShi; break;
+                    case ItemCategory_TongYongZhuangBan_Type.XianShiChengHao: break;
+                    case ItemCategory_TongYongZhuangBan_Type.ChaHuaLoadingTu: break;
+                    case ItemCategory_TongYongZhuangBan_Type.MaJiangPaiZhengMian: itemType = ItemType.Deco_MJFace; break;
+                }
+                break;
+            case ItemCategory.HuoDongDaoJu: itemType = ItemType.Activity; break;
+            case ItemCategory.XianShiChengHao: break;
+            case ItemCategory.BuCanYuChengJiuDeZhuangBan: break;
+            default:
+                break;
+        }
+        return itemType;
+    });
+    findExcelContent(item_definition_sheets, "function_item", ["I", "J"], excelValues, (data) => {
+        if (data.type == 2) return ItemType.Main;//月卡图标放到main里
+        return ItemType.Activity;
+    });
+    findExcelContent(desktop_sheets, "chest", ["I"], excelValues, ItemType.Main);
+    findExcelContent(exchange_sheets, "exchange", ["G"], excelValues, ItemType.Main);
+    findExcelContent(exchange_sheets, "searchexchange", ["G"], excelValues, ItemType.Main);
+    findExcelContent(exchange_sheets, "fushiquanexchange", ["G"], excelValues, ItemType.Main);
+    findExcelContent(mall_sheets, "month_ticket", ["L"], excelValues, ItemType.Main);
+    findExcelContent(mall_sheets, "goods", ["N"], excelValues, ItemType.Main);
+    findExcelContent(shops_sheets, "zhp_goods", ["C"], excelValues, ItemType.Main);
+
+    const itemsMap = createItemsMap();
+    const activityItemsMap: KeyMap<ItemType> = JSON.parse(fs.readFileSync(activity_items_json).toString());
+    for (const key in activityItemsMap) {
+        const element = activityItemsMap[key];
+        delete activityItemsMap[key];
+        activityItemsMap[replacePathSign(key)] = element;
     }
+    const items = { ...itemsMap.items } as KeyMap<string>;
+    for (const key in items) {
+        const itemType = items[key];
+        const filename = unusedTranslateMap[key] && unusedTranslateMap[key][1] || path.basename(key);
+        if (itemType == ItemType.Activity && activityItemsMap[key]) {
+            const newPath = path.join("extendRes/items/activity", activityItemsMap[key], filename);
+            items[key] = replacePathSign(newPath);
+        } else {
+            const newPath = path.join("extendRes/items", itemType, filename);
+            items[key] = replacePathSign(newPath);
+        }
+    }
+    const bannerMap = getBannerMap();
+    const old_to_new = { ...items, ...bannerMap.bannerItem };
+    const new_to_old = exchangeKeyValue(old_to_new);
+
+    fs.writeFileSync(
+        old_to_new_json,
+        replacePathSign(JSON.stringify(old_to_new, null, 4), true)
+    );
+    fs.writeFileSync(
+        new_to_old_json,
+        replacePathSign(JSON.stringify(new_to_old, null, 4), true)
+    );
+    fs.writeFileSync(
+        unsed_json,
+        replacePathSign(JSON.stringify(Object.keys(itemsMap.unusedItems), null, 4), true)
+    );
+    fs.writeFileSync(
+        unsed_banner_json,
+        replacePathSign(JSON.stringify(Object.keys(bannerMap.unusedBanner), null, 4), true)
+    );
+
+    for (const key in itemsMap.activityItems) {
+        if (!activityItemsMap[key]) {
+            activityItemsMap[key] = ItemType.Unused;
+        }
+    }
+    fs.writeFileSync(
+        activity_items_json,
+        replacePathSign(JSON.stringify(activityItemsMap, null, 4), true)
+    );
+
 }
-fs.writeFileSync(
-    "code/quehun/extend_res/output/activity_items.json",
-    replacePathSign(JSON.stringify(activityItemsMap, null, 4), true)
-);
+
+function moveRes_2020_to_2022() {
+    const allItems = JSON.parse(fs.readFileSync(old_to_new_json).toString());
+    langType.forEach(lang => {
+        const parentDir = path.join(resDir, lang);
+        for (const key in allItems) {
+            const oldPath = path.join(parentDir, key);
+            if (!fs.existsSync(oldPath)) continue;
+            const newPath = path.join(parentDir, allItems[key]);
+            if (fs.existsSync(newPath)) {
+                console.log("重名文件：", oldPath.replace(resDir, ""), newPath.replace(resDir, ""));
+            }
+            fs.mkdirSync(path.dirname(newPath), { recursive: true });
+            fs.renameSync(oldPath, newPath);
+        }
+        removeEmptyDir(path.join(resDir, lang, "extendRes"));
+        removeEmptyDir(path.join(resDir, lang, "myres2/activity_banner"));
+    });
+}
+
+function moveRes_2022_to_2020() {
+    const allItems = JSON.parse(fs.readFileSync(new_to_old_json).toString());
+    langType.forEach(lang => {
+        const parentDir = path.join(resDir, lang);
+        for (const key in allItems) {
+            const oldPath = path.join(parentDir, key);
+            if (!fs.existsSync(oldPath)) continue;
+            const newPath = path.join(parentDir, allItems[key]);
+            if (fs.existsSync(newPath)) {
+                console.log("重名文件：", oldPath.replace(resDir, ""), newPath.replace(resDir, ""));
+            }
+            fs.mkdirSync(path.dirname(newPath), { recursive: true });
+            fs.renameSync(oldPath, newPath);
+        }
+        removeEmptyDir(path.join(resDir, lang, "extendRes"));
+        removeEmptyDir(path.join(resDir, lang, "myres2/activity_banner"));
+    });
+}
+
+build();
+
+// moveRes_2020_to_2022();
+// moveRes_2022_to_2020();

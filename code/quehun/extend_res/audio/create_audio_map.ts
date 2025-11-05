@@ -1,14 +1,18 @@
 import * as crypto from "crypto";
 import * as fs from "fs";
 import * as path from "path";
-import * as ProgressBar from "progress";
 
 type KeyMap<T> = { [key: string]: T; };
 type ExcelData = { name: string, data: string[][]; }[];
-const resDir = "D:\\liqi\\majsoul-extendres\\audio";
+const resDir = "D:\\liqi\\majsoul-extendres_test\\audio";
 const targetDir = "D:\\liqi\\liqi_unity_project_dev\\Assets\\MyAssets";
 const resMd5Path = "code/quehun/extend_res/audio/resMap.json";
 const targetMd5Path = "code/quehun/extend_res/audio/targetMap.json";
+const resDiffNameMapPath = "code/quehun/extend_res/audio/resDiffNameMap.json";
+const targetDiffNameMapPath = "code/quehun/extend_res/audio/targetDiffNameMap.json";
+const resDiffMd5MapPath = "code/quehun/extend_res/audio/resDiffMd5Map.json";
+const targetDiffMd5MapPath = "code/quehun/extend_res/audio/targetDiffMd5Map.json";
+const old_res_map_audioPath = "code/quehun/extend_res/audio/old_res_map_audio.json";
 function removeEmptyDir(dir: string) {
     if (!fs.existsSync(dir)) return;
     fs.readdirSync(dir).forEach(v => {
@@ -77,18 +81,15 @@ function createMd5Map() {
     const resMd5Map = { count: resAudios.length };
     const targetMd5Map = { count: targetAudios.length };
 
-    const bar = new ProgressBar(':bar :current/:total :percent :etas', { total: resAudios.length });
     for (let i = 0; i < resAudios.length; i++) {
         const md5 = createFileMD5(resAudios[i]);
         const relativePath = path.relative(resDir, resAudios[i]);
         const filename = path.basename(resAudios[i]);
         resMd5Map[filename] = [relativePath, md5];
-        bar.tick();
     }
     fs.writeFileSync(resMd5Path, JSON.stringify(resMd5Map, null, 4));
     console.log("resAudios create completed!");
 
-    const bar2 = new ProgressBar(':bar :current/:total :percent :etas', { total: targetAudios.length });
     for (let i = 0; i < targetAudios.length; i++) {
         const md5 = createFileMD5(targetAudios[i]);
         let relativePath = path.relative(targetDir, targetAudios[i]);
@@ -97,7 +98,6 @@ function createMd5Map() {
         }
         const filename = path.basename(targetAudios[i]);
         targetMd5Map[filename] = [relativePath, md5];
-        bar2.tick();
     }
     fs.writeFileSync(targetMd5Path, JSON.stringify(targetMd5Map, null, 4));
     console.log("targetAudios create completed!");
@@ -112,14 +112,14 @@ function checkDiffNameAudio() {
         if (!targetMap[key])
             resDiffNameMap[key] = resMap[key];
     }
-    fs.writeFileSync("code/quehun/extend_res/audio/resDiffNameMap.json", JSON.stringify(resDiffNameMap, null, 4));
+    fs.writeFileSync(resDiffNameMapPath, JSON.stringify(resDiffNameMap, null, 4));
 
     const targetDiffNameMap = {};
     for (const key in targetMap) {
         if (!resMap[key])
             targetDiffNameMap[key] = targetMap[key];
     }
-    fs.writeFileSync("code/quehun/extend_res/audio/targetDiffNameMap.json", JSON.stringify(targetDiffNameMap, null, 4));
+    fs.writeFileSync(targetDiffNameMapPath, JSON.stringify(targetDiffNameMap, null, 4));
 }
 
 function checkDiffMd5Audio() {
@@ -132,7 +132,7 @@ function checkDiffMd5Audio() {
         if (targetMap[key] && targetMap[key][1] != resMap[key][1])
             resDiffMd5Map[key] = resMap[key];
     }
-    fs.writeFileSync("code/quehun/extend_res/audio/resDiffMd5Map.json", JSON.stringify(resDiffMd5Map, null, 4));
+    fs.writeFileSync(resDiffMd5MapPath, JSON.stringify(resDiffMd5Map, null, 4));
 
     const targetDiffMd5Map = {};
     for (const key in targetMap) {
@@ -140,10 +140,10 @@ function checkDiffMd5Audio() {
         if (resMap[key] && resMap[key][1] != targetMap[key][1])
             targetDiffMd5Map[key] = targetMap[key];
     }
-    fs.writeFileSync("code/quehun/extend_res/audio/targetDiffMd5Map.json", JSON.stringify(targetDiffMd5Map, null, 4));
+    fs.writeFileSync(targetDiffMd5MapPath, JSON.stringify(targetDiffMd5Map, null, 4));
 }
 
-function moveRes() {
+function moveRes_2020_to_2022() {
     const resMap = JSON.parse(fs.readFileSync(resMd5Path).toString());
     const targetMap = JSON.parse(fs.readFileSync(targetMd5Path).toString());
     const old_res_map_audio = {};
@@ -159,7 +159,6 @@ function moveRes() {
         ...getAllFile(path.join(resDir, "sound"), true, v => v.endsWith(".mp3")),
     ];
 
-    const bar = new ProgressBar(':bar :current/:total :percent :etas', { total: Object.keys(targetMap).length - 1 + otherResAudio.length });
     for (const key in targetMap) {
         if (key != "count" && resMap[key]) {
             old_res_map_audio[targetMap[key][0]] = resMap[key][0];
@@ -171,7 +170,6 @@ function moveRes() {
             fs.mkdirSync(path.dirname(targetPath), { recursive: true });
             fs.renameSync(resPath, targetPath);
         }
-        bar.tick();
     }
 
     for (let i = 0; i < otherResAudio.length; i++) {
@@ -184,30 +182,33 @@ function moveRes() {
         }
         fs.mkdirSync(path.dirname(targetPath), { recursive: true });
         fs.renameSync(otherResAudio[i], targetPath);
-        bar.tick();
     }
-    fs.writeFileSync("code/quehun/extend_res/audio/old_res_map_audio.json", JSON.stringify(old_res_map_audio, null, 4));
+    fs.writeFileSync(old_res_map_audioPath, JSON.stringify(old_res_map_audio, null, 4));
     removeEmptyDir(resDir);
 }
 
-function recoverMoveRes() {
-    const resMap = JSON.parse(fs.readFileSync("code/quehun/extend_res/audio/old_res_map_audio.json").toString());
-    const bar = new ProgressBar(':bar :current/:total :percent :etas', { total: Object.keys(resMap).length });
+function moveRes_2022_to_2020() {
+    const resMap = JSON.parse(fs.readFileSync(old_res_map_audioPath).toString());
     for (const key in resMap) {
         const e = resMap[key];
         const resPath = path.join(resDir, key);
         const targetPath = path.join(resDir, e);
         fs.mkdirSync(path.dirname(targetPath), { recursive: true });
         fs.renameSync(resPath, targetPath);
-        bar.tick();
     }
     removeEmptyDir(resDir);
 }
-// createMd5Map();
-// checkDiffNameAudio();
-// checkDiffMd5Audio();
-moveRes();
-// recoverMoveRes();
+
+function build() {
+    createMd5Map();
+    checkDiffNameAudio();
+    checkDiffMd5Audio();
+}
+
+build();
+
+// moveRes_2020_to_2022();
+// moveRes_2022_to_2020();
 
 
 
