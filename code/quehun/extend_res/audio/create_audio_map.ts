@@ -143,6 +143,12 @@ function checkDiffMd5Audio() {
     fs.writeFileSync(targetDiffMd5MapPath, JSON.stringify(targetDiffMd5Map, null, 4));
 }
 
+function build() {
+    createMd5Map();
+    checkDiffNameAudio();
+    checkDiffMd5Audio();
+}
+
 function moveRes_2020_to_2022() {
     const resMap = JSON.parse(fs.readFileSync(resMd5Path).toString());
     const targetMap = JSON.parse(fs.readFileSync(targetMd5Path).toString());
@@ -197,12 +203,6 @@ function moveRes_2022_to_2020() {
         fs.renameSync(resPath, targetPath);
     }
     removeEmptyDir(resDir);
-}
-
-function build() {
-    createMd5Map();
-    checkDiffNameAudio();
-    checkDiffMd5Audio();
 }
 
 build();
