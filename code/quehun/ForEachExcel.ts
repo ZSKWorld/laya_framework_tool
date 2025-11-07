@@ -30,7 +30,7 @@ function columnNameToNumber(columnName: string) {
     return result;
 }
 
-function forEachExcel(excelName: string, sheetName: string, colNames: string[], cb: (row: number, col: number, colName: string, data: any) => void) {
+function forEachExcel(excelName: string, sheetName: string, cb: (row: number, data: any) => void) {
     const excelData = xlsx.parse(`D:\\liqi\\liqi-excel\\data\\${ excelName }.xlsx`);
     const sheet = excelData.find(v => v.name == sheetName);
     const rows = sheet.data.length;
@@ -38,21 +38,20 @@ function forEachExcel(excelName: string, sheetName: string, colNames: string[], 
     const startRow = sheet.data.findIndex(v => !v[0] || !v[0].startsWith("#"));
     for (let i = startRow; i < rows; i++) {
         const rowData = sheet.data[i];
-        colNames.forEach(colName => {
-            const colNum = columnNameToNumber(colName) - 1;
-            const data = {};
-            fieldNames.forEach((v, i) => {
-                if (!v || v.trim().startsWith("#")) return;
-                data[v] = replacePathSign(rowData[i]);
-            });
-            cb(i, colNum, colName, data);
+
+        const data = {};
+        fieldNames.forEach((v, i) => {
+            if (!v || v.trim().startsWith("#")) return;
+            data[v] = replacePathSign(rowData[i]);
         });
+        cb(i, data);
     }
 }
 
 let result = [];
-forEachExcel("item_definition", "skin", ["C"], (row, col, colName, data) => {
-    if (data.character_id == 200048)
-        result.push(data.id + "-1")
+forEachExcel("item_definition", "item", (row, data) => {
+    if (data.category == 5 && data.type == 1)
+        result.push(data.id + "," + data.name_chs + "," + data);
 });
-console.log(result.join(","))
+console.log(result.join("\n"))
+
