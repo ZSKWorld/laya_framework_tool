@@ -136,7 +136,7 @@ export class BuildProtoDeclare extends BuildBase {
                         if (method.comment) target_ns.methods[mkey].comment += `\n${ method.comment }`;
                     }
                     target_ns.methods[mkey].comment = target_ns.methods[mkey].comment || "";
-                    target_ns.methods[mkey].comment += `\nreq: {@link I${ method.requestType }}, res: {@link I${ method.responseType }}`;
+                    target_ns.methods[mkey].comment += `\nreq: {@link I${ method.requestType }}, res: {@link I${ method.responseType }}, msgId: {@link EMessageID.${ mkey }}`;
                     target_ns.methods[mkey].comment = target_ns.methods[mkey].comment.trim();
                 }
             } else target_ns.nested[key] = type;
