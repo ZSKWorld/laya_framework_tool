@@ -14,6 +14,7 @@ import { BuildConfig3_0 } from "./BuildConfig3_0";
 import { BuildResPath2 } from "./BuildResPath2";
 import { BuildExcelDeclare } from "./BuildExcelDeclare";
 import { BuildMaterial } from "./BuildMaterial";
+import { BuildReplaceSpineName } from "./BuildReplaceSpineName";
 
 interface Act {
     desc: string,
@@ -95,6 +96,7 @@ export class BatMain {
             { desc: "更新资源路径3.0", cls: BuildResPath3_0 },
             { desc: "导出表配置3.0", cls: BuildConfig3_0 },
             { desc: "创建材质", cls: BuildMaterial },
+            { desc: "替换spine文件名", cls: BuildReplaceSpineName },
         ];
         if (index == -1) act.forEach(v => this.runLog(v));
         else this.runLog(act[index]);

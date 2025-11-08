@@ -5,6 +5,8 @@ export const __workname = process.cwd();
 //---------------------------------------------Laya 2.0
 export const BinDir = resolve(__workname, "bin");
 export const ResDir = resolve(__workname, "bin/res");
+export const Lang = ["chs", "chs_t", "en", "jp", "ke"];
+export const LangResDir = resolve(__workname, "bin/langRes");
 export const UiDir = resolve(__workname, "src/core/ui/ui");
 export const ViewDir = resolve(__workname, "src/core/ui/view");
 export const ResPathPath = resolve(__workname, "src/core/common/ResPath.ts");
