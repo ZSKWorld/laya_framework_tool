@@ -19,6 +19,7 @@ export const InitViewCommandPath = resolve(__workname, "src/contextCommand/InitV
 export const xlsxDir = resolve(__workname, "../excel");
 export const CfgDataPath = resolve(__workname, "bin/res/config/Config.json");
 export const CfgDir = resolve(__workname, "src/core/config");
+export const ShaderDir = resolve(__workname, "src/core/shader");
 
 export const NetDir = resolve(__workname, "src/core/net");
 export const CMDInterfaceDir = resolve(NetDir, "interface/cmd");

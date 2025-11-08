@@ -1,9 +1,11 @@
 import * as fs from "fs";
 import * as path from "path";
+
 /**创建目录，递归创建 */
 export function MakeDir(dirPath: string) {
     fs.mkdirSync(dirPath, { recursive: true });
 }
+
 /**删除目录，包括目录中所有文件和子目录 */
 export function RemoveDir(dir: string) {
     if (fs.existsSync(dir) == false) return;
@@ -19,6 +21,22 @@ export function RemoveDir(dir: string) {
     }
     fs.rmdirSync(dir)
 }
+
+export function GetAllDir(dirPath: string, recursive?: boolean, absolute?: boolean,) {
+    if (fs.existsSync(dirPath) == false) return [];
+    const dirs: string[] = [];
+    fs.readdirSync(dirPath).forEach(filename => {
+        const filePath = path.resolve(dirPath, filename);
+        const state = fs.statSync(filePath);
+        if (state.isDirectory()) {
+            dirs.push(filePath);
+            if (recursive)
+                dirs.push(...GetAllDir(filePath, recursive, absolute));
+        }
+    });
+    return dirs;
+}
+
 /**
  * 获取目录中的所有文件
  * @param dirPath 路径
@@ -44,6 +62,7 @@ export function GetAllFile(dirPath: string, absolute?: boolean, filter?: (name: 
     });
     return names;
 }
+
 /**获取模板内容 */
 export function GetTemplateContent(templateName: string) {
     return fs.readFileSync(path.resolve(__dirname, "../../template/" + templateName + ".template")).toString();
