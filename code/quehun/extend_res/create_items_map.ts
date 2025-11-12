@@ -4,7 +4,7 @@ import * as path from "path";
 
 type KeyMap<T> = { [key: string]: T; };
 type ExcelData = { name: string, data: string[][]; }[];
-const resDir = "D:\\liqi\\majsoul-extendres_test\\";
+const resDir = "D:\\liqi\\majsoul-extendres\\";
 const xlsxPath = "D:\\liqi\\liqi-excel\\data\\";
 const activity_items_json = "code/quehun/extend_res/output/activity_items.json";
 const old_to_new_json = "code/quehun/extend_res/output/old_to_new.json";
