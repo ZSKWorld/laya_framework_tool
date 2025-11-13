@@ -71,7 +71,8 @@ export class BuildMaterial extends BuildBase {
         if (fs.existsSync(vsPath) == false) return;
         const fsPath = path.join(dir, fileName + ".fs");
         if (fs.existsSync(fsPath) == false) return;
-        const matPath = path.join(dir, fileName + "Material.ts");
+        const matName = fileName + "Material";
+        const matPath = path.join(dir, matName + ".ts");
         if (fs.existsSync(matPath)) return;
         const vsUniforms = fs.readFileSync(vsPath).toString().replace(/ {2,}/g, " ").match(/uniform [a-zA-Z0-9_]+ [a-zA-Z0-9_]+/g);
         const fsUniforms = fs.readFileSync(fsPath).toString().replace(/ {2,}/g, " ").match(/uniform [a-zA-Z0-9_]+ [a-zA-Z0-9_]+/g);
@@ -85,17 +86,34 @@ export class BuildMaterial extends BuildBase {
             }
         });
         let content = `import { ${ fileName }_FS as fs, ${ fileName }_VS as vs } from "../${ d3 ? "Shader3DDefine" : "Shader2DDefine" }";\n\n`;
-        content += `const ShaderName = "${ fileName }";\n\n`;
+        // content += `const ShaderName = "${ fileName }";\n\n`;
+        // for (const key in uniformsMap) {
+        //     const e = uniformsMap[key];
+        //     if (e == "sampler2D" || e == "sampler3D" || e == "samplerCube") {
+        //         const defName = `DEF_${ key.substring(2) }`;
+        //         content += `const ${ defName } = Laya.Shader3D.getDefineByName("${ defName }");\n`;
+        //     }
+        // }
+        // content += `\n`;
+        content += `export class ${ matName } extends Laya.Material {\n`;
+        content += `\tprivate static readonly ShaderName = "${ fileName }";\n`;
         for (const key in uniformsMap) {
             const e = uniformsMap[key];
             if (e == "sampler2D" || e == "sampler3D" || e == "samplerCube") {
                 const defName = `DEF_${ key.substring(2) }`;
-                content += `const ${ defName } = Laya.Shader3D.getDefineByName("${ defName }");\n`;
+                content += `\tprivate static ${ defName }: Laya.ShaderDefine;\n`;
             }
         }
         content += `\n`;
-        content += `export class ${ fileName }Material extends Laya.Material {\n`;
         content += `\tstatic init() {\n`;
+        for (const key in uniformsMap) {
+            const e = uniformsMap[key];
+            if (e == "sampler2D" || e == "sampler3D" || e == "samplerCube") {
+                const defName = `DEF_${ key.substring(2) }`;
+                content += `\t\t${ matName }.${ defName } = Laya.Shader3D.getDefineByName("${ defName }");\n`;
+            }
+        }
+        content += `\n`;
         content += `\t\tconst uniformMap = {\n`;
         for (const key in uniformsMap) {
             const e = uniformsMap[key];
@@ -110,7 +128,7 @@ export class BuildMaterial extends BuildBase {
                 content += `\t\t\t${ key }: ${ defaultValue },\n`;
         }
         content += `\t\t};\n`;
-        content += `\t\tconst shader = Laya.Shader3D.add(ShaderName);\n`;
+        content += `\t\tconst shader = Laya.Shader3D.add(${ matName }.ShaderName);\n`;
         content += `\t\tshader.shaderType = Laya.ShaderFeatureType.D3;\n`;
         content += `\t\tconst subShader = new Laya.SubShader(Laya.SubShader.DefaultAttributeMap, uniformMap, defaultValue);\n`;
         content += `\t\tshader.addSubShader(subShader);\n`;
@@ -118,7 +136,7 @@ export class BuildMaterial extends BuildBase {
         content += `\t}\n\n`;
         content += `\tconstructor() {\n`;
         content += `\t\tsuper();\n`;
-        content += `\t\tthis.setShaderName(ShaderName);\n`;
+        content += `\t\tthis.setShaderName(${ matName }.ShaderName);\n`;
         content += `\t}\n\n`;
         content += `\t//#region 字段\n`;
         for (const key in uniformsMap) {
@@ -127,7 +145,7 @@ export class BuildMaterial extends BuildBase {
             if (e == "sampler2D" || e == "sampler3D" || e == "samplerCube") {
                 const defName = `DEF_${ key.substring(2) }`;
                 content += `\tset ${ key }(value) {\n`;
-                content += `\t\tthis.setDefine(${ defName }, !!value);\n`;
+                content += `\t\tthis.setDefine(${ matName }.${ defName }, !!value);\n`;
                 content += `\t\tthis.${ this._typeMap[e]?.[2] }("${ key }", value);\n`;
                 content += `\t}\n`;
             } else {
