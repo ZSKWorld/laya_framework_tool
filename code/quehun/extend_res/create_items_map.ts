@@ -90,7 +90,7 @@ function exchangeKeyValue<T>(obj: T): T {
     return result;
 }
 
-enum BannerType {
+const enum BannerType {
     Unused = "unused",
     /** 大厅主界面使用 */
     Lobby = "lobby",
@@ -102,7 +102,7 @@ enum BannerType {
     RotationalMatch = "rotationalmatch",
 }
 
-enum ItemType {
+const enum ItemType {
     None = "",
     Unused = "unused",
     Main = "main",
@@ -126,7 +126,7 @@ enum ItemType {
 }
 
 /** 类别 item.category */
-enum ItemCategory {
+const enum ItemCategory {
     /** 普通 */
     PuTong = 1,
     /** 礼物 */
@@ -146,7 +146,7 @@ enum ItemCategory {
 }
 
 /** 通用装扮子类型 */
-enum ItemCategory_TongYongZhuangBan_Type {
+const enum ItemCategory_TongYongZhuangBan_Type {
     /** 立直棒 */
     LiZhiBang,
     /** 和牌特效 */
