@@ -1,5 +1,5 @@
 {
-    "count": 484,
+    "count": 482,
     "mouseclick.mp3": [
         "audio\\audio_common\\mouseclick.mp3",
         "aac5bd6114c46baf1910eae7cff63a28"
@@ -252,10 +252,6 @@
         "deco\\effect_hupai\\ron_24winter\\ron_24winter.mp3",
         "fe2fdae2ec4f02b6651c42956726eedf"
     ],
-    "ron_25dongri.mp3": [
-        "deco\\effect_hupai\\ron_25dongri\\ron_25dongri.mp3",
-        "ce1387999f4e2891cfc67903b9cb300a"
-    ],
     "ron_25hf.mp3": [
         "deco\\effect_hupai\\ron_25hf\\ron_25hf.mp3",
         "302b2817758ac9b220ca970e5ad766a3"
@@ -479,10 +475,6 @@
     "effect_liqi_24winter.mp3": [
         "deco\\effect_lizhi\\effect_liqi_24winter\\effect_liqi_24winter.mp3",
         "f1105878e6a4807e766164484e150a7a"
-    ],
-    "effect_liqi_25dongri.mp3": [
-        "deco\\effect_lizhi\\effect_liqi_25dongri\\effect_liqi_25dongri.mp3",
-        "330318df902eaff2fae2be4b1f272ee1"
     ],
     "effect_liqi_25hf.mp3": [
         "deco\\effect_lizhi\\effect_liqi_25hf\\effect_liqi_25hf.mp3",
