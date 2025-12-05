@@ -8,7 +8,7 @@ import { GetAllFile } from "./Utils";
 export class BuildReplaceSpineName extends BuildBase {
     doBuild() {
         Lang.forEach(v => {
-            const spineDir = path.join(LangResDir, v, "extendRes/character");
+            const spineDir = path.join(LangResDir, v, "extendRes/charactor");
             if (fs.existsSync(spineDir) == false) return;
             const files = GetAllFile(spineDir, true, v => v.endsWith(".atlas.txt") || v.endsWith(".skel.txt"));
             files.forEach(v => {

@@ -13,7 +13,7 @@ export class BuildView extends BuildBase {
 
     protected buildFilter = [
         { sign: "UI", funcs: [this.BuildView, this.BuildMediator] },
-        { sign: "Com", funcs: [this.BuildView, this.BuildMediator], subDir: "coms" },
+        { sign: "Com", funcs: [this.BuildView], subDir: "coms" },
         { sign: "Btn", funcs: [this.BuildView], subDir: "btns" },
         { sign: "Render", funcs: [this.BuildView], subDir: "renders" },
     ];

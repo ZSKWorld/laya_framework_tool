@@ -65,42 +65,11 @@ function copyImage() {
     const tDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets";
     const img_map = JSON.parse(fs.readFileSync("quehun_res/img_map.json").toString());
     const copied_map = JSON.parse(fs.readFileSync("quehun_res/copied_map.json").toString());
-    const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgMain/Texture";
+    const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgCommon/Texture";
+
     if (!fs.existsSync(ttDir)) return console.error("目标路径不存在");
-    const copyImgs = [
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_zhanxing.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_ab_match.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_activity.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_anye.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_beishuizhizhan.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_chiyu.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_createroom.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_dora3.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_huanjing.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_hunzhiyiji.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_jinzhijian.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_joinroom.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_luandou.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_mingjing.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_muyu.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_peipai.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_saishidating.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_sanrendong.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_sanrennan.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_shilian.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_sirendong.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_sirennan.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_tianming.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_tongzhijian.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_wangzuo.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_wanxiangxiuluo.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_xiuluo.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_xiuxian.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_yijushengfu.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_yinzhijian.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_yongchang.png", 
-        "e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/w_yuzhijian.png",
-    ];
+    const a = `e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/sell_line.png`;
+    const copyImgs = a.replace(/.png e:\//g, ".png!!!!e:/").replace(/.jpg e:\//g, ".jpg!!!!e:/").split("!!!!");
     let hasError = false;
     copyImgs.forEach(v => {
         if (!fs.existsSync(v)) {
@@ -134,7 +103,7 @@ function copyImage() {
         const r = path.join(targetDir, imgName);
         const t = path.join(ttDir, imgName);
         fs.renameSync(r, t);
-        console.error("复制", r, t);
+        console.error("复制", v, t);
     });
     fs.writeFileSync("quehun_res/img_map.json", JSON.stringify(img_map, null, 4));
     fs.writeFileSync("quehun_res/copied_map.json", JSON.stringify(copied_map, null, 4));

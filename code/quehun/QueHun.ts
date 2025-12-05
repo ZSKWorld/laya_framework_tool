@@ -151,5 +151,5 @@ function findLuaContent(dirPath: string) {
     fs.writeFileSync("code/quehun/luafind.json", JSON.stringify(result));
 }
 // removeEmptyDirAndSpriteAtlas("D:\\liqi\\liqi_unity_project_dev\\Assets\\MyAssets\\pic");
-findExcelContent("D:\\liqi\\liqi-excel\\data", `뭐"라고`);
+findExcelContent("E:\\study\\IT\\Projects\\Laya\\3.0\\quehun\\source\\bin\\excel", `coupon_0`);
 // findLuaContent("D:\\liqi\\liqi_unity_project_dev\\Assets\\Lua\\LuaScript");
