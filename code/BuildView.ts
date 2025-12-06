@@ -4,6 +4,13 @@ import { BuildBase } from "./BuildBase";
 import { Logger } from "./Console";
 import { Declare_ViewIDPath, InitViewCommandPath, Lib_ViewIDPath, MediatorBasePath, UiDir, ViewDir } from "./Const";
 import { GetAllFile, GetTemplateContent, MakeDir, UpperFirst } from "./Utils";
+interface IBuildConfig {
+    sign: string;
+    folder: string;
+    uiType: string;
+    comments: string;
+    funcs: Function[];
+}
 export class BuildView extends BuildBase {
     private viewTemplate = GetTemplateContent("View");
     private mediatorTemplate = GetTemplateContent("Mediator");
@@ -11,11 +18,11 @@ export class BuildView extends BuildBase {
     private viewIDDeclareTemplate = GetTemplateContent("ViewIDDeclare");
     private initViewCommandTemplate = GetTemplateContent("InitViewCommand");
 
-    protected buildFilter = [
-        { sign: "UI", funcs: [this.BuildView, this.BuildMediator] },
-        { sign: "Com", funcs: [this.BuildView], subDir: "coms" },
-        { sign: "Btn", funcs: [this.BuildView], subDir: "btns" },
-        { sign: "Render", funcs: [this.BuildView], subDir: "renders" },
+    protected buildConfig: IBuildConfig[] = [
+        { sign: "Btn", folder: "btns", uiType: "Button", comments: "Btns", funcs: [this.BuildView] },
+        { sign: "Render", folder: "renders", uiType: "Render", comments: "Renders", funcs: [this.BuildView] },
+        { sign: "Com", folder: "coms", uiType: "Component", comments: "Coms", funcs: [this.BuildView] },
+        { sign: "UI", folder: "uis", uiType: "UI", comments: "UIs", funcs: [this.BuildView, this.BuildMediator] },
     ];
 
     doBuild() {
@@ -33,9 +40,11 @@ export class BuildView extends BuildBase {
                 this.CheckBuild(filePath);
             }
             else if (info.isFile()) {
-                this.buildFilter.forEach(filter => {
+                this.buildConfig.forEach(filter => {
                     if (filename.endsWith(".ts") && filename.startsWith(filter.sign))
-                        filter.funcs.forEach(func => func.call(this, dirPath, filename.replace(".ts", ""), filter.subDir || ""));
+                        filter.funcs.forEach(func => {
+                            return func.call(this, dirPath, filename.replace(".ts", ""), filter.folder);
+                        });
                 });
             }
         });
@@ -154,36 +163,24 @@ export class BuildView extends BuildBase {
     }
 
     private GetViewIDContent() {
-        let [btns, renders, coms, views] = [
-            "\t/**Btns */\n",
-            "\t/**Renders */\n",
-            "\t/**Coms */\n",
-            "\t/**UIs */\n"
-        ];
+        const buildInfo = this.buildConfig;
         const viewNames = GetAllFile(
             ViewDir, false,
-            filename => (filename.startsWith("Btn")
-                || filename.startsWith("Render")
-                || filename.startsWith("Com")
-                || filename.startsWith("UI")) && filename.endsWith("View.ts"),
+            filename => buildInfo.some(v => filename.startsWith(v.sign)) && filename.endsWith("View.ts"),
             filename => filename.replace(".ts", ""),
         );
+
         let viewCount = 0;
-        viewNames.forEach(v => {
-            if (v.startsWith("UI")) {
-                views += `\t${ v } = "${ v }",\n`;
-            } else if (v.startsWith("Com")) {
-                coms += `\t${ v } = "${ v }",\n`;
-            } else if (v.startsWith("Btn")) {
-                btns += `\t${ v } = "${ v }",\n`;
-            } else if (v.startsWith("Render")) {
-                renders += `\t${ v } = "${ v }",\n`;
-            }
-            else
-                return;
-            viewCount++;
+        const contents = buildInfo.map(v => {
+            let viewContent = `\t/**${ v.comments } */\n`;
+            const views = viewNames.filter(vv => vv.startsWith(v.sign));
+            viewCount += views.length;
+            views.forEach(vv => {
+                viewContent += `\t${ vv } = "${ vv }",\n`;
+            });
+            return viewContent;
         });
-        let combine = btns + "\n" + renders + "\n" + coms + "\n" + views;
+        let combine = contents.join("\n");
         if (viewCount == 0) combine = "\tNone = \"\",\n" + combine;
         return combine;
     }
@@ -202,10 +199,6 @@ export class BuildView extends BuildBase {
         const filterFunc = (start: string, end: string) => (fileName: string) => (!start || fileName.startsWith(start)) && (!end || fileName.endsWith(end));
 
         const binderNames = GetAllFile(UiDir, true, filterFunc("", "Binder.ts"), mapFunc);
-        const uiNames = GetAllFile(UiDir, true, filterFunc("UI", ".ts"), mapFunc);
-        const btnNames = GetAllFile(UiDir, true, filterFunc("Btn", ".ts"), mapFunc);
-        const comNames = GetAllFile(UiDir, true, filterFunc("Com", ".ts"), mapFunc);
-        const renderNames = GetAllFile(UiDir, true, filterFunc("Render", ".ts"), mapFunc);
 
         let [binderCode, registerCode, imports] = ["", "", []];
 
@@ -215,16 +208,16 @@ export class BuildView extends BuildBase {
             imports.push(`import ${ basename } from "${ path.relative(initViewCommandDir, v).replace(/\\/g, "/") }";`);
         });
 
-        const subDirMap = { Btns: "btns\\", Renders: "renders\\", Coms: "coms\\", UIs: "" };
-        const addExtAndRegistCode = (arr: string[], desc: string, viewType: string) => {
-            registerCode += `\n\t\t//${ desc }\n`;
+        const addExtAndRegistCode = (config: IBuildConfig) => {
+            registerCode += `\n\t\t//${ config.comments }\n`;
+            const arr = GetAllFile(UiDir, true, filterFunc(config.sign, ".ts"), mapFunc);
             arr.forEach(v => {
                 const basename = path.basename(v);
                 const tempPath = v.replace("ui\\Pkg", "view\\Pkg");
-                const viewPath = tempPath.replace(basename, "view\\" + subDirMap[desc] + basename + "View.ts");
-                const mediatorPath = tempPath.replace(basename, "mediator\\" + subDirMap[desc] + basename + "Mediator.ts");
+                const viewPath = tempPath.replace(basename, `view\\${ config.folder }\\${ basename }View.ts`);
+                const mediatorPath = tempPath.replace(basename, `mediator\\${ config.folder }\\${ basename }Mediator.ts`);
                 if (fs.existsSync(viewPath)) {
-                    registerCode += `\t\tregister(EViewID.${ basename }View, EViewType.${ viewType }, ${ basename }View`;
+                    registerCode += `\t\tregister(EViewID.${ basename }View, EViewType.${ config.uiType }, ${ basename }View`;
                     imports.push(`import { ${ basename }View } from "${ path.relative(initViewCommandDir, mapFunc(viewPath)).replace(/\\/g, "/") }";`);
                     if (fs.existsSync(mediatorPath)) {
                         registerCode += ", " + basename + "Mediator";
@@ -234,12 +227,9 @@ export class BuildView extends BuildBase {
                 }
             });
         };
-        addExtAndRegistCode(btnNames, "Btns", "Button");
-        addExtAndRegistCode(renderNames, "Renders", "Render");
-        addExtAndRegistCode(comNames, "Coms", "Component");
-        addExtAndRegistCode(uiNames, "UIs", "UI");
+        this.buildConfig.forEach(addExtAndRegistCode);
 
-        let content = this.initViewCommandTemplate
+        const content = this.initViewCommandTemplate
             .replace("#IMPORT#", imports.join("\n"))
             .replace("#BINDER_CODE#", binderCode.trim())
             .replace("#REGISTER_CODE#", registerCode.trim());
