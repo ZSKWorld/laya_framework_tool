@@ -136,7 +136,7 @@ export class BuildProtoDeclare extends BuildBase {
                         if (method.comment) target_ns.methods[mkey].comment += `\n${ method.comment }`;
                     }
                     target_ns.methods[mkey].comment = target_ns.methods[mkey].comment || "";
-                    target_ns.methods[mkey].comment += `\nreq: {@link I${ method.requestType }}, res: {@link I${ method.responseType }}`;
+                    target_ns.methods[mkey].comment += `\nreq: {@link I${ method.requestType }}\nres: {@link I${ method.responseType }}`;
                     target_ns.methods[mkey].comment = target_ns.methods[mkey].comment.trim();
                 }
             } else target_ns.nested[key] = type;
@@ -206,9 +206,9 @@ export class BuildProtoDeclare extends BuildBase {
         let reqContent = "", libReqContent = "", reqMethodContent = "";
         for (const key in methods) {
             const method = methods[key];
-            reqContent += `${ this.buildTSComments(method.comment + `, method: {@link IReqMethod.${ key }}`, 1) }\t${ key } = "${ key }",\n`;
+            reqContent += `${ this.buildTSComments(method.comment + `\nmethod: {@link IReqMethod.${ key }}`, 1) }\t${ key } = "${ key }",\n`;
             libReqContent += `\t${ key }: "${ key }",\n`;
-            reqMethodContent += `${ this.buildTSComments(method.comment + `, msgId: {@link EMessageID.${ key }}`, 1) }\t${ key }(data?: I${ method.requestType }): Promise<I${ method.responseType }>;\n`;
+            reqMethodContent += `${ this.buildTSComments(method.comment + `\nmsgId: {@link EMessageID.${ key }}`, 1) }\t${ key }(data?: I${ method.requestType }): Promise<I${ method.responseType }>;\n`;
         }
         reqContent = `/** 网络请求协议 */\ndeclare enum EMessageID {\n${ reqContent }}\n`;
         libReqContent = `EMessageID = {\n${ libReqContent }}\n`;

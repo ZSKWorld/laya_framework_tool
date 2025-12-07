@@ -67,14 +67,14 @@ export class BuildView extends BuildBase {
 
             let [sendContent, compContent, compExtension, messages] = ["", "", "\n", ""];
 
-            const matches = fs.readFileSync(path.resolve(dirPath, filename + ".ts")).toString().match(/public.*:.*;/g);
+            const matches = fs.readFileSync(path.resolve(dirPath, filename + ".ts")).toString().match(/(public|protected).*:.*;/g);
             const uiComps = matches ? matches.filter(v => !v.includes("static")) : [];
             // const uiComps = fs.readFileSync(path.resolve(dirPath, filename + ".ts")).toString().match(/public((?!static).)*;/g);
             if (uiComps.length > 0) {
                 let msgEnumName = `E${ filename }Msg`;
                 let useComps = [];
                 uiComps.forEach((v, index) => {
-                    const [varName, varType] = v.substring(7, v.length - 1).split(":");
+                    const varName = v.split(" ")[1].split(":")[0];
                     if (varName.toLowerCase().startsWith("btn")) {
                         let msgName = `On${ UpperFirst(varName, ["_"], "") }Click`;
                         let msgValue = `"${ filename }_${ msgName }"`;
@@ -118,7 +118,7 @@ export class BuildView extends BuildBase {
                 .replace(/#VIEW_MSG#/g, viewMsg)
                 .replace(/#DATA_NAME#/g, dataName);
             let [msgContent, funcContent] = ["", ""];
-            const matches = fs.readFileSync(path.resolve(dirPath, filename + ".ts")).toString().match(/public.*:.*;/g);
+            const matches = fs.readFileSync(path.resolve(dirPath, filename + ".ts")).toString().match(/(public|protected).*:.*;/g);
             const uiComps = matches ? matches.filter(v => !v.includes("static")) : [];
             if (uiComps.length > 0) {
                 uiComps.forEach(v => {
