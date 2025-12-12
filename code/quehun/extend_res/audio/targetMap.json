@@ -1,5 +1,5 @@
 {
-    "count": 482,
+    "count": 536,
     "mouseclick.mp3": [
         "audio\\audio_common\\mouseclick.mp3",
         "aac5bd6114c46baf1910eae7cff63a28"
@@ -252,6 +252,10 @@
         "deco\\effect_hupai\\ron_24winter\\ron_24winter.mp3",
         "fe2fdae2ec4f02b6651c42956726eedf"
     ],
+    "ron_25dongri.mp3": [
+        "deco\\effect_hupai\\ron_25dongri\\ron_25dongri.mp3",
+        "43c22460239d672799cd98502290b9c5"
+    ],
     "ron_25hf.mp3": [
         "deco\\effect_hupai\\ron_25hf\\ron_25hf.mp3",
         "302b2817758ac9b220ca970e5ad766a3"
@@ -475,6 +479,10 @@
     "effect_liqi_24winter.mp3": [
         "deco\\effect_lizhi\\effect_liqi_24winter\\effect_liqi_24winter.mp3",
         "f1105878e6a4807e766164484e150a7a"
+    ],
+    "effect_liqi_25dongri.mp3": [
+        "deco\\effect_lizhi\\effect_liqi_25dongri\\effect_liqi_25dongri.mp3",
+        "1a95880fc260099cff9f9c0d1eb0c9db"
     ],
     "effect_liqi_25hf.mp3": [
         "deco\\effect_lizhi\\effect_liqi_25hf\\effect_liqi_25hf.mp3",
@@ -1139,6 +1147,214 @@
     "2409sanliou_gacha.mp3": [
         "ui\\activity\\extend\\niudan\\main\\audio\\2409sanliou_gacha.mp3",
         "80640a75b50ebb8432e2e2dd2e6bdad8"
+    ],
+    "2512dongri_activity_enter.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\2512dongri_activity_enter.mp3",
+        "5643472ebe8e6f2a293ade0516a736c0"
+    ],
+    "2512dongri_bgm.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\2512dongri_bgm.mp3",
+        "c14853ac030791d0332953595fb91cd4"
+    ],
+    "2512dongri_boss_fight.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\2512dongri_boss_fight.mp3",
+        "b4e1926e6fb5bd7a3d73cf785ffa8dbb"
+    ],
+    "2512dongri_hit_luk.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\2512dongri_hit_luk.mp3",
+        "2bbd99dbd085bc3af79f7c97c0f2c61b"
+    ],
+    "2512dongri_k.o..mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\2512dongri_k.o..mp3",
+        "0cfc1440634ece80d93483b7fe9ee170"
+    ],
+    "2512dongri_player_die.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\2512dongri_player_die.mp3",
+        "dc68b7a2c01cda963f9f3f91bb1c9c59"
+    ],
+    "2512dongri_player_enter.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\2512dongri_player_enter.mp3",
+        "2cf972cc4871205fa3fe2a1b5b73b83b"
+    ],
+    "2512dongri_player_hit.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\2512dongri_player_hit.mp3",
+        "867be83c07597e4df4e1cfa8e93ccd71"
+    ],
+    "2512dongri_player_win.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\2512dongri_player_win.mp3",
+        "3eb17562fec00805ef79041c1eed3537"
+    ],
+    "2512dongri_snowball_broken.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\2512dongri_snowball_broken.mp3",
+        "8990e480c8aa85948891342fb46f9d33"
+    ],
+    "2512dongri_threw_luk.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\2512dongri_threw_luk.mp3",
+        "fd8a3a1ecae8c033d2f9a79f4f73a625"
+    ],
+    "2512dongri_threw_normal.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\2512dongri_threw_normal.mp3",
+        "3d1cb8a73aa4254fc37243875f1cc267"
+    ],
+    "boss_001_die.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_001_die.mp3",
+        "c0d94902f1a7e65abc087d6c66f7d4f6"
+    ],
+    "boss_001_enter.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_001_enter.mp3",
+        "0a26ec900222f01cf9b39dacfa6ff326"
+    ],
+    "boss_001_hit.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_001_hit.mp3",
+        "c969bf55b458b55a765a7468b216880c"
+    ],
+    "boss_001_win.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_001_win.mp3",
+        "f0fd3795085b0fd72315d519f130e4cc"
+    ],
+    "boss_002_die.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_002_die.mp3",
+        "67f7cb30ad0a538e3dfa54a33f279c29"
+    ],
+    "boss_002_enter.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_002_enter.mp3",
+        "86251c6a97fc3e4351bb9609678c0d6d"
+    ],
+    "boss_002_hit.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_002_hit.mp3",
+        "2c429832983be41f99b79702def867e9"
+    ],
+    "boss_002_win.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_002_win.mp3",
+        "35248b413ccb7a1bd7c08efb5cf0200c"
+    ],
+    "boss_003_die.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_003_die.mp3",
+        "4699b6b8c38d2e13b7f11e9081fb1fec"
+    ],
+    "boss_003_enter.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_003_enter.mp3",
+        "fcf6d7058dead6f635e757d800c08569"
+    ],
+    "boss_003_hit.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_003_hit.mp3",
+        "69d5794f87cf5220a99b2c9593df1ac0"
+    ],
+    "boss_003_win.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_003_win.mp3",
+        "fc810635969d00fba5e5a681d3a93b59"
+    ],
+    "boss_004_die.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_004_die.mp3",
+        "006360601076e7c777dc73e6f45b5869"
+    ],
+    "boss_004_enter.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_004_enter.mp3",
+        "19dab78587355752758ccc7a9389eec4"
+    ],
+    "boss_004_hit.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_004_hit.mp3",
+        "4a14aac851baf2aa8f4302dca41bbd28"
+    ],
+    "boss_004_win.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_004_win.mp3",
+        "c940c1f46a4a56d600360ff056b94de8"
+    ],
+    "boss_005_die.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_005_die.mp3",
+        "9b45b200d86409a2b1472a2b8c284874"
+    ],
+    "boss_005_enter.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_005_enter.mp3",
+        "a28392797fa8e73182c77788bc77bd0f"
+    ],
+    "boss_005_hit.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_005_hit.mp3",
+        "b6c75e5d82316d273798e3d11731d9bb"
+    ],
+    "boss_005_win.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\boss_005_win.mp3",
+        "aeec71ef9f3fd014dd6dc5ba653274dd"
+    ],
+    "monster_001-2_die.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_001-2_die.mp3",
+        "2fe077f6c13757c87168b3aa0ba9a661"
+    ],
+    "monster_001-2_enter.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_001-2_enter.mp3",
+        "f1bb936bb8c444894426814f987e5418"
+    ],
+    "monster_001-2_hit.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_001-2_hit.mp3",
+        "80e60dc6d7cc483450b101fb9ffd2961"
+    ],
+    "monster_001-2_win.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_001-2_win.mp3",
+        "f92ced689d487496fadf8493a828c968"
+    ],
+    "monster_003-4_die.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_003-4_die.mp3",
+        "b1d0911304165bc92f131f7f99e53195"
+    ],
+    "monster_003-4_enter.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_003-4_enter.mp3",
+        "84fb8496992636373149f85469b3cc18"
+    ],
+    "monster_003-4_hit.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_003-4_hit.mp3",
+        "e584c16eae3f728a642e3ec0a8e5afa5"
+    ],
+    "monster_003-4_win.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_003-4_win.mp3",
+        "1503a1ce00197109b446523d8a50dc24"
+    ],
+    "monster_005-6_die.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_005-6_die.mp3",
+        "bcf30fbb033f95ac8ecb1228f9d09598"
+    ],
+    "monster_005-6_enter.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_005-6_enter.mp3",
+        "19875f78d61bb9cf758ac2db4b87b794"
+    ],
+    "monster_005-6_hit.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_005-6_hit.mp3",
+        "4cb6da3aaa3895c8da4654e3ffa7906b"
+    ],
+    "monster_005-6_win.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_005-6_win.mp3",
+        "30f536ea41d9e2735e982020113bd3e4"
+    ],
+    "monster_007-8_die.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_007-8_die.mp3",
+        "bb45e752e78ca490250466ef5e4ef75b"
+    ],
+    "monster_007-8_enter.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_007-8_enter.mp3",
+        "5211d2cb39764248b46c49c6181fe9b0"
+    ],
+    "monster_007-8_hit.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_007-8_hit.mp3",
+        "a5f4ad1b1c4ad596057354c1a7bdd5d8"
+    ],
+    "monster_007-8_win.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_007-8_win.mp3",
+        "337eafe5e5ac52094a946e332ef1019d"
+    ],
+    "monster_009-10_die.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_009-10_die.mp3",
+        "560a047c1951a5346c5b7f9743111d90"
+    ],
+    "monster_009-10_enter.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_009-10_enter.mp3",
+        "2ca73c5e37e0e428b314bc3b5f31ebc7"
+    ],
+    "monster_009-10_hit.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_009-10_hit.mp3",
+        "35ca67bd2ffac97d7f61efc5c0054dd2"
+    ],
+    "monster_009-10_win.mp3": [
+        "ui\\activity\\extend\\snowball\\main\\audio\\monster_009-10_win.mp3",
+        "e6413998b6769ca29b725e11db80de98"
     ],
     "xunmi_1.mp3": [
         "ui\\lobby\\extend\\treasure\\main\\audio\\xunmi_1.mp3",
