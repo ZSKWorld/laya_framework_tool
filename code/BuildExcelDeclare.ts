@@ -43,37 +43,38 @@ class SheetData {
         this.fieldType = [];
         this.fieldDesc = [];
 
-        const rows: Record<string, any[]> = {};
+        // 1. 结构化特征行提取：单次遍历定位所有核心行
+        let headRow: string[] = [], typeRow: string[] = [], commRow: string[] = [];
         for (const row of datas) {
             const head = row[0]?.toString().trim();
-            if (head === "##") rows.names = row.slice(1);
-            else if (head === "#type") rows.types = row.slice(1);
-            else if (head === "#comment") rows.comments = row.slice(1);
-            if (rows.names && rows.types && rows.comments) break;
+            if (head === "##") headRow = row;
+            else if (head === "#type") typeRow = row;
+            else if (head === "#comment") commRow = row;
+            if (headRow.length && typeRow.length && commRow.length) break;
         }
 
-        const names = rows.names || [];
-        const types = rows.types || [];
-        const desces = rows.comments;
+        const names = headRow.slice(1);
+        const types = typeRow.slice(1);
+        const comments = commRow.slice(1);
 
+        // 2. 字段解析与数组折叠 (如: attr[0], attr[1] -> attr: number[])
         const arrReg = /(.*)(\[[0-9]+\])/;
         for (let i = 0; i < names.length; i++) {
             let tname = names[i];
             if (!tname) continue;
 
             let ttype = types[i] || "string";
-            let tdesc = desces?.[i];
+            let tdesc = comments[i] || "";
             const match = arrReg.exec(tname);
 
             if (match) {
                 const baseName = match[1];
                 let tindex = 0;
-                for (let j = i + 1; j < names.length; j++) {
-                    if (names[j] === `${ baseName }[${ ++tindex }]`) {
-                        ttype = ttype || types[j];
-                        tdesc = tdesc || desces?.[j];
-                        i = j;
-                    } else break;
+                // 合并后续的数组项
+                while (i + 1 < names.length && names[i + 1] === `${ baseName }[${ ++tindex }]`) {
+                    i++;
+                    ttype = ttype || types[i];
+                    tdesc = tdesc || comments[i];
                 }
                 tname = baseName;
                 ttype = (typeMap[ttype] || ttype) + "[]";
@@ -86,14 +87,15 @@ class SheetData {
             this.fieldDesc.push(tdesc);
         }
 
-        const nameRowFull = datas.find(v => v[0]?.toString().trim() === "##") || [];
-        const keyIndex = nameRowFull.indexOf(key);
+        // 3. 主键 Key 列表提取（用于代码提示）
+        const keyIndex = headRow.indexOf(key);
         if (keyIndex !== -1) {
-            const startRow = datas.findIndex(v => !v[0] || !v[0].trim().startsWith("#"));
             const keyMap: Record<string, boolean> = {};
-            if (startRow !== -1) {
-                datas.slice(startRow).forEach(v => {
-                    let kVal = v[keyIndex];
+            // 定位数据开始行：非空且不以#开头
+            const startRowIdx = datas.findIndex(v => !v[0] || !v[0].trim().startsWith("#"));
+            if (startRowIdx !== -1) {
+                datas.slice(startRowIdx).forEach(row => {
+                    let kVal = row[keyIndex];
                     if (kVal === undefined || kVal === null || kVal === "") return;
                     if (typeof kVal === "string" && (kVal.includes(" ") || kVal.includes(" "))) {
                         kVal = `"${ kVal }"`;
@@ -109,12 +111,11 @@ class SheetData {
 
     getDeclare() {
         const { name, exportType, sheetDeclareName, dataDeclareName, fieldName, fieldType, fieldDesc, keys } = this;
-        const dataDeclare: string[] = [];
-        fieldName.forEach((v, index) => {
-            if (fieldDesc[index])
-                dataDeclare.push(`\t/** ${ fieldDesc[index] } */`);
-            dataDeclare.push(`\t${ v }: ${ fieldType[index] };`);
-        });
+
+        const dataDeclare = fieldName.map((v, i) => {
+            const comment = fieldDesc[i] ? `\t/** ${ fieldDesc[i] } */\n` : "";
+            return `${ comment }\t${ v }: ${ fieldType[i] };`;
+        }).join("\n");
 
         const keyDeclare: string[] = [];
         const valType = (exportType === ExportType.Group) ? `${ dataDeclareName }[]` : dataDeclareName;
@@ -122,16 +123,14 @@ class SheetData {
         if (exportType !== ExportType.NoKey) {
             keyDeclare.push(`\t[key: string]: ${ valType };`);
             keys.forEach(v => keyDeclare.push(`\t${ v }: ${ valType };`));
-
         }
 
-        const declare: string[] = [
+        return [
             `//#region ${ name }`,
             `declare interface ${ sheetDeclareName } {\n${ keyDeclare.join("\n") }\n}`,
-            `declare interface ${ dataDeclareName } {\n${ dataDeclare.join("\n") }\n}`,
+            `declare interface ${ dataDeclareName } {\n${ dataDeclare }\n}`,
             "//#endregion",
-        ];
-        return declare.join("\n");
+        ].join("\n");
     }
 }
 
@@ -169,17 +168,13 @@ class ExcelData {
             if (!targetRawSheet) return;
 
             excel.sheets.push(new SheetData(
-                sName,
-                v[colMap.key],
-                excel.upperName,
-                v[colMap.type] as ExportType,
-                v[colMap.desc] || "",
+                sName, v[colMap.key], excel.upperName,
+                v[colMap.type] as ExportType, v[colMap.desc] || "",
                 targetRawSheet.data
             ));
         });
 
-        if (excel.sheets.length === 0) return null;
-        return excel;
+        return excel.sheets.length > 0 ? excel : null;
     }
 
     getDeclare() {
@@ -188,16 +183,15 @@ class ExcelData {
         this.sheets.forEach(v => {
             sheetsDeclare.push(v.getDeclare());
             const desc = (v.desc ? `${ v.desc }  ---  ` : "") + v.exportType;
-            keyDeclare.push(`\t/** ${ desc } */`);
             const extStr = (v.exportType === ExportType.Group) ? "CfgExtGroup" : "CfgExt";
+            keyDeclare.push(`\t/** ${ desc } */`);
             keyDeclare.push(`\t${ v.name }: ${ extStr }<${ v.sheetDeclareName }>;`);
         });
 
-        const declare: string[] = [
+        return [
             `declare interface ${ this.tableName } {\n${ keyDeclare.join("\n") }\n}`,
-            `${ sheetsDeclare.join("\n\n") }`,
-        ];
-        return declare.join("\n\n");
+            sheetsDeclare.join("\n\n"),
+        ].join("\n\n");
     }
 }
 
@@ -212,7 +206,10 @@ export class BuildExcelDeclare extends BuildBase {
             if (!fs.statSync(filePath).isFile()) return;
 
             const excel = ExcelData.createExcel(filePath);
-            console.log(`[Build] ${ v } -> ${ excel ? "\x1b[32m成功\x1b[0m" : "\x1b[31m失败\x1b[0m" }`);
+            // 终端带颜色输出日志
+            const logStatus = excel ? "\x1b[32m成功\x1b[0m" : "\x1b[31m失败\x1b[0m";
+            console.log(`[Build] ${ v } -> ${ logStatus }`);
+
             if (excel) {
                 excelDeclareProps.push(`\treadonly ${ excel.name }: ${ excel.tableName };`);
                 fs.writeFileSync(`${ Declare_ExcelDir }/${ excel.name }.d.ts`, excel.getDeclare());
@@ -225,7 +222,8 @@ export class BuildExcelDeclare extends BuildBase {
             `\tinit(): Promise<void>;`,
             `}\n\n`,
             GetTemplateContent("cfgMgr3.0"),
-        ];
-        fs.writeFileSync(Declare_CfgMgrPath, cfgMgrContent.join("\n"));
+        ].join("\n");
+
+        fs.writeFileSync(Declare_CfgMgrPath, cfgMgrContent);
     }
 }

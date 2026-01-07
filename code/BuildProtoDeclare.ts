@@ -10,7 +10,7 @@ import {
     TS_MODIFY_TIP
 } from "./Const";
 
-// 类型映射表
+/** protobuf 类型到 TypeScript 类型映射 */
 const TS_TYPE_MAP: Record<string, string> = {
     double: "number", float: "number", int32: "number", int64: "number",
     uint32: "number", uint64: "number", sint32: "number", fixed32: "number",
@@ -51,8 +51,8 @@ export class BuildProtoDeclare extends BuildBase {
         return "\t".repeat(count);
     }
 
-    /** 提取嵌套类型至顶层 */
-    private extractSubTypes(type: IType, parent: IType | null, ro: protobuf.Type) {
+    /** 提取嵌套类型至顶层，便于统一生成 interface */
+    private extractSubTypes(type: IType, parent: IType, ro: protobuf.Type) {
         if (!type.nested) return;
 
         for (const [key, ele] of Object.entries(type.nested)) {
@@ -109,25 +109,31 @@ export class BuildProtoDeclare extends BuildBase {
         }
     }
 
-    private buildTSComments(comment: string, spaceCount: number, includeReqRes: boolean = true): string {
+    private buildTSComments(comment: string, indentCount: number, includeReqRes: boolean = true): string {
         if (!comment) return "";
-        const lines = comment.split("\n").filter(l => includeReqRes || !l.startsWith("req: {@link I"));
+        const lines = comment.split("\n")
+            .map(l => l.trim())
+            .filter(l => l && (includeReqRes || !l.startsWith("req: {@link I")));
+
         if (lines.length === 0) return "";
 
-        const tabs = this.getIndent(spaceCount);
+        const tabs = this.getIndent(indentCount);
         if (lines.length === 1) return `${ tabs }/** ${ lines[0] } */\n`;
 
         return `${ tabs }/**\n${ lines.map(l => `${ tabs } * * ${ l }`).join('\n') }\n${ tabs } */\n`;
     }
 
-    private resolveFieldType(fieldType: string, isSub: boolean, typeContext: { name: string, parentName: string, msg: IType, parent: IType | null }): string {
+    /** 转换字段类型 */
+    private resolveFieldType(fieldType: string, isSub: boolean, ctx: { name: string, parentName: string, msg: IType, parent: IType }): string {
         const typeName = fieldType.split(".").pop() || "";
-        const nested = isSub ? typeContext.parent?.nested : typeContext.msg.nested;
+        const nested = isSub ? ctx.parent?.nested : ctx.msg.nested;
 
+        // 1. 检查是否存在于当前的嵌套定义中
         if (nested && nested[typeName]) {
-            return `I${ isSub ? typeContext.parentName : typeContext.name }_${ typeName }`;
+            return `I${ isSub ? ctx.parentName : ctx.name }_${ typeName }`;
         }
 
+        // 2. 检查基础类型映射
         if (TS_TYPE_MAP[typeName]) return TS_TYPE_MAP[typeName];
 
         // 检查是否在根命名空间定义的 Message 或 Enum
@@ -137,9 +143,10 @@ export class BuildProtoDeclare extends BuildBase {
         return typeName;
     }
 
-    private buildTSMessage(name: string, msg: IType, isSub: boolean, parent: IType | null = null, parentName: string = ""): string {
+    private buildTSMessage(name: string, msg: IType, isSub: boolean, parent?: IType, parentName: string = ""): string {
         const builder: string[] = [];
-        builder.push(this.buildTSComments(`${ msg.fullName }${ msg.comment ? "\n" + msg.comment : "" }`, 0));
+        const comments = `${ msg.fullName }${ msg.comment ? "\n" + msg.comment : "" }`;
+        builder.push(this.buildTSComments(comments, 0));
 
         const interfaceName = `I${ isSub ? parentName + "_" : "" }${ name }`;
         const baseInterface = name.startsWith("Res") ? "IResponse" : "IProto";
@@ -147,11 +154,13 @@ export class BuildProtoDeclare extends BuildBase {
 
         if (msg.fields) {
             for (const [key, field] of Object.entries(msg.fields)) {
+                // 特殊处理：忽略 Res 里的 Error 冗余定义
                 if (key === "error" && field.type.endsWith("Error")) continue;
 
                 builder.push(this.buildTSComments(field.comment, 1));
                 const fieldType = this.resolveFieldType(field.type, isSub, { name, parentName, msg, parent });
-                builder.push(`\t${ key }: ${ fieldType }${ field.rule === "repeated" ? "[]" : "" };\n`);
+                const arrayKey = field.rule === "repeated" ? "[]" : "";
+                builder.push(`\t${ key }: ${ fieldType }${ arrayKey };\n`);
             }
         }
 
