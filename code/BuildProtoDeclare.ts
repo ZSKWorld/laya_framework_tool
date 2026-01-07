@@ -153,14 +153,16 @@ export class BuildProtoDeclare extends BuildBase {
         builder.push(`declare interface ${ interfaceName } extends ${ baseInterface } {\n`);
 
         if (msg.fields) {
+            const replacer = this.replaces[msg.fullName];
             for (const [key, field] of Object.entries(msg.fields)) {
                 // 特殊处理：忽略 Res 里的 Error 冗余定义
                 if (key === "error" && field.type.endsWith("Error")) continue;
 
                 builder.push(this.buildTSComments(field.comment, 1));
+                const omissible = !!(replacer && replacer[key] && replacer[key].omissible) ? "?" : "";
                 const fieldType = this.resolveFieldType(field.type, isSub, { name, parentName, msg, parent });
                 const arrayKey = field.rule === "repeated" ? "[]" : "";
-                builder.push(`\t${ key }: ${ fieldType }${ arrayKey };\n`);
+                builder.push(`\t${ key }${ omissible }: ${ fieldType }${ arrayKey };\n`);
             }
         }
 
