@@ -39,49 +39,72 @@ class SheetData {
         this.tableName = tableName;
         this.exportType = exportType;
         this.desc = desc;
-        const names = datas.find(v => v[0]?.trim().startsWith("##")).slice(1);
-        const types = datas.find(v => v[0]?.trim().startsWith("#type")).slice(1);
-        const desces = datas.find(v => v[0]?.trim().startsWith("#comment"))?.slice(1);
         this.fieldName = [];
         this.fieldType = [];
         this.fieldDesc = [];
+
+        const rows: Record<string, any[]> = {};
+        for (const row of datas) {
+            const head = row[0]?.toString().trim();
+            if (head === "##") rows.names = row.slice(1);
+            else if (head === "#type") rows.types = row.slice(1);
+            else if (head === "#comment") rows.comments = row.slice(1);
+            if (rows.names && rows.types && rows.comments) break;
+        }
+
+        const names = rows.names || [];
+        const types = rows.types || [];
+        const desces = rows.comments;
+
         const arrReg = /(.*)(\[[0-9]+\])/;
         for (let i = 0; i < names.length; i++) {
             let tname = names[i];
+            if (!tname) continue;
+
             let ttype = types[i] || "string";
             let tdesc = desces?.[i];
-            const match = arrReg.exec(names[i])
+            const match = arrReg.exec(tname);
+
             if (match) {
+                const baseName = match[1];
                 let tindex = 0;
-                tname = match[1];
                 for (let j = i + 1; j < names.length; j++) {
-                    const nextName = `${ tname }[${ ++tindex }]`;
-                    if (names[j] == nextName) {
+                    if (names[j] === `${ baseName }[${ ++tindex }]`) {
                         ttype = ttype || types[j];
-                        tdesc = tdesc || desces?.[i];
+                        tdesc = tdesc || desces?.[j];
                         i = j;
                     } else break;
                 }
-                ttype = typeMap[ttype] + "[]";
+                tname = baseName;
+                ttype = (typeMap[ttype] || ttype) + "[]";
             } else {
-                ttype = typeMap[ttype];
+                ttype = typeMap[ttype] || ttype;
             }
+
             this.fieldName.push(tname);
             this.fieldType.push(ttype);
             this.fieldDesc.push(tdesc);
         }
-        const keyIndex = datas.find(v => v[0]?.trim().startsWith("##")).findIndex(v => v == key);
-        const startRow = datas.findIndex(v => !v[0] || !v[0].trim().startsWith("#"));
-        const rows = datas.slice(startRow);
-        const keyMap: { [key: string]: boolean } = {};
-        rows.forEach(v => {
-            let key = v[keyIndex];
-            if (!key) return;
-            if (typeof (key) == "string" && (key.includes(" ") || key.includes(" ")))
-                key = `"${ key }"`;
-            keyMap[key] = true;
-        });
-        this.keys = Object.keys(keyMap);
+
+        const nameRowFull = datas.find(v => v[0]?.toString().trim() === "##") || [];
+        const keyIndex = nameRowFull.indexOf(key);
+        if (keyIndex !== -1) {
+            const startRow = datas.findIndex(v => !v[0] || !v[0].trim().startsWith("#"));
+            const keyMap: Record<string, boolean> = {};
+            if (startRow !== -1) {
+                datas.slice(startRow).forEach(v => {
+                    let kVal = v[keyIndex];
+                    if (kVal === undefined || kVal === null || kVal === "") return;
+                    if (typeof kVal === "string" && (kVal.includes(" ") || kVal.includes(" "))) {
+                        kVal = `"${ kVal }"`;
+                    }
+                    keyMap[kVal] = true;
+                });
+            }
+            this.keys = Object.keys(keyMap);
+        } else {
+            this.keys = [];
+        }
     }
 
     getDeclare() {
@@ -94,15 +117,12 @@ class SheetData {
         });
 
         const keyDeclare: string[] = [];
-        if (exportType == ExportType.Group) {
-            keyDeclare.push(`\t[key: string]: ${ dataDeclareName }[];`);
-            keys.forEach(v => keyDeclare.push(`\t${ v }: ${ dataDeclareName }[];`));
-        } else if (exportType == ExportType.Unique) {
-            keyDeclare.push(`\t[key: string]: ${ dataDeclareName };`);
-            keys.forEach(v => keyDeclare.push(`\t${ v }: ${ dataDeclareName };`));
-        } else if (exportType == ExportType.KV) {
-            keyDeclare.push(`\t[key: string]: ${ dataDeclareName };`);
-            keys.forEach(v => keyDeclare.push(`\t${ v }: ${ dataDeclareName };`));
+        const valType = (exportType === ExportType.Group) ? `${ dataDeclareName }[]` : dataDeclareName;
+
+        if (exportType !== ExportType.NoKey) {
+            keyDeclare.push(`\t[key: string]: ${ valType };`);
+            keys.forEach(v => keyDeclare.push(`\t${ v }: ${ valType };`));
+
         }
 
         const declare: string[] = [
@@ -122,36 +142,43 @@ class ExcelData {
     get tableName() { return `ITable_${ this.upperName }`; }
 
     static createExcel(excelPath: string) {
-        if (!fs.existsSync(excelPath)) return null;
-        if (!fs.statSync(excelPath).isFile()) return null;
-        const fileName = path.basename(excelPath);
-        if (HasChinese(fileName)) return null;
-        if (!fileName.endsWith(".xlsx")) return null;
-        const sheets = xlsx.parse(excelPath).filter(v => !HasChinese(v.name));
-        const exportSheet = sheets.find(v => v.name == "export");
+        const allRawSheets = xlsx.parse(excelPath);
+        const sheets = allRawSheets.filter(v => !HasChinese(v.name));
+        const exportSheet = sheets.find(v => v.name === "export");
         if (!exportSheet || exportSheet.data.length <= 1) return null;
-        const exportKeys = exportSheet.data.shift();
-        const sheetIndex = exportKeys.findIndex(v => v == "sheet");
-        const keyIndex = exportKeys.findIndex(v => v == "key");
-        const typeIndex = exportKeys.findIndex(v => v == "type");
-        const descIndex = exportKeys.findIndex(v => v == "desc");
-        const exportInfo: { [name: string]: { key: string, type: ExportType, desc: string } } = {};
-        exportSheet.data.forEach(v => {
-            if (!v[sheetIndex]) return;
-            exportInfo[v[sheetIndex]] = { key: v[keyIndex], type: v[typeIndex], desc: v[descIndex] };
-        });
-        if (Object.keys(exportInfo).length == 0) return;
+
+        const headers = exportSheet.data[0];
+        const colMap = {
+            sheet: headers.indexOf("sheet"),
+            key: headers.indexOf("key"),
+            type: headers.indexOf("type"),
+            desc: headers.indexOf("desc")
+        };
+
+        if (colMap.sheet === -1) return null;
 
         const excel = new ExcelData();
-        excel.name = path.basename(fileName, ".xlsx");
+        excel.name = path.basename(excelPath, ".xlsx");
         excel.upperName = UpperFirst(excel.name, ["_"], "");
         excel.sheets = [];
-        for (const key in exportInfo) {
-            const sheet = sheets.find(v => v.name == key);
-            if (!sheet) continue;
-            const info = exportInfo[key];
-            excel.sheets.push(new SheetData(key, info.key, excel.upperName, info.type, info.desc, sheet.data));
-        }
+
+        exportSheet.data.slice(1).forEach(v => {
+            const sName = v[colMap.sheet];
+            if (!sName) return;
+            const targetRawSheet = sheets.find(s => s.name === sName);
+            if (!targetRawSheet) return;
+
+            excel.sheets.push(new SheetData(
+                sName,
+                v[colMap.key],
+                excel.upperName,
+                v[colMap.type] as ExportType,
+                v[colMap.desc] || "",
+                targetRawSheet.data
+            ));
+        });
+
+        if (excel.sheets.length === 0) return null;
         return excel;
     }
 
@@ -162,11 +189,10 @@ class ExcelData {
             sheetsDeclare.push(v.getDeclare());
             const desc = (v.desc ? `${ v.desc }  ---  ` : "") + v.exportType;
             keyDeclare.push(`\t/** ${ desc } */`);
-            if (v.exportType == ExportType.Group)
-                keyDeclare.push(`\t${ v.name }: CfgExtGroup<${ v.sheetDeclareName }>;`);
-            else
-                keyDeclare.push(`\t${ v.name }: CfgExt<${ v.sheetDeclareName }>;`);
+            const extStr = (v.exportType === ExportType.Group) ? "CfgExtGroup" : "CfgExt";
+            keyDeclare.push(`\t${ v.name }: ${ extStr }<${ v.sheetDeclareName }>;`);
         });
+
         const declare: string[] = [
             `declare interface ${ this.tableName } {\n${ keyDeclare.join("\n") }\n}`,
             `${ sheetsDeclare.join("\n\n") }`,
@@ -175,30 +201,31 @@ class ExcelData {
     }
 }
 
-
 export class BuildExcelDeclare extends BuildBase {
-
     doBuild() {
-        const excels: ExcelData[] = [];
+        if (!fs.existsSync(Declare_ExcelDir)) fs.mkdirSync(Declare_ExcelDir, { recursive: true });
+
+        const excelDeclareProps: string[] = [];
         fs.readdirSync(ExcelDir).forEach(v => {
-            const excel = ExcelData.createExcel(path.resolve(ExcelDir, v));
-            if (!excel) return;
-            excels.push(excel);
-        });
-        const excelDeclare: string[] = [];
-        excels.forEach(v => {
-            excelDeclare.push(`\treadonly ${ v.name }: ${ v.tableName };`)
-            fs.writeFileSync(`${ Declare_ExcelDir }/${ v.name }.d.ts`, v.getDeclare());
+            if (HasChinese(v) || !v.endsWith(".xlsx")) return;
+            const filePath = path.resolve(ExcelDir, v);
+            if (!fs.statSync(filePath).isFile()) return;
+
+            const excel = ExcelData.createExcel(filePath);
+            console.log(`[Build] ${ v } -> ${ excel ? "\x1b[32m成功\x1b[0m" : "\x1b[31m失败\x1b[0m" }`);
+            if (excel) {
+                excelDeclareProps.push(`\treadonly ${ excel.name }: ${ excel.tableName };`);
+                fs.writeFileSync(`${ Declare_ExcelDir }/${ excel.name }.d.ts`, excel.getDeclare());
+            }
         });
 
         const cfgMgrContent = [
             `declare interface IConfigManager {`,
-            excelDeclare.join("\n"),
+            excelDeclareProps.join("\n"),
             `\tinit(): Promise<void>;`,
             `}\n\n`,
             GetTemplateContent("cfgMgr3.0"),
         ];
         fs.writeFileSync(Declare_CfgMgrPath, cfgMgrContent.join("\n"));
     }
-
 }

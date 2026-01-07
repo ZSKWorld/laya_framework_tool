@@ -16,14 +16,14 @@ import { BuildExcelDeclare } from "./BuildExcelDeclare";
 import { BuildMaterial } from "./BuildMaterial";
 import { BuildReplaceSpineName } from "./BuildReplaceSpineName";
 
-interface Act {
+interface Builder {
     desc: string,
     cls: new () => BuildBase;
 }
 
 export class BatMain {
     constructor() {
-        this.run2();
+        this.run();
 
 
         //动态require js
@@ -37,53 +37,11 @@ export class BatMain {
         //path.extname
     }
 
-    private run1() {
-        const act: Act[] = [
-            { desc: "创建 View & ViewMediator", cls: BuildView },
-            { desc: "导出表配置", cls: BuildConfig },
-            { desc: "导出服务器表配置", cls: BuildServerConfig },
-            { desc: "更新资源路径2.0", cls: BuildResPath },
-            { desc: "用户数据事件", cls: BuildDataEvent },
-            { desc: "更新网络相关", cls: BuildNet },
-            { desc: "更新资源路径3.0", cls: BuildResPath3_0 },
-            { desc: "更新Proto声明文件", cls: BuildProtoDeclare },
-        ];
-        let tip = "选择要进行的操作：\n0. 全部执行\n";
-        act.forEach((v, index) => tip += `${ index + 1 }. ${ v.desc }\n`);
-        let rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout
-        });
-
-        const question = () => {
-            rl.question(tip, function (prompt) {
-                let index = +prompt;
-                if (Number.isNaN(index) == false && (index && act[index - 1] || !index)) {
-                    index -= 1;
-                    const acts: Act[] = [];
-                    if (index == -1) acts.push(...act);
-                    else acts.push(act[index]);
-                    acts.length && acts.forEach(v => {
-                        Logger.warn("正在执行aaa => " + v.desc);
-                        (new v.cls()).doBuild();
-                        Logger.green(v.desc + " => 执行完毕aaa！")
-                    });
-                } else {
-                    Logger.error("错误的选项！");
-                }
-                rl.close();
-                process.exit();
-                // question();
-            });
-        }
-        question();
-    }
-
-    private run2() {
+    private run() {
         const index = +process.argv[2];
         if (isNaN(index)) return;
 
-        const act: Act[] = [
+        const builders: Builder[] = [
             { desc: "创建 View & ViewMediator", cls: BuildView },
             { desc: "导出表配置", cls: BuildConfig },
             { desc: "更新资源路径2.0", cls: BuildResPath2 },
@@ -98,16 +56,16 @@ export class BatMain {
             { desc: "创建材质", cls: BuildMaterial },
             { desc: "替换spine文件名", cls: BuildReplaceSpineName },
         ];
-        if (index == -1) act.forEach(v => this.runLog(v));
-        else this.runLog(act[index]);
+        if (index == -1) builders.forEach(v => this.runBuilder(v));
+        else this.runBuilder(builders[index]);
         process.exit();
     }
 
-    private runLog(act: Act) {
-        if (!act) return;
-        Logger.warn("正在执行 => " + act.desc);
-        (new act.cls()).doBuild();
-        Logger.green(act.desc + " => 执行完毕！")
+    private runBuilder(builder: Builder) {
+        if (!builder) return;
+        Logger.warn("正在执行 => " + builder.desc);
+        (new builder.cls()).doBuild();
+        Logger.green(builder.desc + " => 执行完毕！")
     }
 }
 new BatMain();
