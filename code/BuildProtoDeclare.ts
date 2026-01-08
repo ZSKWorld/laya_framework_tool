@@ -159,10 +159,10 @@ export class BuildProtoDeclare extends BuildBase {
                 if (key === "error" && field.type.endsWith("Error")) continue;
 
                 builder.push(this.buildTSComments(field.comment, 1));
-                const omissible = !!(replacer && replacer[key] && replacer[key].omissible) ? "?" : "";
+                const optional = !!(replacer && replacer[key] && replacer[key].optional) ? "?" : "";
                 const fieldType = this.resolveFieldType(field.type, isSub, { name, parentName, msg, parent });
                 const arrayKey = field.rule === "repeated" ? "[]" : "";
-                builder.push(`\t${ key }${ omissible }: ${ fieldType }${ arrayKey };\n`);
+                builder.push(`\t${ key }${ optional }: ${ fieldType }${ arrayKey };\n`);
             }
         }
 
