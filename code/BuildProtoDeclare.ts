@@ -120,7 +120,7 @@ export class BuildProtoDeclare extends BuildBase {
         const tabs = this.getIndent(indentCount);
         if (lines.length === 1) return `${ tabs }/** ${ lines[0] } */\n`;
 
-        return `${ tabs }/**\n${ lines.map(l => `${ tabs } * * ${ l }`).join('\n') }\n${ tabs } */\n`;
+        return `${ tabs }/**\n${ lines.map(l => `${ tabs } ** ${ l }`).join('\n') }\n${ tabs } */\n`;
     }
 
     /** 转换字段类型 */
