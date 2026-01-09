@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as xlsx from "node-xlsx";
 import * as path from "path";
 import { BuildBase } from "./BuildBase";
-import { Declare_CfgMgrPath, Declare_ExcelDir, ExcelDir } from "./Const";
+import { Declare_CfgMgrPath, Declare_ExcelDir, ExcelDir, TS_MODIFY_TIP } from "./Const";
 import { GetTemplateContent, HasChinese, UpperFirst } from "./Utils";
 
 const enum ExportType {
@@ -189,6 +189,7 @@ class ExcelData {
         });
 
         return [
+            TS_MODIFY_TIP.trim(),
             `declare interface ${ this.tableName } {\n${ keyDeclare.join("\n") }\n}`,
             sheetsDeclare.join("\n\n"),
         ].join("\n\n");
@@ -217,6 +218,7 @@ export class BuildExcelDeclare extends BuildBase {
         });
 
         const cfgMgrContent = [
+            TS_MODIFY_TIP,
             `declare interface IConfigManager {`,
             excelDeclareProps.join("\n"),
             `\tinit(): Promise<void>;`,

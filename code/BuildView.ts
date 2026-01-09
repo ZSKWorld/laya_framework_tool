@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { BuildBase } from "./BuildBase";
 import { Logger } from "./Console";
-import { Declare_ViewIDPath, InitViewCommandPath, Lib_ViewIDPath, MediatorBasePath, UiDir, ViewDir } from "./Const";
+import { Declare_ViewIDPath, InitViewCommandPath, Lib_ViewIDPath, MediatorBasePath, TS_MODIFY_TIP, UiDir, ViewDir } from "./Const";
 import { GetAllFile, GetTemplateContent, MakeDir, UpperFirst } from "./Utils";
 
 interface IBuildConfig {
@@ -190,12 +190,14 @@ export class BuildView extends BuildBase {
         let content = groups.join("\n\n");
         if (!content) content = "\tNone = \"\",";
 
-        const libContent = this.templates.viewID.replace("#CONTENT#", content)
-            .replace(/ =/g, ":").replace("export enum EViewID", "EViewID =");
-        fs.writeFileSync(Lib_ViewIDPath, libContent);
+        const libContent = this.templates.viewID
+            .replace("#CONTENT#", content)
+            .replace(/ =/g, ":")
+            .replace("export enum EViewID", "EViewID =");
+        fs.writeFileSync(Lib_ViewIDPath, [TS_MODIFY_TIP, libContent].join("\n"));
 
         const declareContent = this.templates.viewIDDeclare.replace("#CONTENT#", content);
-        fs.writeFileSync(Declare_ViewIDPath, declareContent);
+        fs.writeFileSync(Declare_ViewIDPath, [TS_MODIFY_TIP, declareContent].join("\n"));
     }
 
     private buildViewRegister() {
