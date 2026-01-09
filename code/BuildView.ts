@@ -4,235 +4,244 @@ import { BuildBase } from "./BuildBase";
 import { Logger } from "./Console";
 import { Declare_ViewIDPath, InitViewCommandPath, Lib_ViewIDPath, MediatorBasePath, UiDir, ViewDir } from "./Const";
 import { GetAllFile, GetTemplateContent, MakeDir, UpperFirst } from "./Utils";
+
 interface IBuildConfig {
     sign: string;
     folder: string;
     uiType: string;
     comments: string;
-    funcs: Function[];
+    generateMediator: boolean;
 }
+
+/** 格式化路径为 POSIX 风格 (用于 Import/URL) */
+const toPosixPath = (str: string) => str.replace(/\\/g, "/");
+
 export class BuildView extends BuildBase {
-    private viewTemplate = GetTemplateContent("View");
-    private mediatorTemplate = GetTemplateContent("Mediator");
-    private viewIDTemplate = GetTemplateContent("ViewID");
-    private viewIDDeclareTemplate = GetTemplateContent("ViewIDDeclare");
-    private initViewCommandTemplate = GetTemplateContent("InitViewCommand");
+    // 预加载模板
+    private readonly templates = {
+        view: GetTemplateContent("View"),
+        mediator: GetTemplateContent("Mediator"),
+        viewID: GetTemplateContent("ViewID"),
+        viewIDDeclare: GetTemplateContent("ViewIDDeclare"),
+        initViewCommand: GetTemplateContent("InitViewCommand")
+    };
 
     protected buildConfig: IBuildConfig[] = [
-        { sign: "Btn", folder: "btns", uiType: "Button", comments: "Btns", funcs: [this.BuildView] },
-        { sign: "Render", folder: "renders", uiType: "Render", comments: "Renders", funcs: [this.BuildView] },
-        { sign: "Com", folder: "coms", uiType: "Component", comments: "Coms", funcs: [this.BuildView] },
-        { sign: "UI", folder: "uis", uiType: "UI", comments: "UIs", funcs: [this.BuildView, this.BuildMediator] },
+        { sign: "Btn", folder: "btns", uiType: "Button", comments: "Btns", generateMediator: false },
+        { sign: "Render", folder: "renders", uiType: "Render", comments: "Renders", generateMediator: false },
+        { sign: "Com", folder: "coms", uiType: "Component", comments: "Coms", generateMediator: false },
+        { sign: "UI", folder: "uis", uiType: "UI", comments: "UIs", generateMediator: true },
     ];
 
     doBuild() {
-        this.CheckBuild(UiDir);
-        this.RemoveUnused();
-        this.BuildViewID();
-        this.BuildViewRegister();
+        this.runBuildTasks();
+        this.removeUnused();
+        this.buildViewID();
+        this.buildViewRegister();
     }
 
-    private CheckBuild(dirPath: string) {
-        fs.readdirSync(dirPath).forEach(filename => {
-            const filePath = path.resolve(dirPath, filename);
-            const info = fs.statSync(filePath);
-            if (info.isDirectory()) {
-                this.CheckBuild(filePath);
+    /** 核心扫描与构建逻辑 */
+    private runBuildTasks() {
+        const allTsFiles = GetAllFile(UiDir, true, (f) => f.endsWith(".ts"));
+
+        for (const fullPath of allTsFiles) {
+            const filename = path.basename(fullPath, ".ts");
+            const dirPath = path.dirname(fullPath);
+
+            const config = this.buildConfig.find(c => filename.startsWith(c.sign));
+            if (!config) continue;
+
+            const pkgName = path.basename(dirPath);
+            this.buildViewFile(dirPath, filename, config.folder);
+
+            if (config.generateMediator) {
+                this.buildMediatorFile(dirPath, filename, config.folder);
             }
-            else if (info.isFile()) {
-                this.buildConfig.forEach(filter => {
-                    if (filename.endsWith(".ts") && filename.startsWith(filter.sign))
-                        filter.funcs.forEach(func => {
-                            return func.call(this, dirPath, filename.replace(".ts", ""), filter.folder);
-                        });
-                });
-            }
-        });
-    }
-
-    private BuildView(dirPath: string, filename: string, subDir: string = "") {
-        const viewDir = path.resolve(ViewDir, path.basename(dirPath) + "/view/" + subDir);
-        MakeDir(viewDir);
-        const [viewCls, viewPath, pkgName] = [
-            filename + "View",
-            path.resolve(viewDir, filename + "View.ts"),
-            path.basename(dirPath),
-        ];
-        if (!fs.existsSync(viewPath)) {
-            let content = this.viewTemplate;
-            content = content.replace(/#VIEW_PATH#/g, path.relative(viewDir, path.resolve(dirPath, filename)).replace(/\\/g, "/").replace(/\.ts/g, ""))
-                .replace(/#CLASS_NAME#/g, viewCls)
-                // .replace(/#PACKAGE_NAME#/g, pkgName)
-                .replace(/#FILE_NAME#/g, filename);
-
-            let [sendContent, compContent, compExtension, messages] = ["", "", "\n", ""];
-
-            const matches = fs.readFileSync(path.resolve(dirPath, filename + ".ts")).toString().match(/(public|protected).*:.*;/g);
-            const uiComps = matches ? matches.filter(v => !v.includes("static")) : [];
-            // const uiComps = fs.readFileSync(path.resolve(dirPath, filename + ".ts")).toString().match(/public((?!static).)*;/g);
-            if (uiComps.length > 0) {
-                let msgEnumName = `E${ filename }Msg`;
-                let useComps = [];
-                uiComps.forEach((v, index) => {
-                    const varName = v.split(" ")[1].split(":")[0];
-                    if (varName.toLowerCase().startsWith("btn")) {
-                        let msgName = `On${ UpperFirst(varName, ["_"], "") }Click`;
-                        let msgValue = `"${ filename }_${ msgName }"`;
-                        messages += `\t${ msgName } = ${ msgValue },\n`;
-                        sendContent += `\n\t\t${ varName }.onClick(this, this.sendEvent, [${ msgEnumName }.${ msgName }]);`;
-                    } else return;
-                    useComps.push(varName);
-                });
-
-                compContent = useComps.length > 0 ? `const { ${ useComps.join(", ") } } = this;${ sendContent }` : sendContent;
-            }
-
-            content = content.replace(/#ALL_COMP#/g, compContent)
-                .replace(/#MESSAGES#/g, messages.trimEnd())
-                .replace(/#COMP_EXTENSION#/g, compExtension.trimEnd());
-            console.log(viewCls);
-            fs.writeFileSync(viewPath, content);
         }
     }
 
-    private BuildMediator(dirPath: string, filename: string, subDir: string) {
-        const _viewDir = path.resolve(ViewDir, path.basename(dirPath) + "/view/" + subDir);
-        const _mediatorDir = path.resolve(ViewDir, path.basename(dirPath) + "/mediator/" + subDir);
-        MakeDir(_mediatorDir);
-        const [viewCls, viewMsg, mediatorCls, dataName, viewPath, mediatorPath, pkgName] = [
-            filename + "View",
-            "E" + filename + "Msg",
-            filename + "Mediator",
-            "I" + filename + "Data",
-            path.resolve(_viewDir, filename + "View.ts"),
-            path.resolve(_mediatorDir, filename + "Mediator.ts"),
-            path.basename(dirPath),
-        ];
-        if (!fs.existsSync(mediatorPath)) {
-            let content = this.mediatorTemplate;
-            content = content.replace(/#MEDIATOR_BASE_PATH#/g, path.relative(_mediatorDir, MediatorBasePath).replace(/\\/g, "/").replace(/\.ts/g, ""))
-                .replace(/#VIEW_PATH#/g, path.relative(_mediatorDir, viewPath).replace(/\\/g, "/").replace(/\.ts/g, ""))
-                .replace(/#CLASS_NAME#/g, mediatorCls)
-                // .replace(/#PACKAGE_NAME#/g, pkgName)
-                .replace(/#VIEW_CLASS#/g, viewCls)
-                .replace(/#VIEW_MSG#/g, viewMsg)
-                .replace(/#DATA_NAME#/g, dataName);
-            let [msgContent, funcContent] = ["", ""];
-            const matches = fs.readFileSync(path.resolve(dirPath, filename + ".ts")).toString().match(/(public|protected).*:.*;/g);
-            const uiComps = matches ? matches.filter(v => !v.includes("static")) : [];
-            if (uiComps.length > 0) {
-                uiComps.forEach(v => {
-                    v = v.split(" ")[1].split(":")[0];
-                    if (v.toLowerCase().startsWith("btn")) {
-                        const btnName = UpperFirst(v, ["_"], "");
-                        msgContent += `\t\tthis.addEvent(${ viewMsg }.On${ btnName }Click, this.on${ btnName }Click);\n`;
-                        funcContent += `\tprivate on${ btnName }Click() {\n\n\t}\n\n`;
-                    }
-                });
-                msgContent = msgContent ? msgContent.trim() : msgContent;
-                funcContent = funcContent ? `\n\t${ funcContent.trim() }\n` : funcContent;
-            }
-            content = content.replace(/#BTN_MESSAGE#/g, msgContent);
-            content = content.replace(/#BTN_FUNCTIONS#/g, funcContent);
-            console.log(mediatorCls);
-            fs.writeFileSync(mediatorPath, content);
-        }
-    }
+    /** 提取 UI 脚本中的按钮组件信息 */
+    private parseUIComponents(dirPath: string, filename: string) {
+        const fullPath = path.resolve(dirPath, `${ filename }.ts`);
+        const content = fs.readFileSync(fullPath, "utf-8");
+        const matches = content.match(/(public|protected)\s+(\w+)\s*:\s*.*?;/g) || [];
 
-    private RemoveUnused() {
-        GetAllFile(
-            ViewDir, true,
-            filename => filename.endsWith("View.ts") || filename.endsWith("Mediator.ts")
-        ).forEach(filepath => {
-            const relative = path.relative(ViewDir, filepath);
-            const relativeArr = relative.split("\\");
-            const pkgname = relativeArr[0];
-            const dir = relativeArr[1];
-            if (dir != "mediator" && dir != "view") return;
-            const filename = path.basename(relative, ".ts");
-            let uiname = "";
-            if (filename.endsWith("View")) uiname = filename.substring(0, filename.length - 4);
-            else if (filename.endsWith("Mediator")) uiname = filename.substring(0, filename.length - 8);
-            else return;
-            const uipath = path.resolve(UiDir, pkgname, uiname + ".ts");
-            if (!fs.existsSync(uipath)) {
-                Logger.error("删除=>" + filepath);
-                fs.unlinkSync(filepath);
+        const btns: string[] = [];
+        matches.forEach(line => {
+            if (line.includes("static")) return;
+            const varName = line.split(/\s+/)[1].split(":")[0];
+            if (varName.toLowerCase().startsWith("btn")) {
+                btns.push(varName);
             }
         });
+        return btns;
     }
 
-    private GetViewIDContent() {
-        const buildInfo = this.buildConfig;
-        const viewNames = GetAllFile(
-            ViewDir, false,
-            filename => buildInfo.some(v => filename.startsWith(v.sign)) && filename.endsWith("View.ts"),
-            filename => filename.replace(".ts", ""),
-        );
+    private buildViewFile(dirPath: string, filename: string, subDir: string) {
+        const targetDir = path.resolve(ViewDir, path.basename(dirPath), "view", subDir);
+        const viewPath = path.resolve(targetDir, `${ filename }View.ts`);
 
-        let viewCount = 0;
-        const contents = buildInfo.map(v => {
-            let viewContent = `\t/**${ v.comments } */\n`;
-            const views = viewNames.filter(vv => vv.startsWith(v.sign));
-            viewCount += views.length;
-            views.forEach(vv => {
-                viewContent += `\t${ vv } = "${ vv }",\n`;
-            });
-            return viewContent;
-        });
-        let combine = contents.join("\n");
-        if (viewCount == 0) combine = "\tNone = \"\",\n" + combine;
-        return combine;
-    }
+        if (fs.existsSync(viewPath)) return;
+        MakeDir(targetDir);
 
-    private BuildViewID() {
-        const content = this.GetViewIDContent();
-        const viewIDContent = this.viewIDTemplate.replace("#CONTENT#", content).replace(/ =/g, ":").replace("export enum EViewID", "EViewID =");
-        fs.writeFileSync(Lib_ViewIDPath, viewIDContent);
-        const viewIDDeclareContent = this.viewIDDeclareTemplate.replace("#CONTENT#", content);
-        fs.writeFileSync(Declare_ViewIDPath, viewIDDeclareContent);
-    }
+        const btns = this.parseUIComponents(dirPath, filename);
+        const msgEnumName = `E${ filename }Msg`;
 
-    private BuildViewRegister() {
-        const initViewCommandDir = path.dirname(InitViewCommandPath);
-        const mapFunc = (fileName: string) => fileName.replace(".ts", "");
-        const filterFunc = (start: string, end: string) => (fileName: string) => (!start || fileName.startsWith(start)) && (!end || fileName.endsWith(end));
+        let messages: string[] = [];
+        let sendEvents: string[] = [];
+        let useComps: string[] = [];
 
-        const binderNames = GetAllFile(UiDir, true, filterFunc("", "Binder.ts"), mapFunc);
-
-        let [binderCode, registerCode, imports] = ["", "", []];
-
-        binderNames.forEach(v => {
-            const basename = path.basename(v);
-            binderCode += `\t\t${ basename }.bindAll();\n`;
-            imports.push(`import ${ basename } from "${ path.relative(initViewCommandDir, v).replace(/\\/g, "/") }";`);
+        btns.forEach(btn => {
+            const msgName = `On${ UpperFirst(btn, ["_"], "") }Click`;
+            messages.push(`\t${ msgName } = "${ filename }_${ msgName }",`);
+            sendEvents.push(`\t\t${ btn }.onClick(this, this.sendEvent, [${ msgEnumName }.${ msgName }]);`);
+            useComps.push(btn);
         });
 
-        const addExtAndRegistCode = (config: IBuildConfig) => {
-            registerCode += `\n\t\t//${ config.comments }\n`;
-            const arr = GetAllFile(UiDir, true, filterFunc(config.sign, ".ts"), mapFunc);
-            arr.forEach(v => {
-                const basename = path.basename(v);
-                const tempPath = v.replace("ui\\Pkg", "view\\Pkg");
-                const viewPath = tempPath.replace(basename, `view\\${ config.folder }\\${ basename }View.ts`);
-                const mediatorPath = tempPath.replace(basename, `mediator\\${ config.folder }\\${ basename }Mediator.ts`);
-                if (fs.existsSync(viewPath)) {
-                    registerCode += `\t\tregister(EViewID.${ basename }View, EViewType.${ config.uiType }, ${ basename }View`;
-                    imports.push(`import { ${ basename }View } from "${ path.relative(initViewCommandDir, mapFunc(viewPath)).replace(/\\/g, "/") }";`);
-                    if (fs.existsSync(mediatorPath)) {
-                        registerCode += ", " + basename + "Mediator";
-                        imports.push(`import { ${ basename }Mediator } from "${ path.relative(initViewCommandDir, mapFunc(mediatorPath)).replace(/\\/g, "/") }";`);
-                    }
-                    registerCode += ");\n";
+        const compContent = useComps.length > 0
+            ? `const { ${ useComps.join(", ") } } = this;\n${ sendEvents.join("\n") }`
+            : sendEvents.join("\n");
+
+        const viewRelPath = toPosixPath(path.relative(targetDir, path.resolve(dirPath, filename)));
+
+        const result = this.templates.view
+            .replace(/#VIEW_PATH#/g, viewRelPath)
+            .replace(/#CLASS_NAME#/g, `${ filename }View`)
+            .replace(/#FILE_NAME#/g, filename)
+            .replace(/#ALL_COMP#/g, compContent)
+            .replace(/#MESSAGES#/g, messages.join("\n").trimEnd())
+            .replace(/#COMP_EXTENSION#/g, ""); // 保持原逻辑为空
+
+        fs.writeFileSync(viewPath, result);
+        console.log(`${ filename }View`);
+    }
+
+    private buildMediatorFile(dirPath: string, filename: string, subDir: string) {
+        const pkgName = path.basename(dirPath);
+        const targetDir = path.resolve(ViewDir, pkgName, "mediator", subDir);
+        const mediatorPath = path.resolve(targetDir, `${ filename }Mediator.ts`);
+
+        if (fs.existsSync(mediatorPath)) return;
+        MakeDir(targetDir);
+
+        const viewPath = path.resolve(ViewDir, pkgName, "view", subDir, `${ filename }View.ts`);
+        const btns = this.parseUIComponents(dirPath, filename);
+        const viewMsg = `E${ filename }Msg`;
+
+        let msgCodes: string[] = [];
+        let funcCodes: string[] = [];
+
+        btns.forEach(btn => {
+            const btnName = UpperFirst(btn, ["_"], "");
+            msgCodes.push(`\t\tthis.addEvent(${ viewMsg }.On${ btnName }Click, this.on${ btnName }Click);`);
+            funcCodes.push(`\tprivate on${ btnName }Click() {\n\n\t}\n`);
+        });
+
+        const result = this.templates.mediator
+            .replace(/#MEDIATOR_BASE_PATH#/g, toPosixPath(path.relative(targetDir, MediatorBasePath)).replace(".ts", ""))
+            .replace(/#VIEW_PATH#/g, toPosixPath(path.relative(targetDir, viewPath)).replace(".ts", ""))
+            .replace(/#CLASS_NAME#/g, `${ filename }Mediator`)
+            .replace(/#VIEW_CLASS#/g, `${ filename }View`)
+            .replace(/#VIEW_MSG#/g, viewMsg)
+            .replace(/#DATA_NAME#/g, `I${ filename }Data`)
+            .replace(/#BTN_MESSAGE#/g, msgCodes.join("\n").trim())
+            .replace(/#BTN_FUNCTIONS#/g, funcCodes.length > 0 ? `\n${ funcCodes.join("\n") }` : "");
+
+        fs.writeFileSync(mediatorPath, result);
+        console.log(`${ filename }Mediator`);
+    }
+
+    private removeUnused() {
+        GetAllFile(ViewDir, true, f => f.endsWith("View.ts") || f.endsWith("Mediator.ts"))
+            .forEach(filepath => {
+                const relative = path.relative(ViewDir, filepath);
+                const parts = relative.split(path.sep);
+                if (parts.length < 3) return;
+
+                const [pkgName, dirType] = parts;
+                if (dirType !== "mediator" && dirType !== "view") return;
+
+                const baseName = path.basename(filepath, ".ts");
+                const uiRawName = baseName.replace(dirType === "view" ? "View" : "Mediator", "");
+
+                const uiPath = path.resolve(UiDir, pkgName, `${ uiRawName }.ts`);
+                if (!fs.existsSync(uiPath)) {
+                    Logger.error(`删除冗余 => ${ filepath }`);
+                    fs.unlinkSync(filepath);
                 }
             });
-        };
-        this.buildConfig.forEach(addExtAndRegistCode);
+    }
 
-        const content = this.initViewCommandTemplate
-            .replace("#IMPORT#", imports.join("\n"))
-            .replace("#BINDER_CODE#", binderCode.trim())
-            .replace("#REGISTER_CODE#", registerCode.trim());
-        fs.writeFileSync(InitViewCommandPath, content);
+    private buildViewID() {
+        const buildSigns = this.buildConfig.map(c => c.sign);
+        const viewFiles = GetAllFile(ViewDir, true, f =>
+            f.endsWith("View.ts") && buildSigns.some(s => path.basename(f).startsWith(s))
+        );
+
+        const groups = this.buildConfig.map(config => {
+            const items = viewFiles
+                .filter(f => path.basename(f).startsWith(config.sign))
+                .map(f => `\t${ path.basename(f, ".ts") } = "${ path.basename(f, ".ts") }",`)
+                .join("\n");
+
+            return items ? `\t/**${ config.comments } */\n${ items }` : "";
+        }).filter(v => v !== "");
+
+        let content = groups.join("\n\n");
+        if (!content) content = "\tNone = \"\",";
+
+        const libContent = this.templates.viewID.replace("#CONTENT#", content)
+            .replace(/ =/g, ":").replace("export enum EViewID", "EViewID =");
+        fs.writeFileSync(Lib_ViewIDPath, libContent);
+
+        const declareContent = this.templates.viewIDDeclare.replace("#CONTENT#", content);
+        fs.writeFileSync(Declare_ViewIDPath, declareContent);
+    }
+
+    private buildViewRegister() {
+        const cmdDir = path.dirname(InitViewCommandPath);
+        const binderFiles = GetAllFile(UiDir, true, f => f.endsWith("Binder.ts"));
+
+        let binderCodes: string[] = [];
+        let registerCodes: string[] = [];
+        let importLines = new Set<string>(); // 使用 Set 防止重复导入
+
+        binderFiles.forEach(f => {
+            const clsName = path.basename(f, ".ts");
+            binderCodes.push(`\t\t${ clsName }.bindAll();`);
+            importLines.add(`import ${ clsName } from "${ toPosixPath(path.relative(cmdDir, f)).replace(".ts", "") }";`);
+        });
+
+        this.buildConfig.forEach(config => {
+            const uiFiles = GetAllFile(UiDir, true, f => path.basename(f).startsWith(config.sign) && f.endsWith(".ts") && !f.endsWith("Binder.ts"));
+            if (uiFiles.length === 0) return;
+
+            registerCodes.push(`\n\t\t//${ config.comments }`);
+            uiFiles.forEach(f => {
+                const baseName = path.basename(f, ".ts");
+                // 路径转换逻辑映射: ui/Pkg/Name.ts -> view/Pkg/view/folder/NameView.ts
+                const pkgName = path.basename(path.dirname(f));
+                const viewPath = path.resolve(ViewDir, pkgName, "view", config.folder, `${ baseName }View.ts`);
+                const mediatorPath = path.resolve(ViewDir, pkgName, "mediator", config.folder, `${ baseName }Mediator.ts`);
+
+                if (fs.existsSync(viewPath)) {
+                    let regLine = `\t\tregister(EViewID.${ baseName }View, EViewType.${ config.uiType }, ${ baseName }View`;
+                    importLines.add(`import { ${ baseName }View } from "${ toPosixPath(path.relative(cmdDir, viewPath)).replace(".ts", "") }";`);
+
+                    if (fs.existsSync(mediatorPath)) {
+                        regLine += `, ${ baseName }Mediator`;
+                        importLines.add(`import { ${ baseName }Mediator } from "${ toPosixPath(path.relative(cmdDir, mediatorPath)).replace(".ts", "") }";`);
+                    }
+                    registerCodes.push(`${ regLine });`);
+                }
+            });
+        });
+
+        const result = this.templates.initViewCommand
+            .replace("#IMPORT#", Array.from(importLines).join("\n"))
+            .replace("#BINDER_CODE#", binderCodes.join("\n").trim())
+            .replace("#REGISTER_CODE#", registerCodes.join("\n").trim());
+
+        fs.writeFileSync(InitViewCommandPath, result);
     }
 }
