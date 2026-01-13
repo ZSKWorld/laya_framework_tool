@@ -202,7 +202,7 @@ export class BuildExcelDeclare extends BuildBase {
 
         const excelDeclareProps: string[] = [];
         fs.readdirSync(ExcelDir).forEach(v => {
-            if (HasChinese(v) || !v.endsWith(".xlsx")) return;
+            if (!v.endsWith(".xlsx") || v.startsWith("~$") || HasChinese(v)) return;
             const filePath = path.resolve(ExcelDir, v);
             if (!fs.statSync(filePath).isFile()) return;
 
