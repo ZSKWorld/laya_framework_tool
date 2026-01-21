@@ -108,6 +108,34 @@ function copyImage() {
     fs.writeFileSync("quehun_res/img_map.json", JSON.stringify(img_map, null, 4));
     fs.writeFileSync("quehun_res/copied_map.json", JSON.stringify(copied_map, null, 4));
 }
-copyImage();
+
+function checkImage() {
+    const rootDir = "E:\\_My\\Laya\\3.0\\quehun\\ui\\assets";
+    const copied_map = JSON.parse(fs.readFileSync("quehun_res/copied_map.json").toString());
+    const imgValues: [string, string][] = Object.values(copied_map);
+    const errFolderImg: Record<string, string> = {};
+    imgValues.forEach(v => {
+        const imgPath = path.join(rootDir, v[1], v[0]);
+        if (fs.existsSync(imgPath) == false) {
+            errFolderImg[v[0]] = path.relative(rootDir, imgPath);
+        }
+    });
+    const allImgs = getAllFile(rootDir, true, name => {
+        name = name.toLowerCase();
+        return name.endsWith(".png") || name.endsWith(".jpg");
+    });
+    allImgs.forEach(v => {
+        const vName = path.basename(v);
+        if(errFolderImg[vName]) {
+            console.error(errFolderImg[vName], "=>", path.relative(rootDir, v));
+        }
+    });
+
+    ////////////////////
+    console.log(imgValues.length, allImgs.length);
+}
+
+// copyImage();
+checkImage();
 
 
