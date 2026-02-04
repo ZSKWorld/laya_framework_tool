@@ -63,3 +63,11 @@ export const Declare_ReqMethodPath = resolve(__workname, "src/core/net/IReqMetho
 const TipString = "This script is generated automatically, Please do not any modify!";
 export const TS_MODIFY_TIP = `/** ${ TipString } */\n`;
 export const LUA_MODIFY_TIP = `---${ TipString }\n`;
+
+
+//---------------------------------------------leb enums
+export const LebEnumsSources = [
+    resolve(__workname, "libs_game/leb_enums.d.ts"),
+    resolve(__workname, "src/core/userData/Interface.d.ts/Interface.d.ts"),
+];
+export const LebEnumsOutput = resolve(__workname, "bin/libs_leb/leb_enums.d.js");

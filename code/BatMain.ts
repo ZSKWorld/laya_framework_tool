@@ -1,20 +1,19 @@
-import * as readline from "readline";
 import { BuildBase } from "./BuildBase";
 import { BuildConfig } from "./BuildConfig";
+import { BuildConfig3_0 } from "./BuildConfig3_0";
 import { BuildDataEvent } from "./BuildDataEvent";
+import { BuildExcelDeclare } from "./BuildExcelDeclare";
+import { BuildLebEnum } from "./BuildLebEnum";
+import { BuildMaterial } from "./BuildMaterial";
 import { BuildNet } from "./BuildNet";
 import { BuildProtoDeclare } from "./BuildProtoDeclare";
-import { BuildResPath } from "./BuildResPath";
+import { BuildReplaceSpineName } from "./BuildReplaceSpineName";
+import { BuildResPath2 } from "./BuildResPath2";
+import { BuildResPath3_0 } from "./BuildResPath3_0";
 import { BuildServerConfig } from "./BuildServerConfig";
 import { BuildServerNet } from "./BuildServerNet";
 import { BuildView } from "./BuildView";
 import { Logger } from "./Console";
-import { BuildResPath3_0 } from "./BuildResPath3_0";
-import { BuildConfig3_0 } from "./BuildConfig3_0";
-import { BuildResPath2 } from "./BuildResPath2";
-import { BuildExcelDeclare } from "./BuildExcelDeclare";
-import { BuildMaterial } from "./BuildMaterial";
-import { BuildReplaceSpineName } from "./BuildReplaceSpineName";
 
 interface Builder {
     desc: string,
@@ -55,6 +54,7 @@ export class BatMain {
             { desc: "导出表配置3.0", cls: BuildConfig3_0 },
             { desc: "创建材质", cls: BuildMaterial },
             { desc: "替换spine文件名", cls: BuildReplaceSpineName },
+            { desc: "创建leb enum", cls: BuildLebEnum },
         ];
         if (index == -1) builders.forEach(v => this.runBuilder(v));
         else this.runBuilder(builders[index]);
