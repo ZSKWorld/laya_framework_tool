@@ -193,7 +193,7 @@ export class BuildProtoDeclare extends BuildBase {
         for (const [key, method] of Object.entries(methods)) {
             builder.req.push(`${ this.buildTSComments(method.comment + `\nmethod: {@link IReqMethod.${ key }}`, 1) }\t${ key } = "${ key }",\n`);
             builder.libReq.push(`\t${ key }: "${ key }",\n`);
-            builder.reqMethod.push(`${ this.buildTSComments(method.comment + `\nmsgId: {@link EMessageID.${ key }}`, 1) }\t${ key }(data?: I${ method.requestType }): Promise<I${ method.responseType }>;\n`);
+            builder.reqMethod.push(`${ this.buildTSComments(method.comment + `\nmsgId: {@link ENetMessage.${ key }}`, 1) }\t${ key }(data?: I${ method.requestType }): Promise<I${ method.responseType }>;\n`);
         }
 
         // 3. 处理核心 Message 内容
@@ -226,14 +226,14 @@ export class BuildProtoDeclare extends BuildBase {
         const tip = `${ TS_MODIFY_TIP }\n`;
 
         fs.writeFileSync(Declare_ProtoPath, tip +
-            `/** 网络通知 */\ndeclare enum ENotify {\n${ builder.notify.join('') }}\n\n` +
-            `/** 网络请求协议 */\ndeclare enum EMessageID {\n${ builder.req.join('') }}\n\n` +
+            `/** 网络通知 */\ndeclare enum ENetNotify {\n${ builder.notify.join('') }}\n\n` +
+            `/** 网络请求协议 */\ndeclare enum ENetMessage {\n${ builder.req.join('') }}\n\n` +
             builder.message.join('').trimEnd() + "\n"
         );
 
         fs.writeFileSync(Lib_ProtoPath, tip +
-            `ENotify = {\n${ builder.libNotify.join('') }}\n\n` +
-            `EMessageID = {\n${ builder.libReq.join('') }}\n`
+            `ENetNotify = {\n${ builder.libNotify.join('') }}\n\n` +
+            `ENetMessage = {\n${ builder.libReq.join('') }}\n`
         );
 
         fs.writeFileSync(Declare_ReqMethodPath, tip +

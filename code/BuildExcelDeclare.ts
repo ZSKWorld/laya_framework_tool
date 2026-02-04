@@ -44,24 +44,27 @@ class SheetData {
         this.fieldDesc = [];
 
         // 1. 结构化特征行提取：单次遍历定位所有核心行
-        let headRow: string[] = [], typeRow: string[] = [], commRow: string[] = [];
+        let headRow: string[] = [], typeRow: string[] = [], commRow: string[] = [], exportRow: string[] = [];
         for (const row of datas) {
             const head = row[0]?.toString().trim();
             if (head === "##") headRow = row;
             else if (head === "#type") typeRow = row;
             else if (head === "#comment") commRow = row;
-            if (headRow.length && typeRow.length && commRow.length) break;
+            else if (head === "#export") exportRow = row;
+            if (headRow.length && typeRow.length && commRow.length && exportRow.length) break;
         }
 
         const names = headRow.slice(1);
         const types = typeRow.slice(1);
         const comments = commRow.slice(1);
+        const exports = exportRow.slice(1);
 
         // 2. 字段解析与数组折叠 (如: attr[0], attr[1] -> attr: number[])
         const arrReg = /(.*)(\[[0-9]+\])/;
         for (let i = 0; i < names.length; i++) {
             let tname = names[i];
             if (!tname) continue;
+            if (exports[i] == "server") continue;
 
             let ttype = types[i] || "string";
             let tdesc = comments[i] || "";
