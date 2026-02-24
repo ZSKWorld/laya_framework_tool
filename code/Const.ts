@@ -69,6 +69,6 @@ export const LUA_MODIFY_TIP = `---${ TipString }\n`;
 export const LebEnumsSources = [
     resolve(__workname, "libs_game/leb_enums.d.ts"),
     resolve(__workname, "src/core/game/Interface.d.ts"),
-    resolve(__workname, "src/core/userData/Interface.d.ts/Interface.d.ts"),
+    resolve(__workname, "src/core/userData/Interface/Interface.d.ts"),
 ];
 export const LebEnumsOutput = resolve(__workname, "bin/libs_leb/leb_enums.d.js");
