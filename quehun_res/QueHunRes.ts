@@ -65,10 +65,10 @@ function copyImage() {
     const tDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets";
     const img_map = JSON.parse(fs.readFileSync("quehun_res/img_map.json").toString());
     const copied_map = JSON.parse(fs.readFileSync("quehun_res/copied_map.json").toString());
-    const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgMain/Texture";
+    const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgCommon/Texture";
 
     if (!fs.existsSync(ttDir)) return console.error("目标路径不存在");
-    const a = `e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/new_chara.png`;
+    const a = `e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/xycoin.png e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/gold1.png e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/coupon1.png e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/gold0.png e:/study/IT/Projects/Laya/3.0/quehun_res/res_extend/extendRes/items/fushiquan_0.png`;
     const copyImgs = a.replace(/.png e:\//g, ".png!!!!e:/").replace(/.jpg e:\//g, ".jpg!!!!e:/").split("!!!!");
     let hasError = false;
     copyImgs.forEach(v => {
@@ -90,7 +90,7 @@ function copyImage() {
             console.error(`已复制的图片 == ${ v } == ${ copied_map[md5][0] } == ${ copied_map[md5][1] }`);
         } else {
             hasError = true;
-            console.error("未记录的图片", v);
+            console.error("未记录的图片", v, md5);
         }
     });
     if (hasError) return;
