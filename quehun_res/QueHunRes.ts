@@ -68,7 +68,7 @@ function copyImage() {
     const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgCommon/Texture";
 
     if (!fs.existsSync(ttDir)) return console.error("目标路径不存在");
-    const a = `e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/xycoin.png e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/gold1.png e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/coupon1.png e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/gold0.png e:/study/IT/Projects/Laya/3.0/quehun_res/res_extend/extendRes/items/fushiquan_0.png`;
+    const a = `e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/wbg.png`;
     const copyImgs = a.replace(/.png e:\//g, ".png!!!!e:/").replace(/.jpg e:\//g, ".jpg!!!!e:/").split("!!!!");
     let hasError = false;
     copyImgs.forEach(v => {

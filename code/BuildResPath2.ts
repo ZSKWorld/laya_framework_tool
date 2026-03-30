@@ -15,6 +15,7 @@ const enum EFileType {
     Sprite3D = ".lh",
     SK = ".sk",
     Mp3 = ".mp3",
+    Mp4 = ".mp4",
     Wav = ".wav",
     Spine = ".skel",
     Zip = ".zip",
@@ -36,6 +37,7 @@ export class BuildResPath2 extends BuildBase {
                     case "skeleton": enums.push(...this.buildSkeleton(vPath)); break;
                     case "sound": enums.push(...this.buildSound(vPath)); break;
                     case "spine": enums.push(...this.buildSpine(vPath)); break;
+                    case "spine_video": enums.push(...this.buildSpineVideo(vPath)); break;
                     case "texture": enums.push(...this.buildTexture(vPath)); break;
                     case "ui": enums.push(...this.buildUI(vPath)); break;
                     default: unclassifiedFiles.push(...GetAllFile(vPath, true)); break;
@@ -141,6 +143,14 @@ export class BuildResPath2 extends BuildBase {
         const pathKVs = this.getPathKVs(files);
         return [
             this.createContent("SpinePath", pathKVs),
+        ];
+    }
+
+    private buildSpineVideo(dirPath: string) {
+        const files = this.getAllFile(dirPath, [EFileType.Mp4]);
+        const pathKVs = this.getPathKVs(files);
+        return [
+            this.createContent("SpineVideoPath", pathKVs),
         ];
     }
 
