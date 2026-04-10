@@ -701,7 +701,7 @@
     ],
     "f34c087fab2816807789f06c7804f031": [
         "img_4188.png",
-        "PkgZDesign\\Texture"
+        "bin\\res\\Texture"
     ],
     "aeade19af14c6a068e03bdb74ef7cfd8": [
         "img_2609.png",
@@ -721,7 +721,7 @@
     ],
     "2211d413483092cc5491289220843dee": [
         "img_4209.png",
-        "PkgZDesign\\Texture"
+        "bin\\res\\Texture"
     ],
     "8bde45ff934e9bc1fb8940b5ada6636f": [
         "img_1832.png",
@@ -1565,6 +1565,26 @@
     ],
     "25291683b988bc256c6e2dfdda71b8be": [
         "img_172.png",
+        "PkgCommon\\Texture"
+    ],
+    "4e578fb277e1ecec8046da367aacc0d0": [
+        "img_4140.png",
+        "bin\\res\\Texture"
+    ],
+    "92f0643a2383c8fb40ad384f641950d4": [
+        "img_3494.png",
+        "PkgMain\\Texture"
+    ],
+    "6d56582188fb980bcd6515a4bf43d512": [
+        "img_3493.png",
+        "PkgMain\\Texture"
+    ],
+    "16776dafdf91bcb0ef7b41ad5c95aaf4": [
+        "img_1355.png",
+        "PkgMain\\Texture"
+    ],
+    "df31ad4dfa1f85fd9da0f384302c2646": [
+        "img_1170.png",
         "PkgCommon\\Texture"
     ]
 }
