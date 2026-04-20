@@ -14,6 +14,7 @@ import { BuildServerConfig } from "./BuildServerConfig";
 import { BuildServerNet } from "./BuildServerNet";
 import { BuildView } from "./BuildView";
 import { Logger } from "./Console";
+import { BuildCopyRes } from "./ResTool/BuildCopyRes";
 
 interface Builder {
     desc: string,
@@ -55,6 +56,7 @@ export class BatMain {
             { desc: "创建材质", cls: BuildMaterial },
             { desc: "替换spine文件名", cls: BuildReplaceSpineName },
             { desc: "创建leb enum", cls: BuildLebEnum },
+            { desc: "复制res到项目", cls: BuildCopyRes },
         ];
         if (index == -1) builders.forEach(v => this.runBuilder(v));
         else this.runBuilder(builders[index]);
