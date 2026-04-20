@@ -1586,5 +1586,89 @@
     "df31ad4dfa1f85fd9da0f384302c2646": [
         "img_1170.png",
         "PkgCommon\\Texture"
+    ],
+    "288e3d0934d5d02b8523ddadb0c1276d": [
+        "img_3851.png",
+        "PkgMain\\Texture"
+    ],
+    "dec95a1a787fffccbf137ecdafb26106": [
+        "img_1725.png",
+        "PkgCommon\\Texture"
+    ],
+    "a77a6fe70896cd2badb3e58e9e662290": [
+        "img_3752.png",
+        "PkgMain\\Texture"
+    ],
+    "e0788f2c19b020e40cd4ad721126e2cd": [
+        "img_2036.png",
+        "PkgMain\\Texture"
+    ],
+    "e0377cf87c7f62ee0bbd5bf440f42695": [
+        "img_1864.png",
+        "PkgMain\\Texture"
+    ],
+    "8df6ab3ac1e46226372caf0e1e39400c": [
+        "img_4160.png",
+        "myres\\activity_qiri"
+    ],
+    "5fe5ac25f6e6982129a2f6adcb48eea6": [
+        "img_2228.png",
+        "PkgCommon\\Texture"
+    ],
+    "6cdfd8a4012b94c276a97e363f9da0a9": [
+        "img_3826.png",
+        "myres\\activity_qiri"
+    ],
+    "11588412e01f26da120d53e18dd1150a": [
+        "img_4207.png",
+        "myres\\activity_qiri"
+    ],
+    "7e372cbaca5301d1dfdafc15204cc3cb": [
+        "img_267.png",
+        "PkgMain\\Texture"
+    ],
+    "5f17f04aefe869df231c74647bcea147": [
+        "img_2400.png",
+        "PkgMain\\Texture"
+    ],
+    "098e906460b29e02a120788af8b79017": [
+        "img_598.png",
+        "PkgMain\\Texture"
+    ],
+    "75b12239ec86565138c53249274bb161": [
+        "img_2018.png",
+        "PkgMain\\Texture"
+    ],
+    "c59374abfd049c2785e7a38732476341": [
+        "img_2019.png",
+        "PkgMain\\Texture"
+    ],
+    "737b73dafb5f6e863bf159e297c281e9": [
+        "img_208.png",
+        "PkgMain\\Texture"
+    ],
+    "23878c3ea31b9b7459da1942d5a4a5fa": [
+        "img_2478.png",
+        "PkgMain\\Texture"
+    ],
+    "bd2a1b13aec5c37bab8206b4e86dd262": [
+        "img_1881.png",
+        "PkgMain\\Texture"
+    ],
+    "22de2c603e0ec3744ac980399553d3d0": [
+        "img_2765.png",
+        "PkgMain\\Texture"
+    ],
+    "eb65df288e2e0a71ed2abfaa1c835dd0": [
+        "img_2764.png",
+        "PkgMain\\Texture"
+    ],
+    "1e26fc0932bfa17ed8fd96b769d081bd": [
+        "img_2356.png",
+        "PkgMain\\Texture"
+    ],
+    "1e06c536c3714a0085d8807e53b80968": [
+        "img_2766.png",
+        "PkgMain\\Texture"
     ]
 }
