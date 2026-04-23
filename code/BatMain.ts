@@ -60,7 +60,6 @@ export class BatMain {
         ];
         if (index == -1) builders.forEach(v => this.runBuilder(v));
         else this.runBuilder(builders[index]);
-        process.exit();
     }
 
     private runBuilder(builder: Builder) {

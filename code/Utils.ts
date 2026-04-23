@@ -109,9 +109,6 @@ export function ZipFolder(sourceDir: string, outPath: string) {
     const output = fs.createWriteStream(outPath);
     const archive = archiver('zip', { zlib: { level: 9 } });
 
-    output.on('close', () => console.log("zip close"));
-    archive.on('error', err => console.log("zip error: ", err));
-
     archive.pipe(output);
     archive.directory(sourceDir, false); // 把 sourceDir 的内容打包到根目录
     // 或者添加单个文件: archive.file('path/to/file.txt', { name: 'file.txt' });
