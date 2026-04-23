@@ -1670,5 +1670,25 @@
     "1e06c536c3714a0085d8807e53b80968": [
         "img_2766.png",
         "PkgMain\\Texture"
+    ],
+    "d9fb7ff383c11c876c61d868a990c284": [
+        "img_3717.png",
+        "myres\\activity_qiri"
+    ],
+    "7f7dca411895f18c0ce6cdc052102d47": [
+        "img_2227.png",
+        "PkgMain\\Texture"
+    ],
+    "33ed225a90cb1642cb45de49188e6c72": [
+        "img_1534.png",
+        "PkgMain\\Texture"
+    ],
+    "152acdf68f1b250720518872069bedd3": [
+        "img_521.png",
+        "PkgMain\\Texture"
+    ],
+    "961c65aed5e9a5b33f77ff86a4fe29e4": [
+        "img_522.png",
+        "PkgMain\\Texture"
     ]
 }

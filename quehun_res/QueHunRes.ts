@@ -67,9 +67,10 @@ function copyImage() {
     const copied_map = JSON.parse(fs.readFileSync("quehun_res/copied_map.json").toString());
     // const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgCommon/Texture";
     const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgMain/Texture";
+    // const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgZDesign/11/texture";
 
     if (!fs.existsSync(ttDir)) return console.error("目标路径不存在");
-    const a = `e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/activity_qiri/btn_receive.png`;
+    const a = `e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/activity_qiri/complete.png`;
     const copyImgs = a.replace(/.png e:\//g, ".png!!!!e:/").replace(/.jpg e:\//g, ".jpg!!!!e:/").split("!!!!");
     let hasError = false;
     copyImgs.forEach(v => {
