@@ -1,18 +1,20 @@
 import * as fs from "fs";
 import * as path from "path";
 import { BuildBase } from "../BuildBase";
-import { ExcelDir, ProtoDir, ResDir } from "../Const";
-import { GetAllFile } from "../Utils";
+import { ExcelDir, ProtoDir, QHCodeZipPath, ResDir } from "../Const";
+import { GetAllFile, ZipFolder } from "../Utils";
 
 const ProtoSourceDir = "D:/liqi/liqi-protocol/proto";
 const ExcelSourceDir = "D:/liqi/liqi-excel/data";
 const ProjectProtoPath = "D:/liqi/laya_liqi_new/bin/res/proto/liqi.json";
 const ProjectExcelPath = "D:/liqi/laya_liqi_new/bin/res/config/lqc.lqbin";
+const ProjectCodeDir = "D:/liqi/laya_liqi_new/src";
 
 export class BuildCopyRes extends BuildBase {
     doBuild(): void {
         this.copyProto();
         this.copyExcel();
+        this.copyCodeZip();
     }
 
     private copyProto() {
@@ -27,5 +29,12 @@ export class BuildCopyRes extends BuildBase {
             fs.copyFileSync(v, path.join(ExcelDir, path.basename(v)));
         });
         fs.copyFileSync(ProjectExcelPath, path.join(ResDir, "config/lqc.bin"));
+    }
+
+    private copyCodeZip() {
+        ZipFolder(
+            ProjectCodeDir,
+            QHCodeZipPath
+        );
     }
 }
