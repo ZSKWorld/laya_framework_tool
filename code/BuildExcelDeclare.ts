@@ -131,7 +131,7 @@ class SheetData {
         return [
             `//#region ${ name }`,
             `declare interface ${ sheetDeclareName } {\n${ keyDeclare.join("\n") }\n}`,
-            `declare interface ${ dataDeclareName } {\n${ dataDeclare }\n}`,
+            `declare interface ${ dataDeclareName } extends ISheetDataBase {\n${ dataDeclare }\n}`,
             "//#endregion",
         ].join("\n");
     }
@@ -225,7 +225,7 @@ export class BuildExcelDeclare extends BuildBase {
             `declare interface IConfigManager {`,
             excelDeclareProps.join("\n"),
             `\tinit(): Promise<void>;`,
-            `}\n\n`,
+            `}\n`,
             GetTemplateContent("cfgMgr3.0"),
         ].join("\n");
 

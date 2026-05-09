@@ -1,3 +1,7 @@
+declare interface ISheetDataBase {
+	langField<T = string>(name: string): T;
+}
+
 type CfgFieldType<T> = { [P in keyof T]: T[P] }[keyof T];
 interface ICfgExtension<T> {
 	rows: (CfgFieldType<T> extends Array<infer U> ? U : CfgFieldType<T>)[];
