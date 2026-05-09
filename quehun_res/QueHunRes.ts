@@ -2,8 +2,6 @@ import * as colors from "colors";
 import * as crypto from "crypto";
 import * as fs from "fs";
 import * as path from "path";
-import * as ProgressBar from "progress";
-import { imageSize } from "image-size";
 
 const resDir = "E:/study/IT/Projects/Laya/3.0/quehun_res/res_ui/myres";
 const targetDir = "E:/study/IT/Projects/Laya/3.0/quehun_images";
