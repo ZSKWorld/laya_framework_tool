@@ -18,7 +18,7 @@ const TS_TYPE_MAP: Record<string, string> = {
     bool: "boolean", string: "string", bytes: "number[]", object: "any",
 };
 
-type KeyMap<T> = { [key: string]: T };
+type KeyMap<T> = { [key: string]: T; };
 
 interface IReflectionObject { comment: string; fullName: string; }
 interface INamespace { nested: KeyMap<IType>; methods: KeyMap<IMethod>; notifies: KeyMap<IType>; }
@@ -33,6 +33,11 @@ interface IType extends IReflectionObject {
     values?: KeyMap<number>;
 }
 
+const GetIndent = (count: number) => "\t".repeat(count);
+const IsNotify = (name: string) => name.startsWith("Notify");
+const IsRequest = (name: string) => name.startsWith("Req");
+const IsResponse = (name: string) => name.startsWith("Res");
+
 export class BuildProtoDeclare extends BuildBase {
     private readonly packageName = "lq";
     private namespace: INamespace = { nested: {}, methods: {}, notifies: {} };
@@ -45,10 +50,6 @@ export class BuildProtoDeclare extends BuildBase {
 
         this.loadProto();
         this.buildTS();
-    }
-
-    private getIndent(count: number): string {
-        return "\t".repeat(count);
     }
 
     /** 提取嵌套类型至顶层，便于统一生成 interface */
@@ -101,7 +102,7 @@ export class BuildProtoDeclare extends BuildBase {
             } else {
                 // 处理 Message
                 targetNs.nested[key] = type;
-                if (type.fields && key.startsWith("Notify")) {
+                if (type.fields && IsNotify(key)) {
                     targetNs.notifies[key] = type;
                 }
                 this.extractSubTypes(type, null, pbType as protobuf.Type);
@@ -117,14 +118,23 @@ export class BuildProtoDeclare extends BuildBase {
 
         if (lines.length === 0) return "";
 
-        const tabs = this.getIndent(indentCount);
+        const tabs = GetIndent(indentCount);
         if (lines.length === 1) return `${ tabs }/** ${ lines[0] } */\n`;
 
         return `${ tabs }/**\n${ lines.map(l => `${ tabs } ** ${ l }`).join('\n') }\n${ tabs } */\n`;
     }
 
+    private getBaseInterfaceName(name: string, isSub: boolean): string {
+        if (!isSub) {
+            if (IsNotify(name)) return "INotify";
+            if (IsRequest(name)) return "IRequest";
+            if (IsResponse(name)) return "IResponse";
+        }
+        return "IProto";
+    }
+
     /** 转换字段类型 */
-    private resolveFieldType(fieldType: string, isSub: boolean, ctx: { name: string, parentName: string, msg: IType, parent: IType }): string {
+    private resolveFieldType(fieldType: string, isSub: boolean, ctx: { name: string, parentName: string, msg: IType, parent: IType; }): string {
         const typeName = fieldType.split(".").pop() || "";
         const nested = isSub ? ctx.parent?.nested : ctx.msg.nested;
 
@@ -149,7 +159,7 @@ export class BuildProtoDeclare extends BuildBase {
         builder.push(this.buildTSComments(comments, 0));
 
         const interfaceName = `I${ isSub ? parentName + "_" : "" }${ name }`;
-        const baseInterface = name.startsWith("Res") ? "IResponse" : "IProto";
+        const baseInterface = this.getBaseInterfaceName(name, isSub);
         builder.push(`declare interface ${ interfaceName } extends ${ baseInterface } {\n`);
 
         if (msg.fields) {
@@ -197,8 +207,10 @@ export class BuildProtoDeclare extends BuildBase {
         }
 
         // 3. 处理核心 Message 内容
-        builder.message.push('declare type ProtoObject<T> = Omit<T, "toJSON" | "$type">;\n\n');
+        builder.message.push('declare type ProtoObject<T> = Omit<T, keyof IProto>;\n\n');
         builder.message.push('declare interface IProto {\n\t$type?: protobuf.Type;\n\ttoJSON?(): ProtoObject<this>;\n}\n\n');
+        builder.message.push('declare interface INotify extends IProto {\n\n}\n\n');
+        builder.message.push('declare interface IRequest extends IProto {\n\tignoreError?: boolean;\n}\n\n');
         builder.message.push('declare interface IResponse extends IProto {\n\terror?: IError;\n}\n\n');
 
         for (const [key, msg] of Object.entries(nested)) {
