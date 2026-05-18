@@ -68,7 +68,7 @@ function copyImage() {
     // const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgZDesign/11/texture";
 
     if (!fs.existsSync(ttDir)) return console.error("目标路径不存在");
-    const a = `e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/contract_bg.png`;
+    const a = `e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/lobby/num.png`;
     const copyImgs = a.replace(/.png e:\//g, ".png!!!!e:/").replace(/.jpg e:\//g, ".jpg!!!!e:/").split("!!!!");
     let hasError = false;
     copyImgs.forEach(v => {
