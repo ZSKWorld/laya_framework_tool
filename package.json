@@ -28,7 +28,7 @@
     "protobufjs": "^7.3.2",
     "sinon": "^9.2.4",
     "tsify": "^4.0.2",
-    "typescript": "^4.9.5",
+    "typescript": "^5.9.3",
     "typescript-estree": "^18.1.0"
   },
   "scripts": {
