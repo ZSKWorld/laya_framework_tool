@@ -28,6 +28,7 @@ export class BuildView extends BuildBase {
 
     protected buildConfig: IBuildConfig[] = [
         { sign: "Btn", folder: "btns", uiType: "Button", comments: "Btns", generateMediator: false },
+        { sign: "Label", folder: "labels", uiType: "Label", comments: "Labels", generateMediator: false },
         { sign: "Render", folder: "renders", uiType: "Render", comments: "Renders", generateMediator: false },
         { sign: "Com", folder: "coms", uiType: "Component", comments: "Coms", generateMediator: false },
         { sign: "UI", folder: "uis", uiType: "UI", comments: "UIs", generateMediator: true },
