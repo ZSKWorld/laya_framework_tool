@@ -30,6 +30,7 @@ export class BuildResPath2 extends BuildBase {
             const stat = fs.statSync(vPath);
             if (stat.isDirectory()) {
                 switch (v) {
+                    case "main_bg": enums.push(...this.buildMainBg(vPath)); break;
                     case "config": enums.push(...this.buildConfig(vPath)); break;
                     case "font": enums.push(...this.buildFont(vPath)); break;
                     case "prescreen": enums.push(...this.buildPrescreen(vPath)); break;
@@ -82,6 +83,14 @@ export class BuildResPath2 extends BuildBase {
         const content = kvs.map(v => `\t\t${ v[0] } = "${ v[1] }",`).join("\n");
         if (content) return `\texport enum E${ name } {\n${ content }\n\t}`;
         else return `\texport enum E${ name } { }`;
+    }
+
+    private buildMainBg(dirPath: string) {
+        const files = this.getAllFile(dirPath, [EFileType.Jpg]);
+        const pathKVs = this.getPathKVs(files);
+        return [
+            this.createContent("MainBgPath", pathKVs)
+        ];
     }
 
     private buildConfig(dirPath: string) {
