@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { BuildBase } from "../BuildBase";
-import { ExcelDir, ProtoDir, QHCodeZipPath, ResDir } from "../Const";
+import { ExcelDir, ProtoDir, QHAppCodeZipPath, QHCodeZipPath, ResDir } from "../Const";
 import { GetAllFile, ZipFolder } from "../Utils";
 
 const ProtoSourceDir = "D:/liqi/liqi-protocol/proto";
@@ -9,6 +9,7 @@ const ExcelSourceDir = "D:/liqi/liqi-excel/data";
 const ProjectProtoPath = "D:/liqi/laya_liqi_new/bin/res/proto/liqi.json";
 const ProjectExcelPath = "D:/liqi/laya_liqi_new/bin/res/config/lqc.lqbin";
 const ProjectCodeDir = "D:/liqi/laya_liqi_new/src";
+const ProjectAppCodeDir = "D:/liqi/liqi_unity_project_dev/Assets/Lua/LuaScript";
 
 export class BuildCopyRes extends BuildBase {
     doBuild() {
@@ -38,5 +39,7 @@ export class BuildCopyRes extends BuildBase {
     private copyCodeZip() {
         if (fs.existsSync(ProjectCodeDir))
             ZipFolder(ProjectCodeDir, QHCodeZipPath);
+        if (fs.existsSync(ProjectAppCodeDir))
+            ZipFolder(ProjectAppCodeDir, QHAppCodeZipPath);
     }
 }

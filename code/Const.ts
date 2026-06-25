@@ -59,6 +59,7 @@ export const Declare_ProtoPath = resolve(__workname, "libs_game/proto.d.ts");
 export const Lib_ProtoPath = resolve(__workname, "bin/libs_leb/proto.d.js");
 export const Declare_ReqMethodPath = resolve(__workname, "src/core/net/IReqMethod.d.ts");
 export const QHCodeZipPath = resolve(__workname, "qh_code.zip");
+export const QHAppCodeZipPath = resolve(__workname, "qh_code_app.zip");
 
 
 //---------------------------------------------Tips
