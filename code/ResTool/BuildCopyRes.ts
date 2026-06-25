@@ -37,8 +37,8 @@ export class BuildCopyRes extends BuildBase {
     }
 
     private copyCodeZip() {
-        if (fs.existsSync(ProjectCodeDir))
-            ZipFolder(ProjectCodeDir, QHCodeZipPath);
+        // if (fs.existsSync(ProjectCodeDir))
+        //     ZipFolder(ProjectCodeDir, QHCodeZipPath);
         if (fs.existsSync(ProjectAppCodeDir))
             ZipFolder(ProjectAppCodeDir, QHAppCodeZipPath);
     }
