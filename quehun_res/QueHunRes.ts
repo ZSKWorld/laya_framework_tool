@@ -135,7 +135,36 @@ function checkImage() {
     console.log(imgValues.length, allImgs.length);
 }
 
+function addImage(dir:string) {
+    if (!fs.existsSync(dir)) return;
+    const allImgs = getAllFile(dir, true, name => {
+        name = name.toLowerCase();
+        return name.endsWith(".png") || name.endsWith(".jpg");
+    });
+    
+    const img_map = JSON.parse(fs.readFileSync("quehun_res/img_map.json").toString());
+    const copied_map = JSON.parse(fs.readFileSync("quehun_res/copied_map.json").toString());
+    let imgCount = img_map["count"];
+    let newCount = 0;
+    allImgs.forEach(v => {
+        const md5 = createFileMD5(v);
+        if (img_map[md5]) return;
+        if (copied_map[md5]) return;
+        newCount++;
+        const targetName = `img_${ ++imgCount }${ path.extname(v) }`;
+        img_map[md5] = targetName;
+        fs.copyFileSync(v, path.join(targetDir, targetName));
+        console.log(targetName);
+    });
+    if (newCount > 0) {
+        img_map["count"] = imgCount;
+        fs.writeFileSync("quehun_res/img_map.json", JSON.stringify(img_map, null, 4));
+        fs.writeFileSync("quehun_res/copied_map.json", JSON.stringify(copied_map, null, 4));
+    }
+}
+
 copyImage();
 // checkImage();
+// addImage("E:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/bothui/config")
 
 
