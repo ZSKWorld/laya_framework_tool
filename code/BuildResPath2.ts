@@ -40,6 +40,7 @@ export class BuildResPath2 extends BuildBase {
                     case "spine": enums.push(...this.buildSpine(vPath)); break;
                     case "spine_video": enums.push(...this.buildSpineVideo(vPath)); break;
                     case "texture": enums.push(...this.buildTexture(vPath)); break;
+                    case "audio": break;
                     case "ui": enums.push(...this.buildUI(vPath)); break;
                     default: unclassifiedFiles.push(...GetAllFile(vPath, true)); break;
                 }
