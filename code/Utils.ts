@@ -10,17 +10,17 @@ export function MakeDir(dirPath: string) {
 /**删除目录，包括目录中所有文件和子目录 */
 export function RemoveDir(dir: string) {
     if (fs.existsSync(dir) == false) return;
-    const files = fs.readdirSync(dir)
+    const files = fs.readdirSync(dir);
     for (let i = 0; i < files.length; i++) {
         const newPath = path.join(dir, files[i]);
-        const stat = fs.statSync(newPath)
+        const stat = fs.statSync(newPath);
         if (stat.isDirectory()) {
             RemoveDir(newPath);
         } else {
             fs.unlinkSync(newPath);
         }
     }
-    fs.rmdirSync(dir)
+    fs.rmdirSync(dir);
 }
 
 export function GetAllDir(dirPath: string, recursive?: boolean, absolute?: boolean,) {
@@ -46,14 +46,15 @@ export function GetAllDir(dirPath: string, recursive?: boolean, absolute?: boole
  * @param map 修改函数
  * @returns 
  */
-export function GetAllFile(dirPath: string, absolute?: boolean, filter?: (name: string) => boolean, map?: (name: string) => string) {
+export function GetAllFile(dirPath: string, recursive?: boolean, absolute?: boolean, filter?: (name: string) => boolean, map?: (name: string) => string) {
     if (fs.existsSync(dirPath) == false) return [];
     const names: string[] = [];
     fs.readdirSync(dirPath).forEach(filename => {
         const filePath = path.resolve(dirPath, filename);
         const state = fs.statSync(filePath);
         if (state.isDirectory()) {
-            names.push(...GetAllFile(filePath, absolute, filter, map));
+            if (recursive)
+                names.push(...GetAllFile(filePath, recursive, absolute, filter, map));
         } else if (state.isFile()) {
             if (!filter || filter(filename)) {
                 const temp = map ? map(filename) : filename;

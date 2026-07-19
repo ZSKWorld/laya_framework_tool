@@ -6,8 +6,8 @@ import { BuildExcelDeclare } from "./BuildExcelDeclare";
 import { BuildLebEnum } from "./BuildLebEnum";
 import { BuildMaterial } from "./BuildMaterial";
 import { BuildNet } from "./BuildNet";
+import { BuildProcessRes } from "./BuildProcessRes";
 import { BuildProtoDeclare } from "./BuildProtoDeclare";
-import { BuildReplaceSpineName } from "./BuildReplaceSpineName";
 import { BuildResPath2 } from "./BuildResPath2";
 import { BuildResPath3_0 } from "./BuildResPath3_0";
 import { BuildServerConfig } from "./BuildServerConfig";
@@ -54,7 +54,7 @@ export class BatMain {
             { desc: "更新资源路径3.0", cls: BuildResPath3_0 },
             { desc: "导出表配置3.0", cls: BuildConfig3_0 },
             { desc: "创建材质", cls: BuildMaterial },
-            { desc: "替换spine文件名", cls: BuildReplaceSpineName },
+            { desc: "处理res资源", cls: BuildProcessRes },
             { desc: "创建leb enum", cls: BuildLebEnum },
             { desc: "复制res到项目", cls: BuildCopyRes },
         ];
@@ -66,7 +66,7 @@ export class BatMain {
         if (!builder) return;
         Logger.warn("正在执行 => " + builder.desc);
         (new builder.cls()).doBuild();
-        Logger.green(builder.desc + " => 执行完毕！")
+        Logger.green(builder.desc + " => 执行完毕！");
     }
 }
 new BatMain();

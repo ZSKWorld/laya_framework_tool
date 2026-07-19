@@ -43,7 +43,7 @@ export class BuildView extends BuildBase {
 
     /** 核心扫描与构建逻辑 */
     private runBuildTasks() {
-        const allTsFiles = GetAllFile(UiDir, true, (f) => f.endsWith(".ts"));
+        const allTsFiles = GetAllFile(UiDir, true, true, (f) => f.endsWith(".ts"));
 
         for (const fullPath of allTsFiles) {
             const filename = path.basename(fullPath, ".ts");
@@ -153,7 +153,7 @@ export class BuildView extends BuildBase {
     }
 
     private removeUnused() {
-        GetAllFile(ViewDir, true, f => f.endsWith("View.ts") || f.endsWith("Mediator.ts"))
+        GetAllFile(ViewDir, true, true, f => f.endsWith("View.ts") || f.endsWith("Mediator.ts"))
             .forEach(filepath => {
                 const relative = path.relative(ViewDir, filepath);
                 const parts = relative.split(path.sep);
@@ -175,7 +175,7 @@ export class BuildView extends BuildBase {
 
     private buildViewID() {
         const buildSigns = this.buildConfig.map(c => c.sign);
-        const viewFiles = GetAllFile(ViewDir, true, f =>
+        const viewFiles = GetAllFile(ViewDir, true, true, f =>
             f.endsWith("View.ts") && buildSigns.some(s => path.basename(f).startsWith(s))
         );
 
@@ -203,7 +203,7 @@ export class BuildView extends BuildBase {
 
     private buildViewRegister() {
         const cmdDir = path.dirname(InitViewCommandPath);
-        const binderFiles = GetAllFile(UiDir, true, f => f.endsWith("Binder.ts"));
+        const binderFiles = GetAllFile(UiDir, true, true, f => f.endsWith("Binder.ts"));
 
         let binderCodes: string[] = [];
         let registerCodes: string[] = [];
@@ -216,7 +216,7 @@ export class BuildView extends BuildBase {
         });
 
         this.buildConfig.forEach(config => {
-            const uiFiles = GetAllFile(UiDir, true, f => path.basename(f).startsWith(config.sign) && f.endsWith(".ts") && !f.endsWith("Binder.ts"));
+            const uiFiles = GetAllFile(UiDir, true, true, f => path.basename(f).startsWith(config.sign) && f.endsWith(".ts") && !f.endsWith("Binder.ts"));
             if (uiFiles.length === 0) return;
 
             registerCodes.push(`\n\t\t//${ config.comments }`);

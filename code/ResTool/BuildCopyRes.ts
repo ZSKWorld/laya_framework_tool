@@ -20,7 +20,7 @@ export class BuildCopyRes extends BuildBase {
 
     private copyProto() {
         if (fs.existsSync(ProtoSourceDir))
-            GetAllFile(ProtoSourceDir, true, v => v.endsWith(".proto")).forEach(v => {
+            GetAllFile(ProtoSourceDir, true, true, v => v.endsWith(".proto")).forEach(v => {
                 fs.copyFileSync(v, path.join(ProtoDir, path.basename(v)));
             });
         if (fs.existsSync(ProjectProtoPath))
@@ -29,7 +29,7 @@ export class BuildCopyRes extends BuildBase {
 
     private copyExcel() {
         if (fs.existsSync(ExcelSourceDir))
-            GetAllFile(ExcelSourceDir, true, v => v.endsWith(".xlsx")).forEach(v => {
+            GetAllFile(ExcelSourceDir, true, true, v => v.endsWith(".xlsx")).forEach(v => {
                 fs.copyFileSync(v, path.join(ExcelDir, path.basename(v)));
             });
         if (fs.existsSync(ProjectExcelPath))

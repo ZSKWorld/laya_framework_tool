@@ -45,7 +45,7 @@ export class BuildMaterial extends BuildBase {
     /** 1. 提取 2D/3D 通用的着色器汇总逻辑 */
     private collectShaderDefines() {
         const build = (dir: string, outputName: string) => {
-            const files = GetAllFile(dir, true, v => v.endsWith(".vs") || v.endsWith(".fs")).sort();
+            const files = GetAllFile(dir, true, true, v => v.endsWith(".vs") || v.endsWith(".fs")).sort();
             const defines = files.map(filePath => {
                 const name = path.basename(filePath).replace(".vs", "_VS").replace(".fs", "_FS");
                 const content = JSON.stringify(fs.readFileSync(filePath, "utf-8").replace(/\r/g, "").replace(/\n/g, "\\n"));

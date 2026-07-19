@@ -42,7 +42,7 @@ export class BuildResPath2 extends BuildBase {
                     case "texture": enums.push(...this.buildTexture(vPath)); break;
                     case "audio": break;
                     case "ui": enums.push(...this.buildUI(vPath)); break;
-                    default: unclassifiedFiles.push(...GetAllFile(vPath, true)); break;
+                    default: unclassifiedFiles.push(...GetAllFile(vPath, true, true)); break;
                 }
             } else if (stat.isFile()) {
                 unclassifiedFiles.push(vPath);
@@ -63,7 +63,7 @@ export class BuildResPath2 extends BuildBase {
     }
 
     private getAllFile(dirPath: string, filters: EFileType[]) {
-        return this.retifyFilePath(GetAllFile(dirPath, true, v => filters.some(v1 => v.endsWith(v1))));
+        return this.retifyFilePath(GetAllFile(dirPath, true, true, v => filters.some(v1 => v.endsWith(v1))));
     }
 
     private getNameKVs(files: string[]) {
