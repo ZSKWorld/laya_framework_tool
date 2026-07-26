@@ -9,6 +9,7 @@ export class BuildProcessRes extends BuildBase {
     doBuild() {
         this.replaceSpineName();
         this.moveLobbyVoice();
+        this.moveCharIllustTexture();
     }
 
     /** 替换spine文件名 */
@@ -34,6 +35,22 @@ export class BuildProcessRes extends BuildBase {
                 fs.mkdirSync(lobbyDir);
             allLobbyVoice.forEach(v => {
                 fs.renameSync(v, path.join(lobbyDir, path.basename(v)));
+            });
+        });
+    }
+
+    private moveCharIllustTexture() {
+        Lang.forEach(v => {
+            const charDir = path.join(LangResDir, v, "extendRes/charactor");
+            if (fs.existsSync(charDir) == false) return;
+            const subDirs = GetAllDir(charDir, false, false).filter(v => !isNaN(+v));
+            subDirs.forEach(sv => {
+                const dir = path.join(charDir, sv);
+                const texes = GetAllFile(dir, true, true, v => v.endsWith(".png") || v.endsWith(".jpg"));
+                texes.forEach(v => {
+                    const filename = path.basename(v);
+                    fs.renameSync(v, path.join(dir, filename));
+                });
             });
         });
     }

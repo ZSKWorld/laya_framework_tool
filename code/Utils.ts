@@ -23,6 +23,19 @@ export function RemoveDir(dir: string) {
     fs.rmdirSync(dir);
 }
 
+/** 删除所有子目录及子目录中的文件 */
+export function RemoveSubDir(dir: string) {
+    if (fs.existsSync(dir) == false) return;
+    const files = fs.readdirSync(dir);
+    for (let i = 0; i < files.length; i++) {
+        const newPath = path.join(dir, files[i]);
+        const stat = fs.statSync(newPath);
+        if (stat.isDirectory()) {
+            RemoveDir(newPath);
+        }
+    }
+}
+
 export function GetAllDir(dirPath: string, recursive?: boolean, absolute?: boolean,) {
     if (fs.existsSync(dirPath) == false) return [];
     const dirs: string[] = [];
@@ -30,7 +43,7 @@ export function GetAllDir(dirPath: string, recursive?: boolean, absolute?: boole
         const filePath = path.resolve(dirPath, filename);
         const state = fs.statSync(filePath);
         if (state.isDirectory()) {
-            dirs.push(filePath);
+            dirs.push(absolute ? filePath : path.relative(dirPath, filePath));
             if (recursive)
                 dirs.push(...GetAllDir(filePath, recursive, absolute));
         }
@@ -41,6 +54,7 @@ export function GetAllDir(dirPath: string, recursive?: boolean, absolute?: boole
 /**
  * 获取目录中的所有文件
  * @param dirPath 路径
+ * @param recursive 递归处理
  * @param absolute 是否返回文件绝对路径
  * @param filter 过滤函数
  * @param map 修改函数
