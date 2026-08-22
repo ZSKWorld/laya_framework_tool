@@ -89,19 +89,19 @@ export class BuildView extends BuildBase {
         const msgEnumName = `E${ filename }Msg`;
 
         let messages: string[] = [];
-        let sendEvents: string[] = [];
+        let events: string[] = [];
         let useComps: string[] = [];
 
         btns.forEach(btn => {
             const msgName = `On${ UpperFirst(btn, ["_"], "") }Click`;
             messages.push(`\t${ msgName } = "${ filename }_${ msgName }",`);
-            sendEvents.push(`\t\t${ btn }.onClick(this, this.sendEvent, [${ msgEnumName }.${ msgName }]);`);
+            events.push(`\t\t${ btn }.onClick(this, this.event, [${ msgEnumName }.${ msgName }]);`);
             useComps.push(btn);
         });
 
         const compContent = useComps.length > 0
-            ? `const { ${ useComps.join(", ") } } = this;\n${ sendEvents.join("\n") }`
-            : sendEvents.join("\n");
+            ? `const { ${ useComps.join(", ") } } = this;\n${ events.join("\n") }`
+            : events.join("\n");
 
         const viewRelPath = toPosixPath(path.relative(targetDir, path.resolve(dirPath, filename)));
 
