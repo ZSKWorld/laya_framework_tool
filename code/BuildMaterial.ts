@@ -51,7 +51,7 @@ export class BuildMaterial extends BuildBase {
 			const files = GetAllFile(dir, true, true, v => v.endsWith(".vs") || v.endsWith(".fs")).sort();
 			const defines = files.map(filePath => {
 				const name = path.basename(filePath).replace(".vs", "_VS").replace(".fs", "_FS");
-				const content = JSON.stringify(fs.readFileSync(filePath, "utf-8").replace(/\r/g, "").replace(/\n/g, "\\n"));
+				const content = JSON.stringify(fs.readFileSync(filePath, "utf-8"));
 				return `export const ${ name } = ${ content };`;
 			});
 			fs.writeFileSync(path.join(dir, outputName), TS_MODIFY_TIP + "\n" + defines.join("\n\n"));
@@ -89,7 +89,7 @@ export class BuildMaterial extends BuildBase {
 		// A. 声明 ShaderDefine 静态变量 (针对采样器)
 		for (const [name, glslType] of Object.entries(uniformsMap)) {
 			if (glslType.startsWith("sampler")) {
-				lines.push(`\tprivate static DEF_${ name.substring(2) }: Laya.ShaderDefine;`);
+				lines.push(`\tprivate static DEF_${ name.startsWith("u_") ? name.substring(2) : name }: Laya.ShaderDefine;`);
 			}
 		}
 
@@ -97,7 +97,7 @@ export class BuildMaterial extends BuildBase {
 		lines.push(`\n\tstatic init() {`);
 		for (const [name, glslType] of Object.entries(uniformsMap)) {
 			if (glslType.startsWith("sampler")) {
-				const defName = `DEF_${ name.substring(2) }`;
+				const defName = `DEF_${ name.startsWith("u_") ? name.substring(2) : name }`;
 				lines.push(`\t\t${ matName }.${ defName } = Laya.Shader3D.getDefineByName("${ defName }");`);
 			}
 		}
@@ -117,7 +117,7 @@ export class BuildMaterial extends BuildBase {
 		lines.push(`\t\t};`);
 
 		lines.push(`\t\tconst shader = Laya.Shader3D.add(${ matName }.ShaderName);`);
-		lines.push(`\t\tshader.shaderType = Laya.ShaderFeatureType.D3;`);
+		lines.push(`\t\tshader.shaderType = Laya.ShaderFeatureType.${is3D ? "D3" : "D2_TextureSV"};`);
 		lines.push(`\t\tconst subShader = new Laya.SubShader(Laya.SubShader.DefaultAttributeMap, uniformMap, defaultValue);`);
 		lines.push(`\t\tshader.addSubShader(subShader);`);
 		lines.push(`\t\tsubShader.addShaderPass(vs, fs);`);
@@ -138,13 +138,13 @@ export class BuildMaterial extends BuildBase {
 			lines.push(`\tget ${ name }() { return this.${ t.getter }("${ name }"); }`);
 
 			if (glslType.startsWith("sampler")) {
-				const defName = `${ matName }.DEF_${ name.substring(2) }`;
-				lines.push(`\tset ${ name }(value: any) {`);
+				const defName = `${ matName }.DEF_${ name.startsWith("u_") ? name.substring(2) : name }`;
+				lines.push(`\tset ${ name }(value) {`);
 				lines.push(`\t\tthis.setDefine(${ defName }, !!value);`);
 				lines.push(`\t\tthis.${ t.setter }("${ name }", value);`);
 				lines.push(`\t}`);
 			} else {
-				lines.push(`\tset ${ name }(value: any) { this.${ t.setter }("${ name }", value); }`);
+				lines.push(`\tset ${ name }(value) { this.${ t.setter }("${ name }", value); }`);
 			}
 		}
 		lines.push(`\t//#endregion`);
