@@ -1,3 +1,3 @@
 export abstract class BuildBase {
-    abstract doBuild(): void;
+	abstract doBuild(): void;
 }

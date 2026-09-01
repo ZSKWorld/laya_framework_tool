@@ -5,189 +5,189 @@ import { BinDir, Declare_ResPathPath, Lib_ResPathPath, ResDir, TS_MODIFY_TIP } f
 import { GetAllFile, UpperFirst } from "./Utils";
 
 const enum EFileType {
-    Json = ".json",
-    Proto = ".proto",
-    Bin = ".bin",
-    Ttf = ".ttf",
-    Png = ".png",
-    Jpg = ".jpg",
-    Scene = ".ls",
-    Sprite3D = ".lh",
-    SK = ".sk",
-    Mp3 = ".mp3",
-    Mp4 = ".mp4",
-    Wav = ".wav",
-    Spine = ".skel",
-    Zip = ".zip",
+	Json = ".json",
+	Proto = ".proto",
+	Bin = ".bin",
+	Ttf = ".ttf",
+	Png = ".png",
+	Jpg = ".jpg",
+	Scene = ".ls",
+	Sprite3D = ".lh",
+	SK = ".sk",
+	Mp3 = ".mp3",
+	Mp4 = ".mp4",
+	Wav = ".wav",
+	Spine = ".skel",
+	Zip = ".zip",
 }
 
 export class BuildResPath2 extends BuildBase {
-    doBuild() {
-        const enums: string[] = [];
-        const unclassifiedFiles: string[] = [];
-        fs.readdirSync(ResDir).forEach(v => {
-            const vPath = path.resolve(ResDir, v);
-            const stat = fs.statSync(vPath);
-            if (stat.isDirectory()) {
-                switch (v) {
-                    case "main_bg": enums.push(...this.buildMainBg(vPath)); break;
-                    case "config": enums.push(...this.buildConfig(vPath)); break;
-                    case "font": enums.push(...this.buildFont(vPath)); break;
-                    case "prescreen": enums.push(...this.buildPrescreen(vPath)); break;
-                    case "scene": enums.push(...this.buildScene(vPath)); break;
-                    case "skeleton": enums.push(...this.buildSkeleton(vPath)); break;
-                    case "sound": enums.push(...this.buildSound(vPath)); break;
-                    case "spine": enums.push(...this.buildSpine(vPath)); break;
-                    case "spine_video": enums.push(...this.buildSpineVideo(vPath)); break;
-                    case "texture": enums.push(...this.buildTexture(vPath)); break;
-                    case "audio": break;
-                    case "ui": enums.push(...this.buildUI(vPath)); break;
-                    default: unclassifiedFiles.push(...GetAllFile(vPath, true, true)); break;
-                }
-            } else if (stat.isFile()) {
-                unclassifiedFiles.push(vPath);
-            }
-        });
-        enums.unshift(...this.buildUnclassified(unclassifiedFiles));
-        const enumsContent = enums.join("\n\n");
-        const pathContent = `${ TS_MODIFY_TIP }ResPath = {\n${ enumsContent.replace(/export enum /g, "").replace(/ {/g, ": {").replace(/}/g, "},").replace(/ =/g, ":") }\n}`;
-        fs.writeFileSync(Lib_ResPathPath, pathContent);
+	doBuild() {
+		const enums: string[] = [];
+		const unclassifiedFiles: string[] = [];
+		fs.readdirSync(ResDir).forEach(v => {
+			const vPath = path.resolve(ResDir, v);
+			const stat = fs.statSync(vPath);
+			if (stat.isDirectory()) {
+				switch (v) {
+					case "main_bg": enums.push(...this.buildMainBg(vPath)); break;
+					case "config": enums.push(...this.buildConfig(vPath)); break;
+					case "font": enums.push(...this.buildFont(vPath)); break;
+					case "prescreen": enums.push(...this.buildPrescreen(vPath)); break;
+					case "scene": enums.push(...this.buildScene(vPath)); break;
+					case "skeleton": enums.push(...this.buildSkeleton(vPath)); break;
+					case "sound": enums.push(...this.buildSound(vPath)); break;
+					case "spine": enums.push(...this.buildSpine(vPath)); break;
+					case "spine_video": enums.push(...this.buildSpineVideo(vPath)); break;
+					case "texture": enums.push(...this.buildTexture(vPath)); break;
+					case "audio": break;
+					case "ui": enums.push(...this.buildUI(vPath)); break;
+					default: unclassifiedFiles.push(...GetAllFile(vPath, true, true)); break;
+				}
+			} else if (stat.isFile()) {
+				unclassifiedFiles.push(vPath);
+			}
+		});
+		enums.unshift(...this.buildUnclassified(unclassifiedFiles));
+		const enumsContent = enums.join("\n\n");
+		const pathContent = `${ TS_MODIFY_TIP }ResPath = {\n${ enumsContent.replace(/export enum /g, "").replace(/ {/g, ": {").replace(/}/g, "},").replace(/ =/g, ":") }\n}`;
+		fs.writeFileSync(Lib_ResPathPath, pathContent);
 
-        const declareContent = `${ TS_MODIFY_TIP }declare namespace ResPath {\n${ enumsContent }\n}`
-            .replace(new RegExp("export enum", "g"), "enum");
-        fs.writeFileSync(Declare_ResPathPath, declareContent);
-    }
+		const declareContent = `${ TS_MODIFY_TIP }declare namespace ResPath {\n${ enumsContent }\n}`
+			.replace(new RegExp("export enum", "g"), "enum");
+		fs.writeFileSync(Declare_ResPathPath, declareContent);
+	}
 
-    private retifyFilePath(files: string[]) {
-        return files.map(v => v.replace(BinDir + "\\", "").replace(/\\/g, "/"));
-    }
+	private retifyFilePath(files: string[]) {
+		return files.map(v => v.replace(BinDir + "\\", "").replace(/\\/g, "/"));
+	}
 
-    private getAllFile(dirPath: string, filters: EFileType[]) {
-        return this.retifyFilePath(GetAllFile(dirPath, true, true, v => filters.some(v1 => v.endsWith(v1))));
-    }
+	private getAllFile(dirPath: string, filters: EFileType[]) {
+		return this.retifyFilePath(GetAllFile(dirPath, true, true, v => filters.some(v1 => v.endsWith(v1))));
+	}
 
-    private getNameKVs(files: string[]) {
-        return files.map(v => {
-            const basename = path.basename(v).split(".")[0];
-            return [UpperFirst(basename), basename];
-        });
-    }
+	private getNameKVs(files: string[]) {
+		return files.map(v => {
+			const basename = path.basename(v).split(".")[0];
+			return [UpperFirst(basename), basename];
+		});
+	}
 
-    private getPathKVs(files: string[], haveExt: boolean = true) {
-        return files.map(v => {
-            const basename = path.basename(v).split(".")[0];
-            return [UpperFirst(basename), haveExt ? v : v.split(".")[0]];
-        });
-    }
+	private getPathKVs(files: string[], haveExt: boolean = true) {
+		return files.map(v => {
+			const basename = path.basename(v).split(".")[0];
+			return [UpperFirst(basename), haveExt ? v : v.split(".")[0]];
+		});
+	}
 
-    private createContent(name: string, kvs: string[][]) {
-        const content = kvs.map(v => `\t\t${ v[0] } = "${ v[1] }",`).join("\n");
-        if (content) return `\texport enum E${ name } {\n${ content }\n\t}`;
-        else return `\texport enum E${ name } { }`;
-    }
+	private createContent(name: string, kvs: string[][]) {
+		const content = kvs.map(v => `\t\t${ v[0] } = "${ v[1] }",`).join("\n");
+		if (content) return `\texport enum E${ name } {\n${ content }\n\t}`;
+		else return `\texport enum E${ name } { }`;
+	}
 
-    private buildMainBg(dirPath: string) {
-        const files = this.getAllFile(dirPath, [EFileType.Jpg]);
-        const pathKVs = this.getPathKVs(files);
-        return [
-            this.createContent("MainBgPath", pathKVs)
-        ];
-    }
+	private buildMainBg(dirPath: string) {
+		const files = this.getAllFile(dirPath, [EFileType.Jpg]);
+		const pathKVs = this.getPathKVs(files);
+		return [
+			this.createContent("MainBgPath", pathKVs)
+		];
+	}
 
-    private buildConfig(dirPath: string) {
-        const files = this.getAllFile(dirPath, [EFileType.Json, EFileType.Proto, EFileType.Bin]);
-        const pathKVs = this.getPathKVs(files);
-        return [
-            this.createContent("ConfigPath", pathKVs)
-        ];
-    }
+	private buildConfig(dirPath: string) {
+		const files = this.getAllFile(dirPath, [EFileType.Json, EFileType.Proto, EFileType.Bin]);
+		const pathKVs = this.getPathKVs(files);
+		return [
+			this.createContent("ConfigPath", pathKVs)
+		];
+	}
 
-    private buildFont(dirPath: string) {
-        const files = this.getAllFile(dirPath, [EFileType.Ttf]);
-        const nameKVs = this.getNameKVs(files);
-        const pathKVs = this.getPathKVs(files);
-        return [
-            this.createContent("FontName", nameKVs),
-            this.createContent("FontPath", pathKVs),
-        ];
-    }
+	private buildFont(dirPath: string) {
+		const files = this.getAllFile(dirPath, [EFileType.Ttf]);
+		const nameKVs = this.getNameKVs(files);
+		const pathKVs = this.getPathKVs(files);
+		return [
+			this.createContent("FontName", nameKVs),
+			this.createContent("FontPath", pathKVs),
+		];
+	}
 
-    private buildPrescreen(dirPath: string) {
-        const files = this.getAllFile(dirPath, [EFileType.Png, EFileType.Jpg]);
-        const pathKVs = this.getPathKVs(files);
-        return [
-            this.createContent("PrescreenPath", pathKVs),
-        ];
-    }
+	private buildPrescreen(dirPath: string) {
+		const files = this.getAllFile(dirPath, [EFileType.Png, EFileType.Jpg]);
+		const pathKVs = this.getPathKVs(files);
+		return [
+			this.createContent("PrescreenPath", pathKVs),
+		];
+	}
 
-    private buildScene(dirPath: string) {
-        const sceneFiles = this.getAllFile(dirPath, [EFileType.Scene]);
-        const scenePathKVs = this.getPathKVs(sceneFiles).map(v => ["Scene_" + v[0], v[1]]);
-        const sprite3dFiles = this.getAllFile(dirPath, [EFileType.Sprite3D]);
-        const sprite3dPathKVs = this.getPathKVs(sprite3dFiles).map(v => ["Sprite3D_" + v[0], v[1]]);
-        return [
-            this.createContent("ScenePath", [...scenePathKVs, ...sprite3dPathKVs]),
-        ];
-    }
+	private buildScene(dirPath: string) {
+		const sceneFiles = this.getAllFile(dirPath, [EFileType.Scene]);
+		const scenePathKVs = this.getPathKVs(sceneFiles).map(v => ["Scene_" + v[0], v[1]]);
+		const sprite3dFiles = this.getAllFile(dirPath, [EFileType.Sprite3D]);
+		const sprite3dPathKVs = this.getPathKVs(sprite3dFiles).map(v => ["Sprite3D_" + v[0], v[1]]);
+		return [
+			this.createContent("ScenePath", [...scenePathKVs, ...sprite3dPathKVs]),
+		];
+	}
 
-    private buildSkeleton(dirPath: string) {
-        const files = this.getAllFile(dirPath, [EFileType.SK]);
-        const pathKVs = this.getPathKVs(files);
-        return [
-            this.createContent("SkeletonPath", pathKVs),
-        ];
-    }
+	private buildSkeleton(dirPath: string) {
+		const files = this.getAllFile(dirPath, [EFileType.SK]);
+		const pathKVs = this.getPathKVs(files);
+		return [
+			this.createContent("SkeletonPath", pathKVs),
+		];
+	}
 
-    private buildSound(dirPath: string) {
-        const mp3Files = this.getAllFile(dirPath, [EFileType.Mp3]);
-        const mp3PathKVs = this.getPathKVs(mp3Files).map(v => ["MP3_" + v[0], v[1]]);
-        const wavFiles = this.getAllFile(dirPath, [EFileType.Wav]);
-        const wavPathKVs = this.getPathKVs(wavFiles).map(v => ["WAV_" + v[0], v[1]]);
-        return [
-            this.createContent("SoundPath", [...mp3PathKVs, ...wavPathKVs]),
-        ];
-    }
+	private buildSound(dirPath: string) {
+		const mp3Files = this.getAllFile(dirPath, [EFileType.Mp3]);
+		const mp3PathKVs = this.getPathKVs(mp3Files).map(v => ["MP3_" + v[0], v[1]]);
+		const wavFiles = this.getAllFile(dirPath, [EFileType.Wav]);
+		const wavPathKVs = this.getPathKVs(wavFiles).map(v => ["WAV_" + v[0], v[1]]);
+		return [
+			this.createContent("SoundPath", [...mp3PathKVs, ...wavPathKVs]),
+		];
+	}
 
-    private buildSpine(dirPath: string) {
-        const files = this.getAllFile(dirPath, [EFileType.Spine]);
-        const pathKVs = this.getPathKVs(files);
-        return [
-            this.createContent("SpinePath", pathKVs),
-        ];
-    }
+	private buildSpine(dirPath: string) {
+		const files = this.getAllFile(dirPath, [EFileType.Spine]);
+		const pathKVs = this.getPathKVs(files);
+		return [
+			this.createContent("SpinePath", pathKVs),
+		];
+	}
 
-    private buildSpineVideo(dirPath: string) {
-        const files = this.getAllFile(dirPath, [EFileType.Mp4]);
-        const pathKVs = this.getPathKVs(files);
-        return [
-            this.createContent("SpineVideoPath", pathKVs),
-        ];
-    }
+	private buildSpineVideo(dirPath: string) {
+		const files = this.getAllFile(dirPath, [EFileType.Mp4]);
+		const pathKVs = this.getPathKVs(files);
+		return [
+			this.createContent("SpineVideoPath", pathKVs),
+		];
+	}
 
-    private buildTexture(dirPath: string) {
-        const pngFiles = this.getAllFile(dirPath, [EFileType.Png]);
-        const pngPathKVs = this.getPathKVs(pngFiles).map(v => ["PNG_" + v[0], v[1]]);
-        const jpgFiles = this.getAllFile(dirPath, [EFileType.Jpg]);
-        const jpgPathKVs = this.getPathKVs(jpgFiles).map(v => ["JPG_" + v[0], v[1]]);
-        return [
-            this.createContent("TexturePath", [...pngPathKVs, ...jpgPathKVs]),
-        ];
-    }
+	private buildTexture(dirPath: string) {
+		const pngFiles = this.getAllFile(dirPath, [EFileType.Png]);
+		const pngPathKVs = this.getPathKVs(pngFiles).map(v => ["PNG_" + v[0], v[1]]);
+		const jpgFiles = this.getAllFile(dirPath, [EFileType.Jpg]);
+		const jpgPathKVs = this.getPathKVs(jpgFiles).map(v => ["JPG_" + v[0], v[1]]);
+		return [
+			this.createContent("TexturePath", [...pngPathKVs, ...jpgPathKVs]),
+		];
+	}
 
-    private buildUI(dirPath: string) {
-        const files = this.getAllFile(dirPath, [EFileType.Zip]);
-        const nameKVs = this.getNameKVs(files);
-        const pathKVs = this.getPathKVs(files, false);
-        return [
-            this.createContent("PkgName", nameKVs),
-            this.createContent("PkgPath", pathKVs),
-        ];
-    }
+	private buildUI(dirPath: string) {
+		const files = this.getAllFile(dirPath, [EFileType.Zip]);
+		const nameKVs = this.getNameKVs(files);
+		const pathKVs = this.getPathKVs(files, false);
+		return [
+			this.createContent("PkgName", nameKVs),
+			this.createContent("PkgPath", pathKVs),
+		];
+	}
 
-    private buildUnclassified(files: string[]) {
-        const pathKVs = this.getPathKVs(this.retifyFilePath(files));
-        return [
-            this.createContent("UnclassifiedPath", pathKVs),
-        ];
-    }
+	private buildUnclassified(files: string[]) {
+		const pathKVs = this.getPathKVs(this.retifyFilePath(files));
+		return [
+			this.createContent("UnclassifiedPath", pathKVs),
+		];
+	}
 }

@@ -4,122 +4,122 @@ import { BuildBase } from "./BuildBase";
 import { CMDInterfaceDir, Declare_MessageIDPath, Declare_NetServicePath, Lib_MessageIDPath, NetNotifyPath, NetServicePath, NotifyInterfaceDir, TS_MODIFY_TIP } from "./Const";
 import { GetTemplateContent, UpperFirst } from "./Utils";
 export class BuildNet extends BuildBase {
-    private _allCMDCtrls: { [key: string]: string[]; } = {};
-    private _allNotifyCtrls: { [key: string]: string[]; } = {};
-    private _serviceTemp = GetTemplateContent("Services");
-    private _serviceDeclareTemp = GetTemplateContent("ServicesDeclare");
-    doBuild() {
-        this.getAllCMDController();
-        this.buildMessageID();
-        this.buildService();
+	private _allCMDCtrls: { [key: string]: string[]; } = {};
+	private _allNotifyCtrls: { [key: string]: string[]; } = {};
+	private _serviceTemp = GetTemplateContent("Services");
+	private _serviceDeclareTemp = GetTemplateContent("ServicesDeclare");
+	doBuild() {
+		this.getAllCMDController();
+		this.buildMessageID();
+		this.buildService();
 
-        this.getAllNotifyController();
-        this.buildNetNotify();
-    }
+		this.getAllNotifyController();
+		this.buildNetNotify();
+	}
 
-    private getAllCMDController() {
-        if (!fs.existsSync(CMDInterfaceDir)) return console.log("目录不存在 " + CMDInterfaceDir);
-        const netCtrls = fs.readdirSync(CMDInterfaceDir).filter(v => v.endsWith(".d.ts"));
-        netCtrls.forEach(fileName => {
-            const name = fileName.replace(".d.ts", "");
-            const filePath = path.resolve(CMDInterfaceDir, fileName);
-            const fileContent = fs.readFileSync(filePath).toString();
-            const matches = fileContent.match(/[\S].*void/g);
-            if (matches?.length) {
-                this._allCMDCtrls[name] = matches;
-            }
-        });
-    }
+	private getAllCMDController() {
+		if (!fs.existsSync(CMDInterfaceDir)) return console.log("目录不存在 " + CMDInterfaceDir);
+		const netCtrls = fs.readdirSync(CMDInterfaceDir).filter(v => v.endsWith(".d.ts"));
+		netCtrls.forEach(fileName => {
+			const name = fileName.replace(".d.ts", "");
+			const filePath = path.resolve(CMDInterfaceDir, fileName);
+			const fileContent = fs.readFileSync(filePath).toString();
+			const matches = fileContent.match(/[\S].*void/g);
+			if (matches?.length) {
+				this._allCMDCtrls[name] = matches;
+			}
+		});
+	}
 
-    private buildMessageID() {
-        const matches: string[] = Object.values(this._allCMDCtrls).flat();
-        let declareContent = "";
-        let libContent = "";
-        // matches.unshift("syncInfo(data: IUser): void");
-        matches.forEach(match => {
-            const name = match.substring(0, match.trim().indexOf("("));
-            const type = match.substring(match.indexOf("(") + 1, match.indexOf(")")).split(":")[1].trim();
-            const temp = UpperFirst(name);
-            const hasInput = type.includes("Input");
-            let param1 = "";
-            if (type) {
-                param1 += "\t/**\n";
-                if (hasInput)
-                    param1 += `\t * @param input {@link ${ type }}\n`;
-                param1 += `\t * @param output {@link ${ type.replace("Input", "Output") }}\n`;
-                param1 += "\t */\n";
-            }
-            declareContent += param1;
-            declareContent += `\t${ temp } = "MessageID_${ temp }",\n\n`;
-            libContent += `\t${ temp } = "MessageID_${ temp }",\n\n`;
+	private buildMessageID() {
+		const matches: string[] = Object.values(this._allCMDCtrls).flat();
+		let declareContent = "";
+		let libContent = "";
+		// matches.unshift("syncInfo(data: IUser): void");
+		matches.forEach(match => {
+			const name = match.substring(0, match.trim().indexOf("("));
+			const type = match.substring(match.indexOf("(") + 1, match.indexOf(")")).split(":")[1].trim();
+			const temp = UpperFirst(name);
+			const hasInput = type.includes("Input");
+			let param1 = "";
+			if (type) {
+				param1 += "\t/**\n";
+				if (hasInput)
+					param1 += `\t * @param input {@link ${ type }}\n`;
+				param1 += `\t * @param output {@link ${ type.replace("Input", "Output") }}\n`;
+				param1 += "\t */\n";
+			}
+			declareContent += param1;
+			declareContent += `\t${ temp } = "MessageID_${ temp }",\n\n`;
+			libContent += `\t${ temp } = "MessageID_${ temp }",\n\n`;
 
-            if (hasInput) {
-                param1 = "";
-                if (type) {
-                    param1 += "\t/**\n";
-                    if (hasInput)
-                        param1 += `\t * @param input {@link ${ type }}\n`;
-                    param1 += `\t * @param output {@link ${ type.replace("Input", "Output") }}\n`;
-                    param1 += "\t */\n";
-                }
-                declareContent += param1;
-                declareContent += `\t${ temp + "Error" } = "MessageID_${ temp }_Error",\n\n`;
-                libContent += `\t${ temp + "Error" } = "MessageID_${ temp }_Error",\n\n`;
-            }
-        });
-        declareContent = TS_MODIFY_TIP + "\ndeclare enum MessageID {\n" +declareContent.trimEnd() + "\n}";
-        libContent = TS_MODIFY_TIP + "MessageID = {\n" + libContent.replace(/ =/g, ":").trimEnd() + "\n}";
-        fs.writeFileSync(Declare_MessageIDPath, declareContent);
-        fs.writeFileSync(Lib_MessageIDPath, libContent);
-    }
+			if (hasInput) {
+				param1 = "";
+				if (type) {
+					param1 += "\t/**\n";
+					if (hasInput)
+						param1 += `\t * @param input {@link ${ type }}\n`;
+					param1 += `\t * @param output {@link ${ type.replace("Input", "Output") }}\n`;
+					param1 += "\t */\n";
+				}
+				declareContent += param1;
+				declareContent += `\t${ temp + "Error" } = "MessageID_${ temp }_Error",\n\n`;
+				libContent += `\t${ temp + "Error" } = "MessageID_${ temp }_Error",\n\n`;
+			}
+		});
+		declareContent = TS_MODIFY_TIP + "\ndeclare enum MessageID {\n" + declareContent.trimEnd() + "\n}";
+		libContent = TS_MODIFY_TIP + "MessageID = {\n" + libContent.replace(/ =/g, ":").trimEnd() + "\n}";
+		fs.writeFileSync(Declare_MessageIDPath, declareContent);
+		fs.writeFileSync(Lib_MessageIDPath, libContent);
+	}
 
-    private buildService() {
-        const methods: string[] = [];
-        const serviceKeys: string[] = [];
-        const netServiceDeclareInterfaces: string[] = [];
-        const { _allCMDCtrls, _serviceTemp, _serviceDeclareTemp } = this;
-        Object.keys(_allCMDCtrls).forEach(v => {
-            netServiceDeclareInterfaces.push(v);
-            _allCMDCtrls[v].forEach(func => {
-                const left = func.indexOf("(");
-                const right = func.indexOf(")");
-                serviceKeys.push(`"${ func.substring(0, left) }"`);
-                const type = func.substring(left + 1, right).split(":")[1].trim().replace("Input", "Output");
-                methods.push(`\t${ func.substring(0, right + 1) }: Promise<${ type }>;`);
-            });
-        });
-        const netService = _serviceTemp.replace(/#SERVICE_KEYS#/g, serviceKeys.join(", "));
-        fs.writeFileSync(NetServicePath, netService.trim());
-        const netServiceDeclare = _serviceDeclareTemp
-            .replace(/#METHODS#/g, methods.join("\n"))
-            .replace(/#INTERFACES#/g, netServiceDeclareInterfaces.join(", "));
-        fs.writeFileSync(Declare_NetServicePath, netServiceDeclare);
-    }
+	private buildService() {
+		const methods: string[] = [];
+		const serviceKeys: string[] = [];
+		const netServiceDeclareInterfaces: string[] = [];
+		const { _allCMDCtrls, _serviceTemp, _serviceDeclareTemp } = this;
+		Object.keys(_allCMDCtrls).forEach(v => {
+			netServiceDeclareInterfaces.push(v);
+			_allCMDCtrls[v].forEach(func => {
+				const left = func.indexOf("(");
+				const right = func.indexOf(")");
+				serviceKeys.push(`"${ func.substring(0, left) }"`);
+				const type = func.substring(left + 1, right).split(":")[1].trim().replace("Input", "Output");
+				methods.push(`\t${ func.substring(0, right + 1) }: Promise<${ type }>;`);
+			});
+		});
+		const netService = _serviceTemp.replace(/#SERVICE_KEYS#/g, serviceKeys.join(", "));
+		fs.writeFileSync(NetServicePath, netService.trim());
+		const netServiceDeclare = _serviceDeclareTemp
+			.replace(/#METHODS#/g, methods.join("\n"))
+			.replace(/#INTERFACES#/g, netServiceDeclareInterfaces.join(", "));
+		fs.writeFileSync(Declare_NetServicePath, netServiceDeclare);
+	}
 
-    private getAllNotifyController() {
-        if (!fs.existsSync(NotifyInterfaceDir)) return console.log("目录不存在 " + NotifyInterfaceDir);
-        const netCtrls = fs.readdirSync(NotifyInterfaceDir).filter(v => v.endsWith(".d.ts"));
-        netCtrls.forEach(fileName => {
-            const name = fileName.replace(".d.ts", "");
-            const filePath = path.resolve(NotifyInterfaceDir, fileName);
-            const fileContent = fs.readFileSync(filePath).toString();
-            const matches = fileContent.match(/ INotify[\S]+ /g);
-            if (matches?.length) {
-                this._allNotifyCtrls[name] = matches;
-            }
-        });
-    }
+	private getAllNotifyController() {
+		if (!fs.existsSync(NotifyInterfaceDir)) return console.log("目录不存在 " + NotifyInterfaceDir);
+		const netCtrls = fs.readdirSync(NotifyInterfaceDir).filter(v => v.endsWith(".d.ts"));
+		netCtrls.forEach(fileName => {
+			const name = fileName.replace(".d.ts", "");
+			const filePath = path.resolve(NotifyInterfaceDir, fileName);
+			const fileContent = fs.readFileSync(filePath).toString();
+			const matches = fileContent.match(/ INotify[\S]+ /g);
+			if (matches?.length) {
+				this._allNotifyCtrls[name] = matches;
+			}
+		});
+	}
 
-    private buildNetNotify() {
-        const matches: string[] = [];
-        Object.keys(this._allNotifyCtrls).forEach(v => matches.push(...this._allNotifyCtrls[v]));
-        let data = TS_MODIFY_TIP + "\nexport const enum NetNotify {\n";
-        matches.forEach(match => {
-            match = match.trim();
-            data += `\t/** @param data {@link ${ match }} */\n`;
-            data += `\t${ match.substring(1) } = "NetNotify_${ match.substring(1) }",\n`;
-        });
-        data = data.trim() + "\n}";
-        fs.writeFileSync(NetNotifyPath, data);
-    }
+	private buildNetNotify() {
+		const matches: string[] = [];
+		Object.keys(this._allNotifyCtrls).forEach(v => matches.push(...this._allNotifyCtrls[v]));
+		let data = TS_MODIFY_TIP + "\nexport const enum NetNotify {\n";
+		matches.forEach(match => {
+			match = match.trim();
+			data += `\t/** @param data {@link ${ match }} */\n`;
+			data += `\t${ match.substring(1) } = "NetNotify_${ match.substring(1) }",\n`;
+		});
+		data = data.trim() + "\n}";
+		fs.writeFileSync(NetNotifyPath, data);
+	}
 }

@@ -4,51 +4,51 @@ import * as path from "path";
 
 /**创建目录，递归创建 */
 export function MakeDir(dirPath: string) {
-    fs.mkdirSync(dirPath, { recursive: true });
+	fs.mkdirSync(dirPath, { recursive: true });
 }
 
 /**删除目录，包括目录中所有文件和子目录 */
 export function RemoveDir(dir: string) {
-    if (fs.existsSync(dir) == false) return;
-    const files = fs.readdirSync(dir);
-    for (let i = 0; i < files.length; i++) {
-        const newPath = path.join(dir, files[i]);
-        const stat = fs.statSync(newPath);
-        if (stat.isDirectory()) {
-            RemoveDir(newPath);
-        } else {
-            fs.unlinkSync(newPath);
-        }
-    }
-    fs.rmdirSync(dir);
+	if (fs.existsSync(dir) == false) return;
+	const files = fs.readdirSync(dir);
+	for (let i = 0; i < files.length; i++) {
+		const newPath = path.join(dir, files[i]);
+		const stat = fs.statSync(newPath);
+		if (stat.isDirectory()) {
+			RemoveDir(newPath);
+		} else {
+			fs.unlinkSync(newPath);
+		}
+	}
+	fs.rmdirSync(dir);
 }
 
 /** 删除所有子目录及子目录中的文件 */
 export function RemoveSubDir(dir: string) {
-    if (fs.existsSync(dir) == false) return;
-    const files = fs.readdirSync(dir);
-    for (let i = 0; i < files.length; i++) {
-        const newPath = path.join(dir, files[i]);
-        const stat = fs.statSync(newPath);
-        if (stat.isDirectory()) {
-            RemoveDir(newPath);
-        }
-    }
+	if (fs.existsSync(dir) == false) return;
+	const files = fs.readdirSync(dir);
+	for (let i = 0; i < files.length; i++) {
+		const newPath = path.join(dir, files[i]);
+		const stat = fs.statSync(newPath);
+		if (stat.isDirectory()) {
+			RemoveDir(newPath);
+		}
+	}
 }
 
 export function GetAllDir(dirPath: string, recursive?: boolean, absolute?: boolean,) {
-    if (fs.existsSync(dirPath) == false) return [];
-    const dirs: string[] = [];
-    fs.readdirSync(dirPath).forEach(filename => {
-        const filePath = path.resolve(dirPath, filename);
-        const state = fs.statSync(filePath);
-        if (state.isDirectory()) {
-            dirs.push(absolute ? filePath : path.relative(dirPath, filePath));
-            if (recursive)
-                dirs.push(...GetAllDir(filePath, recursive, absolute));
-        }
-    });
-    return dirs;
+	if (fs.existsSync(dirPath) == false) return [];
+	const dirs: string[] = [];
+	fs.readdirSync(dirPath).forEach(filename => {
+		const filePath = path.resolve(dirPath, filename);
+		const state = fs.statSync(filePath);
+		if (state.isDirectory()) {
+			dirs.push(absolute ? filePath : path.relative(dirPath, filePath));
+			if (recursive)
+				dirs.push(...GetAllDir(filePath, recursive, absolute));
+		}
+	});
+	return dirs;
 }
 
 /**
@@ -61,71 +61,71 @@ export function GetAllDir(dirPath: string, recursive?: boolean, absolute?: boole
  * @returns 
  */
 export function GetAllFile(dirPath: string, recursive?: boolean, absolute?: boolean, filter?: (name: string) => boolean, map?: (name: string) => string) {
-    if (fs.existsSync(dirPath) == false) return [];
-    const names: string[] = [];
-    fs.readdirSync(dirPath).forEach(filename => {
-        const filePath = path.resolve(dirPath, filename);
-        const state = fs.statSync(filePath);
-        if (state.isDirectory()) {
-            if (recursive)
-                names.push(...GetAllFile(filePath, recursive, absolute, filter, map));
-        } else if (state.isFile()) {
-            if (!filter || filter(filename)) {
-                const temp = map ? map(filename) : filename;
-                absolute ? names.push(path.resolve(dirPath, temp)) : names.push(temp);
-            }
-        }
-    });
-    return names;
+	if (fs.existsSync(dirPath) == false) return [];
+	const names: string[] = [];
+	fs.readdirSync(dirPath).forEach(filename => {
+		const filePath = path.resolve(dirPath, filename);
+		const state = fs.statSync(filePath);
+		if (state.isDirectory()) {
+			if (recursive)
+				names.push(...GetAllFile(filePath, recursive, absolute, filter, map));
+		} else if (state.isFile()) {
+			if (!filter || filter(filename)) {
+				const temp = map ? map(filename) : filename;
+				absolute ? names.push(path.resolve(dirPath, temp)) : names.push(temp);
+			}
+		}
+	});
+	return names;
 }
 
 /**获取模板内容 */
 export function GetTemplateContent(templateName: string) {
-    return fs.readFileSync(path.resolve(__dirname, "../../template/" + templateName + ".template")).toString();
+	return fs.readFileSync(path.resolve(__dirname, "../../template/" + templateName + ".template")).toString();
 }
 
 export function UpperFirst(str: string, splits?: string[], joinStr = "_") {
-    if (!str) return str;
-    if (str.length == 1) return str.toUpperCase();
-    else {
-        const temp = str[0].toUpperCase() + str.substring(1);
-        if (splits && splits.length) {
-            const resultArr = [temp];
-            splits.forEach(v => {
-                let count = resultArr.length;
-                while (count--) {
-                    resultArr.push(...resultArr.shift().split(v).map(v1 => UpperFirst(v1)));
-                }
-            });
-            return resultArr.join(joinStr);
-        } else {
-            return temp;
-        }
-    }
+	if (!str) return str;
+	if (str.length == 1) return str.toUpperCase();
+	else {
+		const temp = str[0].toUpperCase() + str.substring(1);
+		if (splits && splits.length) {
+			const resultArr = [temp];
+			splits.forEach(v => {
+				let count = resultArr.length;
+				while (count--) {
+					resultArr.push(...resultArr.shift().split(v).map(v1 => UpperFirst(v1)));
+				}
+			});
+			return resultArr.join(joinStr);
+		} else {
+			return temp;
+		}
+	}
 }
 
 export function GetDateStr() {
-    const date = new Date();
-    const year = date.getFullYear().toString().padStart(4, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
-    const hour = date.getHours().toString().padStart(2, "0");
-    const minute = date.getMinutes().toString().padStart(2, "0");
-    const sec = date.getSeconds().toString().padStart(2, "0");
-    return `${ year }/${ month }/${ day } ${ hour }:${ minute }:${ sec }`;
+	const date = new Date();
+	const year = date.getFullYear().toString().padStart(4, "0");
+	const month = (date.getMonth() + 1).toString().padStart(2, "0");
+	const day = date.getDate().toString().padStart(2, "0");
+	const hour = date.getHours().toString().padStart(2, "0");
+	const minute = date.getMinutes().toString().padStart(2, "0");
+	const sec = date.getSeconds().toString().padStart(2, "0");
+	return `${ year }/${ month }/${ day } ${ hour }:${ minute }:${ sec }`;
 }
 
 export function HasChinese(str: string) {
-    return /[\p{Script=Han}\u3000-\u303f\ufe30-\ufe4f\uff00-\uffef]/u.test(str);
+	return /[\p{Script=Han}\u3000-\u303f\ufe30-\ufe4f\uff00-\uffef]/u.test(str);
 }
 
 export function ZipFolder(sourceDir: string, outPath: string) {
-    const output = fs.createWriteStream(outPath);
-    const archive = archiver('zip', { zlib: { level: 9 } });
+	const output = fs.createWriteStream(outPath);
+	const archive = archiver('zip', { zlib: { level: 9 } });
 
-    archive.pipe(output);
-    archive.directory(sourceDir, false); // 把 sourceDir 的内容打包到根目录
-    // 或者添加单个文件: archive.file('path/to/file.txt', { name: 'file.txt' });
+	archive.pipe(output);
+	archive.directory(sourceDir, false); // 把 sourceDir 的内容打包到根目录
+	// 或者添加单个文件: archive.file('path/to/file.txt', { name: 'file.txt' });
 
-    archive.finalize();
+	archive.finalize();
 }
