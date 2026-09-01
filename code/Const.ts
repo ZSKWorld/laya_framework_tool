@@ -10,11 +10,11 @@ export const LangResDir = resolve(__workname, "bin/langRes");
 export const UiDir = resolve(__workname, "src/core/ui/ui");
 export const ViewDir = resolve(__workname, "src/core/ui/view");
 export const ResPathPath = resolve(__workname, "src/core/common/ResPath.ts");
-export const Declare_ResPathPath = resolve(__workname, "libs_game/res_path.d.ts");
+export const Declare_ResPathPath = resolve(__workname, "libs/game/res_path.d.ts");
 export const Lib_ResPathPath = resolve(__workname, "bin/libs_leb/respath.d.js");
 export const ResPathPathNoExt = resolve(__workname, "src/core/common/ResPath");
 export const ViewIDPath = resolve(__workname, "src/core/ui/core/ViewID.ts");
-export const Declare_ViewIDPath = resolve(__workname, "libs_game/view_id.d.ts");
+export const Declare_ViewIDPath = resolve(__workname, "libs/game/view_id.d.ts");
 export const Lib_ViewIDPath = resolve(__workname, "bin/libs_leb/viewid.d.js");
 export const MediatorBasePath = resolve(__workname, "src/core/mvc/view/MediatorBase.ts");
 export const InitViewCommandPath = resolve(__workname, "src/contextCommand/InitViewCommand.ts");
@@ -29,14 +29,14 @@ export const NotifyInterfaceDir = resolve(NetDir, "interface/notify");
 export const NetServicePath = resolve(NetDir, "NetService.ts");
 export const Declare_NetServicePath = resolve(NetDir, "INetService.d.ts");
 export const ServiceObjPath = resolve(NetDir, "ServiceObj.ts");
-export const Declare_MessageIDPath = resolve(__workname, "libs_game/message_id.d.ts");
+export const Declare_MessageIDPath = resolve(__workname, "libs/game/message_id.d.ts");
 export const Lib_MessageIDPath = resolve(__workname, "bin/libs_leb/messageid.d.js");
 export const NetNotifyPath = resolve(NetDir, "enum/NetNotify.ts");
 export const UserDataDir = resolve(__workname, "src/core/userData");
 export const UserDataInterfaceDir = resolve(UserDataDir, "interface");
 export const UserDataEventPath = resolve(UserDataDir, "UserDataEvent.ts");
-export const Lib_UserDataEventPath = resolve(__workname, "bin/libs_game/userdataevent.js");
-export const Declare_UserDataEventPath = resolve(__workname, "libs_game/user_data_event.d.ts");
+export const Lib_UserDataEventPath = resolve(__workname, "bin/libs_leb/userdataevent.js");
+export const Declare_UserDataEventPath = resolve(__workname, "libs/game/user_data_event.d.ts");
 
 //---------------------------------------------Server
 export const Server_NotifyInterfaceDir = resolve(__workname, "src/core/controller/interface/notify");
@@ -45,7 +45,7 @@ export const Server_NetNotifyPath = resolve(__workname, "src/core/enum/NetNotify
 
 //---------------------------------------------Laya 3.0
 export const ResDir3_0 = resolve(__workname, "assets/resources");
-export const Declare_ResPathPath3_0 = resolve(__workname, "engine/libs_game/res_path.d.ts");
+export const Declare_ResPathPath3_0 = resolve(__workname, "engine/libs/game/res_path.d.ts");
 export const ResPathPath3_0 = resolve(__workname, "src/core/common/ResPath.ts");
 
 //---------------------------------------------Proto & excel Declare
@@ -55,7 +55,7 @@ export const Declare_CfgMgrPath = resolve(__workname, "src/core/config/IConfigMa
 export const ProtoDir = resolve(__workname, "bin/proto");
 export const ProtoPath = resolve(ProtoDir, "client.proto");
 export const ProtoReplacePath = resolve(ProtoDir, "proto_replace.jsonc");
-export const Declare_ProtoPath = resolve(__workname, "libs_game/proto.d.ts");
+export const Declare_ProtoPath = resolve(__workname, "libs/game/proto.d.ts");
 export const Lib_ProtoPath = resolve(__workname, "bin/libs_leb/proto.d.js");
 export const Declare_ReqMethodPath = resolve(__workname, "src/core/net/IReqMethod.d.ts");
 export const QHCodeZipPath = resolve(__workname, "qh_code.zip");
@@ -70,6 +70,6 @@ export const LUA_MODIFY_TIP = `---${ TipString }\n`;
 
 //---------------------------------------------leb enums
 export const LebEnumsSources = [
-    resolve(__workname, "libs_game/leb_enums.d.ts"),
+    resolve(__workname, "libs/game/leb_enums.d.ts"),
 ];
 export const LebEnumsOutput = resolve(__workname, "bin/libs_leb/leb_enums.d.js");

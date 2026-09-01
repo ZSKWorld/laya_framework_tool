@@ -5,7 +5,7 @@ declare interface ISheetDataBase {
 
 type CfgFieldType<T> = { [P in keyof T]: T[P] }[keyof T];
 interface ICfgExtension<T> {
-	rows: (CfgFieldType<T> extends Array<infer U> ? U : CfgFieldType<T>)[];
+	readonly rows: (CfgFieldType<T> extends Array<infer U> ? U : CfgFieldType<T>)[];
 	forEach(callbackfn: (value: CfgFieldType<T>, index: number, array: CfgFieldType<T>[]) => void, thisArg?: any): void;
 	filter(predicate: (value: CfgFieldType<T>, index: number, array: CfgFieldType<T>[]) => boolean, thisArg?: any): CfgFieldType<T>[];
 	find(predicate: (value: CfgFieldType<T>, index: number, array: CfgFieldType<T>[]) => boolean, thisArg?: any): CfgFieldType<T>;
@@ -20,7 +20,7 @@ interface ICfgExtension<T> {
 	some(predicate: (value: CfgFieldType<T>, index: number, array: CfgFieldType<T>[]) => boolean, thisArg?: any): boolean;
 }
 interface ICfgGroupExtension<T> extends ICfgExtension<T> {
-	groups: CfgFieldType<T>[];
+	readonly groups: CfgFieldType<T>[];
 }
 type CfgExt<T> = { [P in keyof T]: T[P] } & ICfgExtension<T>;
 type CfgExtGroup<T> = { [P in keyof T]: T[P] } & ICfgGroupExtension<T>;

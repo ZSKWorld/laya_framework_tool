@@ -117,15 +117,15 @@ class SheetData {
 
         const dataDeclare = fieldName.map((v, i) => {
             const comment = fieldDesc[i] ? `\t/** ${ fieldDesc[i] } */\n` : "";
-            return `${ comment }\t${ v }: ${ fieldType[i] };`;
+            return `${ comment }\treadonly ${ v }: ${ fieldType[i] };`;
         }).join("\n");
 
         const keyDeclare: string[] = [];
         const valType = (exportType === ExportType.Group) ? `${ dataDeclareName }[]` : dataDeclareName;
 
         if (exportType !== ExportType.NoKey) {
-            keyDeclare.push(`\t[key: string]: ${ valType };`);
-            keys.forEach(v => keyDeclare.push(`\t${ v }: ${ valType };`));
+            keyDeclare.push(`\treadonly [key: string]: ${ valType };`);
+            keys.forEach(v => keyDeclare.push(`\treadonly ${ v }: ${ valType };`));
         }
 
         return [
@@ -188,7 +188,7 @@ class ExcelData {
             const desc = (v.desc ? `${ v.desc }  ---  ` : "") + v.exportType;
             const extStr = (v.exportType === ExportType.Group) ? "CfgExtGroup" : "CfgExt";
             keyDeclare.push(`\t/** ${ desc } */`);
-            keyDeclare.push(`\t${ v.name }: ${ extStr }<${ v.sheetDeclareName }>;`);
+            keyDeclare.push(`\treadonly ${ v.name }: ${ extStr }<${ v.sheetDeclareName }>;`);
         });
 
         return [
