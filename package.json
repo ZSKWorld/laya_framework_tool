@@ -23,6 +23,7 @@
     "crypto": "^1.0.1",
     "image-size": "^2.0.2",
     "install": "^0.13.0",
+    "luamin": "^1.0.4",
     "msgpack5": "^6.0.2",
     "progress": "^2.0.3",
     "protobufjs": "^7.3.2",

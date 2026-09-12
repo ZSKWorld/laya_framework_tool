@@ -5,3 +5,7 @@ js
 laya
 node_modules
 server/bin/js/
+code/quehun_bundle/data/
+code/quehun_bundle/MonoBehaviour/
+code/quehun_bundle/bundle_info.majset
+code/quehun_bundle/bundle_hash.txt
