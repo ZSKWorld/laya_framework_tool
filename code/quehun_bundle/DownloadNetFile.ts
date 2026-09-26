@@ -3,9 +3,11 @@ import * as fs from "node:fs";
 import * as http from "node:http";
 import * as https from "node:https";
 import * as path from "node:path";
+import { RemoveDir } from "../Utils";
 
 const RootDir = path.resolve(__dirname);
 const BundleDir = path.join(RootDir, "data/bundles");
+const BundleTempDir = path.join(RootDir, "data/bundles_temp");
 const ExtractDir = path.join(RootDir, "data/extract");
 const GameUrl = "https://game.maj-soul.com/assetbundles/DXT";
 const BundleHashUrl = path.join(GameUrl, "bundle_hash.txt");
@@ -15,6 +17,7 @@ const BundleHashPath = path.join(RootDir, "bundle_hash.txt");
 const BundleInfoJsonPath = path.join(RootDir, "MonoBehaviour/BundleInfoSO.json");
 
 if (!fs.existsSync(BundleDir)) fs.mkdirSync(BundleDir, { recursive: true });
+if (!fs.existsSync(BundleTempDir)) fs.mkdirSync(BundleTempDir, { recursive: true });
 if (!fs.existsSync(ExtractDir)) fs.mkdirSync(ExtractDir, { recursive: true });
 
 var __async = (__this, __arguments, generator) => {
@@ -160,8 +163,11 @@ function getAllBundlePathMap(): [number, { path: string, size: number; }[]] {
     const bundlePathes = [];
     let totalSize = 0;
     jsonData.bundleInfos.forEach(v => {
-        totalSize += v.fileSize;
-        bundlePathes.push({ path: path.join(GameUrl, v.name), size: v.fileSize });
+        const filepath = path.join(BundleDir, path.basename(v.name));
+        if (!fs.existsSync(filepath)) {
+            totalSize += v.fileSize;
+            bundlePathes.push({ path: path.join(GameUrl, v.name), size: v.fileSize });
+        }
     });
     return [totalSize, bundlePathes];
 }
@@ -188,22 +194,27 @@ function extracBundleInfo() {
 
 function downloadBundles() {
     const [totalSize, allBundlePath] = getAllBundlePathMap();
+    console.log("bundle下载数量为：" + allBundlePath.length);
+    if (!allBundlePath.length) {
+        return Promise.resolve(false);
+    }
     let totalSizeDesc = getSizeDesc(totalSize);
     let downloadSize = 0;
     return __async(this, null, function* () {
         const downloadDelta = 20;
         for (let i = 0; i < allBundlePath.length; i += downloadDelta) {
-            yield Promise.all(allBundlePath.slice(i, i + downloadDelta).map(info => download(info.path, path.join(BundleDir, path.basename(info.path)))));
+            yield Promise.all(allBundlePath.slice(i, i + downloadDelta).map(info => download(info.path, path.join(BundleTempDir, path.basename(info.path)))));
             downloadSize += allBundlePath.slice(i, i + downloadDelta).reduce((a, b) => a + b.size, 0);
             console.log(`下载${ i + downloadDelta }/${ allBundlePath.length }： ${ getSizeDesc(downloadSize) } / ${ totalSizeDesc }`);
         }
+        return true;
     });
 }
 
-function extractBundleByType(type:string) {
+function extractBundleByType(type: string) {
     const cmd = [
         "C:/Users/Administrator/Desktop/AssetStudio-net8.0-win/AssetStudio.CLI.exe",
-        BundleDir,
+        BundleTempDir,
         ExtractDir,
         "--unity_version", "2022.3.62f2c1",
         "--game", "Normal",
@@ -215,9 +226,15 @@ function extractBundleByType(type:string) {
 }
 
 function extractBundles() {
+    console.log("提取bundle资源......");
     extractBundleByType("Sprite");
     extractBundleByType("Texture2D");
     extractBundleByType("TextAsset");
+
+    fs.readdirSync(BundleTempDir).forEach(v => {
+        fs.copyFileSync(path.join(BundleTempDir, v), path.join(BundleDir, v));
+    });
+    RemoveDir(BundleTempDir);
 }
 
 downloadTxt(BundleHashUrl).then((v: string) => {
@@ -227,9 +244,12 @@ downloadTxt(BundleHashUrl).then((v: string) => {
     }
     if (oldHash != v) {
         fs.writeFileSync(BundleHashPath, v);
-        console.log("有bunlde更新，开始下载：")
+        console.log("有bunlde更新，开始下载：");
         extracBundleInfo().then(() => {
-            downloadBundles().then(() => extractBundles());
+            downloadBundles().then((success) => {
+                success && extractBundles();
+                console.log("资源更新完毕！");
+            });
         });
     } else {
         console.log("已是最新bundle");
