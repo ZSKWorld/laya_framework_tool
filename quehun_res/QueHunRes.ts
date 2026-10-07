@@ -63,13 +63,14 @@ function copyImage() {
     const tDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets";
     const img_map = JSON.parse(fs.readFileSync("quehun_res/img_map.json").toString());
     const copied_map = JSON.parse(fs.readFileSync("quehun_res/copied_map.json").toString());
-    const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgCommon/Texture";
+    // const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgCommon/Texture";
     // const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgMain/Texture";
+    const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgActivityOverview/Texture";
     // const ttDir = "E:/study/IT/Projects/Laya/3.0/quehun/ui/assets/PkgZDesign/11/texture";
 
     if (!fs.existsSync(ttDir)) return console.error("目标路径不存在");
-    const a = `e:/study/IT/Projects/Laya/3.0/quehun_res/laya/assets/myres/sushe/bf_skin.png`;
-    const copyImgs = a.replace(/.png e:\//g, ".png!!!!e:/").replace(/.jpg e:\//g, ".jpg!!!!e:/").split("!!!!");
+    const imgUrls = fs.readFileSync("quehun_res/img_urls.txt").toString();
+    const copyImgs = imgUrls.replace(/.png e:\//g, ".png!!!!e:/").replace(/.jpg e:\//g, ".jpg!!!!e:/").split("!!!!");
     let hasError = false;
     copyImgs.forEach(v => {
         if (!fs.existsSync(v)) {

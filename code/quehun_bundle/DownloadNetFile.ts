@@ -3,12 +3,13 @@ import * as fs from "node:fs";
 import * as http from "node:http";
 import * as https from "node:https";
 import * as path from "node:path";
-import { RemoveDir } from "../Utils";
+import { CopyDir, RemoveDir } from "../Utils";
 
 const RootDir = path.resolve(__dirname);
 const BundleDir = path.join(RootDir, "data/bundles");
 const BundleTempDir = path.join(RootDir, "data/bundles_temp");
 const ExtractDir = path.join(RootDir, "data/extract");
+const ExtractTempDir = path.join(RootDir, "data/extract_temp");
 const GameUrl = "https://game.maj-soul.com/assetbundles/DXT";
 const BundleHashUrl = path.join(GameUrl, "bundle_hash.txt");
 const BundleInfoUrl = path.join(GameUrl, "bundle_info_so.majset");
@@ -19,6 +20,7 @@ const BundleInfoJsonPath = path.join(RootDir, "MonoBehaviour/BundleInfoSO.json")
 if (!fs.existsSync(BundleDir)) fs.mkdirSync(BundleDir, { recursive: true });
 if (!fs.existsSync(BundleTempDir)) fs.mkdirSync(BundleTempDir, { recursive: true });
 if (!fs.existsSync(ExtractDir)) fs.mkdirSync(ExtractDir, { recursive: true });
+if (!fs.existsSync(ExtractTempDir)) fs.mkdirSync(ExtractTempDir, { recursive: true });
 
 var __async = (__this, __arguments, generator) => {
     return new Promise((resolve, reject) => {
@@ -215,7 +217,7 @@ function extractBundleByType(type: string) {
     const cmd = [
         "C:/Users/Administrator/Desktop/AssetStudio-net8.0-win/AssetStudio.CLI.exe",
         BundleTempDir,
-        ExtractDir,
+        ExtractTempDir,
         "--unity_version", "2022.3.62f2c1",
         "--game", "Normal",
         "--types", type,
@@ -230,11 +232,11 @@ function extractBundles() {
     extractBundleByType("Sprite");
     extractBundleByType("Texture2D");
     extractBundleByType("TextAsset");
-
-    fs.readdirSync(BundleTempDir).forEach(v => {
-        fs.copyFileSync(path.join(BundleTempDir, v), path.join(BundleDir, v));
-    });
+    
+    CopyDir(BundleTempDir, BundleDir);
+    CopyDir(ExtractTempDir, ExtractDir);
     RemoveDir(BundleTempDir);
+    RemoveDir(ExtractTempDir);
 }
 
 downloadTxt(BundleHashUrl).then((v: string) => {

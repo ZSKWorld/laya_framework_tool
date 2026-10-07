@@ -7,6 +7,22 @@ export function MakeDir(dirPath: string) {
 	fs.mkdirSync(dirPath, { recursive: true });
 }
 
+/** 复制目录 */
+export function CopyDir(sourceDir: string, targetDir: string) {
+	if (fs.existsSync(sourceDir) == false) return;
+	MakeDir(targetDir);
+	const files = fs.readdirSync(sourceDir);
+	for (let i = 0; i < files.length; i++) {
+		const newPath = path.join(targetDir, files[i]);
+		const stat = fs.statSync(path.join(sourceDir, files[i]));
+		if (stat.isDirectory()) {
+			CopyDir(path.join(sourceDir, files[i]), newPath);
+		} else {
+			fs.copyFileSync(path.join(sourceDir, files[i]), newPath);
+		}
+	}
+}
+
 /**删除目录，包括目录中所有文件和子目录 */
 export function RemoveDir(dir: string) {
 	if (fs.existsSync(dir) == false) return;
