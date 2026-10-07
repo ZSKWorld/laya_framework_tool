@@ -3,8 +3,11 @@ import * as fs from "fs";
 import * as path from "path";
 
 /**创建目录，递归创建 */
-export function MakeDir(dirPath: string) {
-	fs.mkdirSync(dirPath, { recursive: true });
+export function MakeDir(...dirPaths: string[]) {
+	for (let i = 0; i < dirPaths.length; i++) {
+		if (!fs.existsSync(dirPaths[i]))
+			fs.mkdirSync(dirPaths[i], { recursive: true });
+	}
 }
 
 /** 复制目录 */

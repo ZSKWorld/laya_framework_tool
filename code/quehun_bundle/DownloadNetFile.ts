@@ -3,7 +3,7 @@ import * as fs from "node:fs";
 import * as http from "node:http";
 import * as https from "node:https";
 import * as path from "node:path";
-import { CopyDir, RemoveDir } from "../Utils";
+import { CopyDir, MakeDir, RemoveDir } from "../Utils";
 
 const RootDir = path.resolve(__dirname);
 const BundleDir = path.join(RootDir, "data/bundles");
@@ -17,10 +17,7 @@ const BundleInfoPath = path.join(RootDir, "bundle_info.majset");
 const BundleHashPath = path.join(RootDir, "bundle_hash.txt");
 const BundleInfoJsonPath = path.join(RootDir, "MonoBehaviour/BundleInfoSO.json");
 
-if (!fs.existsSync(BundleDir)) fs.mkdirSync(BundleDir, { recursive: true });
-if (!fs.existsSync(BundleTempDir)) fs.mkdirSync(BundleTempDir, { recursive: true });
-if (!fs.existsSync(ExtractDir)) fs.mkdirSync(ExtractDir, { recursive: true });
-if (!fs.existsSync(ExtractTempDir)) fs.mkdirSync(ExtractTempDir, { recursive: true });
+MakeDir(BundleDir, BundleTempDir, ExtractDir, ExtractTempDir);
 
 var __async = (__this, __arguments, generator) => {
     return new Promise((resolve, reject) => {
@@ -232,7 +229,7 @@ function extractBundles() {
     extractBundleByType("Sprite");
     extractBundleByType("Texture2D");
     extractBundleByType("TextAsset");
-    
+
     CopyDir(BundleTempDir, BundleDir);
     CopyDir(ExtractTempDir, ExtractDir);
     RemoveDir(BundleTempDir);
