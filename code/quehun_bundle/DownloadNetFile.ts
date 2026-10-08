@@ -3,7 +3,7 @@ import * as fs from "node:fs";
 import * as http from "node:http";
 import * as https from "node:https";
 import * as path from "node:path";
-import { CopyDir, MakeDir, RemoveDir } from "../Utils";
+import { CopyDir, MakeDir, RemoveDir, RemoveFile } from "../Utils";
 
 const RootDir = path.resolve(__dirname);
 const BundleDir = path.join(RootDir, "data/bundles");
@@ -11,10 +11,8 @@ const BundleTempDir = path.join(RootDir, "data/bundles_temp");
 const ExtractDir = path.join(RootDir, "data/extract");
 const ExtractTempDir = path.join(RootDir, "data/extract_temp");
 const GameUrl = "https://game.maj-soul.com/assetbundles/DXT";
-const BundleHashUrl = path.join(GameUrl, "bundle_hash.txt");
 const BundleInfoUrl = path.join(GameUrl, "bundle_info_so.majset");
-const BundleInfoPath = path.join(RootDir, "bundle_info.majset");
-const BundleHashPath = path.join(RootDir, "bundle_hash.txt");
+const BundleInfoPath = path.join(RootDir, "bundle_info_so.majset");
 const BundleInfoJsonPath = path.join(RootDir, "MonoBehaviour/BundleInfoSO.json");
 
 MakeDir(BundleDir, BundleTempDir, ExtractDir, ExtractTempDir);
@@ -179,7 +177,10 @@ function getSizeDesc(size: number) {
 }
 
 function extracBundleInfo() {
+    RemoveFile(BundleInfoPath, BundleInfoJsonPath);
+    console.log("开始下载bundle清单文件......");
     return download(BundleInfoUrl, BundleInfoPath).then(() => {
+        console.log("开始解析bundle清单文件......");
         const cmd = [
             "C:/Users/Administrator/Desktop/AssetStudio-net8.0-win/AssetStudio.CLI.exe",
             BundleInfoPath,
@@ -197,6 +198,9 @@ function downloadBundles() {
     if (!allBundlePath.length) {
         return Promise.resolve(false);
     }
+
+    RemoveDir(BundleTempDir);
+    RemoveDir(ExtractTempDir);
     let totalSizeDesc = getSizeDesc(totalSize);
     let downloadSize = 0;
     return __async(this, null, function* () {
@@ -225,9 +229,12 @@ function extractBundleByType(type: string) {
 }
 
 function extractBundles() {
-    console.log("提取bundle资源......");
+    console.log("开始提取bundle资源......");
+    console.log("提取 Sprite 资源......");
     extractBundleByType("Sprite");
+    console.log("提取 Texture2D 资源......");
     extractBundleByType("Texture2D");
+    console.log("提取 TextAsset 资源......");
     extractBundleByType("TextAsset");
 
     CopyDir(BundleTempDir, BundleDir);
@@ -236,21 +243,10 @@ function extractBundles() {
     RemoveDir(ExtractTempDir);
 }
 
-downloadTxt(BundleHashUrl).then((v: string) => {
-    var oldHash = "";
-    if (fs.existsSync(BundleHashPath)) {
-        oldHash = fs.readFileSync(BundleHashPath, "utf8");
-    }
-    if (oldHash != v) {
-        fs.writeFileSync(BundleHashPath, v);
-        console.log("有bunlde更新，开始下载：");
-        extracBundleInfo().then(() => {
-            downloadBundles().then((success) => {
-                success && extractBundles();
-                console.log("资源更新完毕！");
-            });
-        });
-    } else {
-        console.log("已是最新bundle");
-    }
+
+extracBundleInfo().then(() => {
+    downloadBundles().then((success) => {
+        success && extractBundles();
+        console.log("资源更新完毕！");
+    });
 });

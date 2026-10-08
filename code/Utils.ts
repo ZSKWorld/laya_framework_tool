@@ -26,6 +26,13 @@ export function CopyDir(sourceDir: string, targetDir: string) {
 	}
 }
 
+export function RemoveFile(...filePaths: string[]) {
+	filePaths.forEach(filePath => {
+		if (fs.existsSync(filePath) == false) return;
+		fs.unlinkSync(filePath);
+	});
+}
+
 /**删除目录，包括目录中所有文件和子目录 */
 export function RemoveDir(dir: string) {
 	if (fs.existsSync(dir) == false) return;
