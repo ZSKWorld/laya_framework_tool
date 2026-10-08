@@ -239,8 +239,6 @@ function extractBundles() {
 
     CopyDir(BundleTempDir, BundleDir);
     CopyDir(ExtractTempDir, ExtractDir);
-    RemoveDir(BundleTempDir);
-    RemoveDir(ExtractTempDir);
 }
 
 
