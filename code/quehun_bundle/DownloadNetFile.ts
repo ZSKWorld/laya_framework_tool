@@ -14,6 +14,7 @@ const GameUrl = "https://game.maj-soul.com/assetbundles/DXT";
 const BundleInfoUrl = path.join(GameUrl, "bundle_info_so.majset");
 const BundleInfoPath = path.join(RootDir, "bundle_info_so.majset");
 const BundleInfoJsonPath = path.join(RootDir, "MonoBehaviour/BundleInfoSO.json");
+const AssetStudioCLIPath = "e:/ChromeDownloads/AssetStudio-net8.0-win/AssetStudio.CLI.exe";
 
 MakeDir(BundleDir, BundleTempDir, ExtractDir, ExtractTempDir);
 
@@ -182,7 +183,7 @@ function extracBundleInfo() {
     return download(BundleInfoUrl, BundleInfoPath).then(() => {
         console.log("开始解析bundle清单文件......");
         const cmd = [
-            "C:/Users/Administrator/Desktop/AssetStudio-net8.0-win/AssetStudio.CLI.exe",
+            AssetStudioCLIPath,
             BundleInfoPath,
             RootDir,
             "--unity_version", "2022.3.62f2c1",
@@ -199,8 +200,7 @@ function downloadBundles() {
         return Promise.resolve(false);
     }
 
-    RemoveDir(BundleTempDir);
-    RemoveDir(ExtractTempDir);
+    RemoveDir(BundleTempDir, ExtractTempDir);
     let totalSizeDesc = getSizeDesc(totalSize);
     let downloadSize = 0;
     return __async(this, null, function* () {
@@ -216,7 +216,7 @@ function downloadBundles() {
 
 function extractBundleByType(type: string) {
     const cmd = [
-        "C:/Users/Administrator/Desktop/AssetStudio-net8.0-win/AssetStudio.CLI.exe",
+        AssetStudioCLIPath,
         BundleTempDir,
         ExtractTempDir,
         "--unity_version", "2022.3.62f2c1",

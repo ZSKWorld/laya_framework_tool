@@ -2,6 +2,8 @@ import * as archiver from "archiver";
 import * as fs from "fs";
 import * as path from "path";
 
+type Func<T, R> = (arg: T) => R;
+
 /**创建目录，递归创建 */
 export function MakeDir(...dirPaths: string[]) {
 	for (let i = 0; i < dirPaths.length; i++) {
@@ -34,32 +36,21 @@ export function RemoveFile(...filePaths: string[]) {
 }
 
 /**删除目录，包括目录中所有文件和子目录 */
-export function RemoveDir(dir: string) {
-	if (fs.existsSync(dir) == false) return;
-	const files = fs.readdirSync(dir);
-	for (let i = 0; i < files.length; i++) {
-		const newPath = path.join(dir, files[i]);
-		const stat = fs.statSync(newPath);
-		if (stat.isDirectory()) {
-			RemoveDir(newPath);
-		} else {
-			fs.unlinkSync(newPath);
+export function RemoveDir(...dirs: string[]) {
+	dirs.forEach(dir => {
+		if (fs.existsSync(dir) == false) return;
+		const files = fs.readdirSync(dir);
+		for (let i = 0; i < files.length; i++) {
+			const newPath = path.join(dir, files[i]);
+			const stat = fs.statSync(newPath);
+			if (stat.isDirectory()) {
+				RemoveDir(newPath);
+			} else {
+				fs.unlinkSync(newPath);
+			}
 		}
-	}
-	fs.rmdirSync(dir);
-}
-
-/** 删除所有子目录及子目录中的文件 */
-export function RemoveSubDir(dir: string) {
-	if (fs.existsSync(dir) == false) return;
-	const files = fs.readdirSync(dir);
-	for (let i = 0; i < files.length; i++) {
-		const newPath = path.join(dir, files[i]);
-		const stat = fs.statSync(newPath);
-		if (stat.isDirectory()) {
-			RemoveDir(newPath);
-		}
-	}
+		fs.rmdirSync(dir);
+	});
 }
 
 export function GetAllDir(dirPath: string, recursive?: boolean, absolute?: boolean,) {
@@ -86,7 +77,7 @@ export function GetAllDir(dirPath: string, recursive?: boolean, absolute?: boole
  * @param map 修改函数
  * @returns 
  */
-export function GetAllFile(dirPath: string, recursive?: boolean, absolute?: boolean, filter?: (name: string) => boolean, map?: (name: string) => string) {
+export function GetAllFile(dirPath: string, recursive?: boolean, absolute?: boolean, filter?: Func<string, boolean>, map?: Func<string, string>) {
 	if (fs.existsSync(dirPath) == false) return [];
 	const names: string[] = [];
 	fs.readdirSync(dirPath).forEach(filename => {
