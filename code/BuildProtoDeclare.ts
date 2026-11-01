@@ -116,7 +116,7 @@ export class BuildProtoDeclare extends BuildBase {
 				return `I${ name.replace(/\./g, ".I") }`;
 			}
 			return `I${ fullName.replace(/\./g, ".I") }`;
-			
+
 		} else if (refObj instanceof protobuf.Enum) {
 
 			let name = fullName;
@@ -125,7 +125,7 @@ export class BuildProtoDeclare extends BuildBase {
 			}
 			const names = name.split(".");
 			names.pop();
-			return names.length > 0 ? names.map(v => v = `I${ v }`).join(".") + "." +refObj.name : refObj.name;
+			return names.length > 0 ? names.map(v => v = `I${ v }`).join(".") + "." + refObj.name : refObj.name;
 		}
 		return refObj.name;
 	}
@@ -151,22 +151,52 @@ export class BuildProtoDeclare extends BuildBase {
 		return this.getInterfaceName(type);
 	}
 
-	private buildTSEnum(v: protobuf.Enum, isSub?: boolean, indent: number = 0) {
+	private buildEnum(v: protobuf.Enum, isSub?: boolean, indent: number = 0) {
 		const indentStr = GetIndent(indent);
 		const builder: string[] = [];
 		const { name, comment, values, comments } = v;
 		builder.push(this.buildTSComments(comment, indent));
-		builder.push(`${indentStr}${ isSub ? "" : "declare " }const enum ${ name } {\n`);
+		builder.push(`${ indentStr }${ isSub ? "" : "declare " }enum ${ name } {\n`);
 		for (const [ekey, evalue] of Object.entries(values)) {
-			builder.push(`${indentStr}${ this.buildTSComments(comments?.[ekey] || "", indent + 1) }\t${ ekey } = ${ evalue },\n`);
+			builder.push(`${ indentStr }${ this.buildTSComments(comments?.[ekey] || "", indent + 1) }\t${ ekey } = ${ evalue },\n`);
 		}
-		builder.push(`${indentStr}}\n\n`);
+		builder.push(`${ indentStr }}\n\n`);
 		return builder.join('');
 	}
 
-	private buildTSMessage(msg: protobuf.Type, isSub?: boolean, indent: number = 0) {
-		const indentStr = GetIndent(indent);
+	private buildLibEnum(v: protobuf.Enum) {
+		let name = v.fullName;
+		let names: string[] = [];
+		if (name.startsWith(this.namespace.fullName)) 
+			names = name.substring(this.namespace.fullName.length + 1).split(".");
+		else 
+			names = name.split(".");
+		names.pop();
+		names = names.map(v => v = `I${ v }`);
+
 		const builder: string[] = [];
+
+		if (names.length > 0) {
+			let t = "";
+			names.forEach(v => {
+				if (!t) t += v;
+				else t += "." + v;
+				builder.push(`${t} = window.${t} || {};\n`);
+			});
+		}
+
+		const pName = names.length > 0 ? names.join(".") + "." : "";
+		builder.push(`${ pName }${ v.name } = {\n`);
+		for (const [ek, ev] of Object.entries(v.values)) {
+			builder.push(`\t${ ek }: ${ ev },\n`);
+		}
+		builder.push(`}\n\n`);
+		return builder.join('');
+	}
+
+	private buildMessage(msg: protobuf.Type, isSub?: boolean, indent: number = 0) {
+		const indentStr = GetIndent(indent);
+		const builder: string[] = [], enums: string[] = [];
 		const comments = `${ msg.fullName }${ msg.comment ? "\n" + msg.comment : "" }`;
 		builder.push(this.buildTSComments(comments, indent));
 
@@ -181,9 +211,10 @@ export class BuildProtoDeclare extends BuildBase {
 				if (isResponse && key === "error" && field.type == "Error") continue;
 
 				builder.push(this.buildTSComments(field.comment, indent + 1));
+				const replaceType = replacer && replacer[key] && replacer[key].type;
 				const optional = !!(replacer && replacer[key] && replacer[key].optional) ? "?" : "";
-				const fieldType = TS_TYPE_MAP[field.type] || this.getInterfaceNameByTypeName(field.type, field.parent);
-				const arrayKey = field["rule"] === "repeated" ? "[]" : "";
+				const fieldType = replaceType || TS_TYPE_MAP[field.type] || this.getInterfaceNameByTypeName(field.type, field.parent);
+				const arrayKey = (!replaceType && field["rule"] === "repeated") ? "[]" : "";
 				builder.push(`${ indentStr }\t${ key }${ optional }: ${ fieldType }${ arrayKey };\n`);
 			}
 		}
@@ -193,11 +224,14 @@ export class BuildProtoDeclare extends BuildBase {
 		if (msg.nestedArray && msg.nestedArray.length > 0) {
 			const buildSubMessage = (v: protobuf.ReflectionObject) => {
 				if (v instanceof protobuf.Type) {
-					builder.push(this.buildTSMessage(v, true, indent + 1));
+					const [smsgs, senums] = this.buildMessage(v, true, indent + 1);
+					builder.push(smsgs);
+					enums.push(senums);
 				} else if (v instanceof protobuf.Service) {
-					
+
 				} else if (v instanceof protobuf.Enum) {
-					builder.push(this.buildTSEnum(v, true, indent + 1));
+					builder.push(this.buildEnum(v, true, indent + 1));
+					enums.push(this.buildLibEnum(v));
 				} else {
 					console.log("未知类型：" + v.fullName);
 				}
@@ -207,7 +241,7 @@ export class BuildProtoDeclare extends BuildBase {
 			builder[builder.length - 1] = builder[builder.length - 1].trimEnd();
 			builder.push(`\n${ indentStr }}\n\n`);
 		}
-		return builder.join('');
+		return [builder.join(""), enums.join("")];
 	}
 
 	private buildTS() {
@@ -217,11 +251,12 @@ export class BuildProtoDeclare extends BuildBase {
 			libNotify: [] as string[],
 			req: [] as string[],
 			libReq: [] as string[],
+			libEnums: [] as string[],
 			reqMethod: [] as string[],
 			message: [] as string[]
 		};
 
-		// 1. 处理 Notifies
+		// 处理 Notifies
 		notifies.forEach(v => {
 			const { name, comment } = v;
 			const comments = `${ comment || "" }\nres: {@link I${ name }}`.trim();
@@ -229,7 +264,7 @@ export class BuildProtoDeclare extends BuildBase {
 			builder.libNotify.push(`\t${ name }: "${ name }",\n`);
 		});
 
-		// 2. 处理 Methods (RPC)
+		// 处理 Methods (RPC)
 		methods.forEach(v => {
 			const { name, comment, requestType, responseType } = v;
 			const newReqType = this.getInterfaceNameByTypeName(requestType, v.parent);
@@ -240,12 +275,13 @@ export class BuildProtoDeclare extends BuildBase {
 			builder.reqMethod.push(`${ this.buildTSComments((comment || "") + newComment + `\nmsgId: {@link ENetMessage.${ name }}`, 1) }\t${ name }(data?: ${ newReqType }): Promise<${ newResType }>;\n`);
 		});
 
-		//3.处理枚举
+		// 处理枚举
 		enums.forEach(v => {
-			builder.message.push(this.buildTSEnum(v));
+			builder.message.push(this.buildEnum(v));
+			builder.libEnums.push(this.buildLibEnum(v));
 		});
 
-		// 4. 处理核心 Message 内容
+		// 处理核心 Message 内容
 		builder.message.push('declare type ProtoObject<T> = Omit<T, keyof IProto>;\n\n');
 		builder.message.push('declare interface IProto {\n\t$type?: protobuf.Type;\n\ttoJSON?(): ProtoObject<this>;\n}\n\n');
 		builder.message.push('declare interface INotify extends IProto {\n\n}\n\n');
@@ -253,10 +289,11 @@ export class BuildProtoDeclare extends BuildBase {
 		builder.message.push('declare interface IResponse extends IProto {\n\terror?: IError;\n}\n\n');
 
 		messages.forEach(v => {
-			builder.message.push(this.buildTSMessage(v));
+			const [msgs, enums] = this.buildMessage(v);
+			builder.message.push(msgs);
+			builder.libEnums.push(enums);
 		});
 
-		// 写文件
 		const tip = `${ TS_MODIFY_TIP }\n`;
 
 		fs.writeFileSync(Declare_ProtoPath, tip +
@@ -267,7 +304,8 @@ export class BuildProtoDeclare extends BuildBase {
 
 		fs.writeFileSync(Lib_ProtoPath, tip +
 			`ENetNotify = {\n${ builder.libNotify.join('') }}\n\n` +
-			`ENetMessage = {\n${ builder.libReq.join('') }}\n`
+			`ENetMessage = {\n${ builder.libReq.join('') }}\n\n` +
+			builder.libEnums.join('').trimEnd() + "\n"
 		);
 
 		fs.writeFileSync(Declare_ReqMethodPath, tip +
