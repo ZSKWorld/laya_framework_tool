@@ -18,7 +18,7 @@
     "@types/archiver": "^7.0.0",
     "@types/colors": "^1.2.1",
     "@types/json-bigint": "^1.0.1",
-    "@types/node": "^18.15.10",
+    "@types/node": "^18.19.130",
     "@types/node-xlsx": "^0.15.3",
     "crypto": "^1.0.1",
     "image-size": "^2.0.2",
@@ -28,6 +28,7 @@
     "progress": "^2.0.3",
     "protobufjs": "^7.3.2",
     "sinon": "^9.2.4",
+    "ts-node": "^10.9.2",
     "tsify": "^4.0.2",
     "typescript": "^5.9.3",
     "typescript-estree": "^18.1.0"

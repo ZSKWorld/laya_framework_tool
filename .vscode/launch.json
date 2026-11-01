@@ -1,6 +1,16 @@
 {
 	"version": "0.2.0",
-	"configurations": [ 
+	"configurations": [
+		{
+		  "type": "node",
+		  "request": "launch",
+		  "name": "调试当前 TS 文件",
+		  "runtimeExecutable": "node",
+		  "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+		  "args": ["${file}"], 
+		  "cwd": "${workspaceFolder}",
+		  "console": "integratedTerminal"
+		},
 		{
 			"name": "chrome调试",
 			"type": "chrome",
